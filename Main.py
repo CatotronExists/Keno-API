@@ -4,6 +4,9 @@ from keno import keno_app
 import time
 import datetime
 
+### FIND HOW OFTEN A GAME STARTS
+### GET THE API REQUEST ~10 SECONDS AFTER GAME START
+
 ### Terminal Colors
 import os
 os.system("")
@@ -13,6 +16,7 @@ CGREENHIGHLIGHT = '\33[102m'
 CBLUE = '\33[34m'
 CRED = '\33[91m'
 CYELLOW = '\33[93m'
+CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
@@ -54,6 +58,10 @@ if mode == 1:
             elif bonus == "x4":
                 multiplier = 4
                 bonus = CGREENHIGHLIGHT + "x4"
+
+            elif bonus == "x5":
+                multiplier = 5
+                bonus = CYELLOWHIGHLIGHT + "x5"
             
             else: print(CRED + "Error unknown bonus:" + str(bonus)) # incase there is any higher multiplier
 
