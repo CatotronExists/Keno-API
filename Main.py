@@ -22,7 +22,7 @@ if mode == 1:
         try: 
             live_data = app.live_draw()
         except Exception as e:
-            print(CRED + e)
+            print(CRED + str(e))
 
         ### Numbers Drawn
         numbers = live_data["draw_numbers"]
