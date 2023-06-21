@@ -17,7 +17,7 @@ CBEIGE = '\33[36m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
 mode = 1
-
+last_game_number = 0
 if mode == 1:
     while mode == 1: # Live Game
         try: 
