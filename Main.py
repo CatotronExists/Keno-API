@@ -61,6 +61,7 @@ if mode == 1:
         Hresult = live_data["heads"]
         Tresult = live_data["tails"]
 
+        ### Time
         current_time = datetime.datetime.utcnow()
         current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
         ### Build Terminal
@@ -71,7 +72,7 @@ if mode == 1:
         print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
         print(CBLUE + "---------------------------------------------------------------------")
 
-        time.sleep(180)
+        time.sleep(180) # Adjust to be closer to start time
 
 elif mode == 2: # Hot/Cold
     trending_numbers = app.hot_cold()
@@ -88,4 +89,3 @@ elif mode == 2: # Hot/Cold
 
     last_update = trending_numbers['last_updated']
     print("Last Updated: "+str(last_update)+" seconds ago")
-
