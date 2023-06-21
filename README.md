@@ -1,4 +1,4 @@
-# Keno-API
+# Keno DataVis
 Basic Command Line program that calls data from the Keno API and displays that data
 
 ### Check List
