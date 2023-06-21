@@ -12,3 +12,5 @@ Basic Command Line program that calls data from the Keno API and displays that d
 - [ ] Web page to display data though the use of an API
 - [ ] Full Breakdown of data
 - [ ] Predict most likely to win numbers using trends?
+
+API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafshan/keno-api)
