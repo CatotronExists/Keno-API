@@ -91,7 +91,7 @@ while True: # Live Game
     current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
 
     ### Build Terminal
-    print(CBLUE + "Keno Tracker" + CLEAR)
+    print(CBLUE + "Keno Tracker                  " + CLEAR)
     print("Game Number: " + str(game_number) + "  |  Game Started at: " + str(start_time) + " UTC  |  Data Pulled at: " + str(current_time) + " UTC")
     print("Numbers Drawn: " + CGREEN + draw_numbers + CLEAR)
     print("Multiplier: " + str(bonus) + CLEAR)
