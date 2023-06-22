@@ -21,7 +21,7 @@ CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
-cooldown = 180
+cooldown = 10
 last_game_number = 0
 
 def getAPI():
@@ -31,7 +31,7 @@ def getAPI():
             live_data = app.live_draw()
             game_number = live_data["game_number"]
             if last_game_number == game_number: # in case the same game is called twice, try again after 20 sec
-                print("Already Fetched Game: " + str(game_number))
+                print(CRED + "Already Fetched Game: " + str(game_number) + "     " + CLEAR)
                 live_data = 0
                 time.sleep(20)
         except Exception as e:
@@ -99,13 +99,13 @@ while True: # Live Game
     print(CBLUE + "---------------------------------------------------------------------")
     for i in reversed(range(cooldown+1)): # Request cooldown
         if i == 0:
-            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds")
+            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
             sys.stdout.flush()    
             time.sleep(1)
             sys.stdout.write("\r")
             sys.stdout.flush()
         else:    
-            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds")
+            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
             sys.stdout.flush()
             time.sleep(1)
             
