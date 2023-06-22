@@ -29,6 +29,7 @@ def getAPI():
     while live_data == 0:
         try: 
             live_data = app.live_draw()
+            game_number = live_data["game_number"]
             if last_game_number == game_number: # in case the same game is called twice, try again after 20 sec
                 print("Already Fetched Game: " + str(game_number))
                 live_data = 0
@@ -96,7 +97,7 @@ while True: # Live Game
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
     print(CBLUE + "---------------------------------------------------------------------")
-    for i in reversed(range(180+1)): # Request cooldown
+    for i in reversed(range(cooldown+1)): # Request cooldown
         if i == 0:
             sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds")
             sys.stdout.flush()    
