@@ -21,7 +21,8 @@ CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
-cooldown = 180
+cooldown = 10
+countdown = False # On/off for countdown. Because the program can get stuck in countdown, this is False by defualt
 last_game_number = 0
 
 def getAPI():
@@ -97,18 +98,21 @@ while True: # Live Game
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
     print(CBLUE + "---------------------------------------------------------------------")
-    for i in reversed(range(cooldown+1)): # Request cooldown
-        if i == 0:
-            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-            sys.stdout.flush()    
-            time.sleep(1)
-            sys.stdout.write("\r")
-            sys.stdout.flush()
-        else:    
-            sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-            sys.stdout.flush()
-            time.sleep(1)
-            
+    if countdown == True:
+        for i in reversed(range(cooldown+1)): # Request cooldown
+            if i == 0:
+                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
+                sys.stdout.flush()    
+                time.sleep(1)
+                sys.stdout.write("\r")
+                sys.stdout.flush()
+            else:    
+                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
+                sys.stdout.flush()
+                time.sleep(1)
+    else:
+        time.sleep(cooldown)
+                
 #elif mode == 2: # Hot/Cold
 #    trending_numbers = app.hot_cold()
 #    print(trending_numbers)
