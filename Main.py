@@ -21,7 +21,7 @@ CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
-cooldown = 10
+cooldown = 180
 countdown = False # On/off for countdown. Because the program can get stuck in countdown, this is False by defualt
 last_game_number = 0
 
