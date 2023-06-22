@@ -17,7 +17,6 @@ CGREENHIGHLIGHT = '\33[102m'
 CBLUE = '\33[34m'
 CRED = '\33[91m'
 CYELLOW = '\33[93m'
-CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
@@ -76,7 +75,7 @@ while True: # Live Game
 
     elif bonus == "x5":
         multiplier = 5
-        bonus = CYELLOWHIGHLIGHT + "x5"
+        bonus = CBOLD + CYELLOW + "x5"
     
     else: print(CRED + "Error unknown bonus:" + str(bonus)) # incase there is any higher multiplier
 
