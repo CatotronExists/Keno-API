@@ -19,6 +19,7 @@ CRED = '\33[91m'
 CYELLOW = '\33[93m'
 CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
+CBOLD = '\033[1m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
 cooldown = 10
@@ -81,9 +82,9 @@ while True: # Live Game
 
     ### Heads/Tails
     HTresult = live_data["result"]
-    if HTresult == "tails": HTresult = CBLUE + "Tails"
-    elif HTresult == "heads": HTresult = CRED + "Heads"
-    elif HTresult == "evens": HTresult = CBEIGE + "Evens"
+    if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails"
+    elif HTresult == "heads": HTresult = CBOLD + CRED + "Heads"
+    elif HTresult == "evens": HTresult = CBOLD + CBEIGE + "Evens"
     Hresult = live_data["heads"]
     Tresult = live_data["tails"]
 
@@ -92,8 +93,8 @@ while True: # Live Game
     current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
 
     ### Build Terminal
-    print(CBLUE + "Keno Tracker                  " + CLEAR)
-    print("Game Number: " + str(game_number) + "  |  Game Started at: " + str(start_time) + " UTC  |  Data Pulled at: " + str(current_time) + " UTC")
+    print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+    print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
     print("Numbers Drawn: " + CGREEN + draw_numbers + CLEAR)
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
