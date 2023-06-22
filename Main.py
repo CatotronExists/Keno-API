@@ -13,7 +13,6 @@ import os
 os.system("")
 CLEAR = '\33[0m'
 CGREEN = '\33[92m'
-CGREENHIGHLIGHT = '\33[102m'
 CBLUE = '\33[34m'
 CRED = '\33[91m'
 CYELLOW = '\33[93m'
@@ -24,6 +23,8 @@ app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data 
 cooldown = 180
 countdown = False # On/off for countdown. Because the program can get stuck in countdown, this is False by defualt
 last_game_number = 0
+menu_choice = 0
+vaild = [1, 2, 3]
 
 def getAPI():
     global live_data
@@ -38,7 +39,35 @@ def getAPI():
         except Exception as e:
             print(CRED + str(e))
 
-while True: # Live Game
+while menu_choice == 0:
+    print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+    print("1. Live Game Viewer")
+    print("2. Bet Simulator [Soon]")
+    print("3. Monitor your bet [Soon]")
+    menu_choice = input("------------->>> ")
+    if menu_choice.isnumeric():
+        menu_choice = int(menu_choice)
+        if menu_choice in vaild:
+            if menu_choice == 1:
+                print("Opening"+ CBOLD +" Live Game Viewer" + CLEAR)
+                time.sleep(1)
+                print("\n"*4)
+            elif menu_choice == 2:
+                print("Opening"+ CBOLD +" Bet Simulator" + CLEAR)
+                time.sleep(1)
+                print("\n"*4)                
+            elif menu_choice == 3:
+                print("Opening"+ CBOLD +" Bet Monitor" + CLEAR)
+                time.sleep(1)
+                print("\n"*4)
+        else: 
+            menu_choice = 0
+            print(CRED + "Invaild Option")
+    else: 
+        menu_choice = 0
+        print(CRED + "Invaild Option")
+
+while menu_choice == 1: # Live Game
     live_data = 0
     getAPI()
 
@@ -71,7 +100,7 @@ while True: # Live Game
 
     elif bonus == "x4":
         multiplier = 4
-        bonus = CGREENHIGHLIGHT + "x4"
+        bonus = CBOLD + CGREEN + "x4"
 
     elif bonus == "x5":
         multiplier = 5
