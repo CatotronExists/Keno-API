@@ -21,7 +21,7 @@ CYELLOWHIGHLIGHT = '\33[103m'
 CBEIGE = '\33[36m'
 
 app = keno_app.KenoAPI("VIC") # choose the state you would like you to get data from
-cooldown = 10
+cooldown = 180
 last_game_number = 0
 
 def getAPI():
