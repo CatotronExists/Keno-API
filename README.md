@@ -1,6 +1,10 @@
 # Keno-API
 Basic Command Line program that calls data from the Keno API and displays that data
 
+### ActiveDev Branch
+As work is complete it will be put here, each commit has a version with it.
+When creating an issue on the ActiveDev Branch be sure to include the full version.
+
 ### Check List
 - [x] Gets data and Displays in easy to read format
 - [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
