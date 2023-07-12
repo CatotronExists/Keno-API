@@ -1,5 +1,6 @@
 from keno import keno_app
 from Api import getAPI
+from Config import cooldown, countdown
 import time
 import datetime
 import sys
@@ -18,29 +19,12 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-app = keno_app.KenoAPI("VIC") # State the data comes from
-cooldown = 180
-countdown = "Manual" # True/False/Manual 
-last_game_number = 0
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
 m_vaild = [1, 2, 3] # Menu vaild choices
 mm_vaild = [1, 2, 3] # Monitor Menu vaild choices
 ckm_vaild = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40] # Classic Keno Monitor (vaild number of chosen numbers)
-
-def getAPI():
-    global live_data
-    while live_data == 0:
-        try: 
-            live_data = app.live_draw()
-            game_number = live_data["game_number"]
-            if last_game_number == game_number: # in case the same game is called twice, try again after 20 sec
-                print(CRED + "Already Fetched Game: " + str(game_number) + "     " + CLEAR)
-                live_data = 0
-                time.sleep(20)
-        except Exception as e:
-            print(CRED + str(e))
 
 while menu_choice == 0: # Main Menu
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
@@ -72,7 +56,7 @@ while menu_choice == 0: # Main Menu
 
 while menu_choice == 1: # Live Game
     live_data = 0
-    getAPI()
+    live_data = getAPI(live_data)
 
     ### Game Number
     game_number = live_data["game_number"]
