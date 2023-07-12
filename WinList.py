@@ -1,6 +1,7 @@
 ### WIN LISTS ###
 # Index 0 = 0 numbers matched, Index 1 = 1 number matched, etc.
 # If a value = 0 then there is no prize for that number of matches. eg. Index 3 = 0, 3 numbers matched but a reward of 0
+WinListVersion = "v0.1.d-18"
 ### Classic Keno Win Lists
 c_spot1_WinList = [0, 3]
 c_spot2_WinList = [0, 0, 12] 

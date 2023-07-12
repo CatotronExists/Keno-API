@@ -1,6 +1,7 @@
 from keno import keno_app
-from Api import getAPI
-from Config import cooldown, countdown
+from Api import getAPI, ApiVersion
+from Config import cooldown, countdown, ConfigVersion
+from WinList import WinListVersion
 import time
 import datetime
 import sys
@@ -19,11 +20,12 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
+MainVersion = "v0.1.d-18"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
 numbers_picked = []
-m_vaild = [1, 2, 3] # Menu vaild choices
+m_vaild = [1, 2, 3, "debug"] # Menu vaild choices
 mm_vaild = [1, 2, 3] # Monitor Menu vaild choices
 ckm_vaild = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40] # Classic Keno Monitor (vaild number of chosen numbers)
 
@@ -105,6 +107,11 @@ def SortData(): ### Extracts data from API Response
     current_time = datetime.datetime.utcnow()
     current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
 
+def debug():
+    global MainVersion, ConfigVersion, ApiVersion, WinListVersion
+    print("/// Debug Menu ///")
+    print("Main - " + MainVersion + "\nConfig - " + ConfigVersion + "\nApi - " + ApiVersion + "\nWinList - " + WinListVersion)
+
 while menu_choice == 0: # Main Menu
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("1. Live Game Viewer")
@@ -132,6 +139,8 @@ while menu_choice == 0: # Main Menu
         else: 
             menu_choice = 0
             print(CRED + "Invaild Option" + CLEAR)
+    if menu_choice == "debug":
+        debug()
     else: 
         menu_choice = 0
         print(CRED + "Invaild Option" + CLEAR)

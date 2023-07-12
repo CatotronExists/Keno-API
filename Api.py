@@ -2,6 +2,7 @@ from keno import keno_app
 from Config import app
 import time
 
+ApiVersion = "v0.1.d-18"
 CRED = '\33[91m'
 CLEAR = '\33[0m'
 
