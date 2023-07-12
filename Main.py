@@ -22,50 +22,44 @@ CBOLD = '\033[1m'
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
+numbers_picked = []
 m_vaild = [1, 2, 3] # Menu vaild choices
 mm_vaild = [1, 2, 3] # Monitor Menu vaild choices
 ckm_vaild = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40] # Classic Keno Monitor (vaild number of chosen numbers)
 
-while menu_choice == 0: # Main Menu
+def PrintMainUI(): ### Build Terminal Output
+    # Checks all numbers, if not in a bet monitor mode all numbers will be green as there is no matching
+    final_numbers = []
+    numbers_matched = 0
+    for i in draw_numbers:
+        if i in numbers_picked: # if its a picked number -> turn yellow
+            i = CYELLOW + str(i) + CLEAR
+            numbers_matched = numbers_matched + 1
+            final_numbers.append(i)
+        else: # if its not a picked number -> turn green
+            i = CGREEN + str(i) + CLEAR
+            final_numbers.append(i)
+    final_numbers = ", ".join(map(str, final_numbers))
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-    print("1. Live Game Viewer")
-    print("2. Bet Simulator [Soon]")
-    print("3. Monitor your bet ")
-    menu_choice = input("------------->>> ")
-    if menu_choice.isnumeric():
-        menu_choice = int(menu_choice)
-        if menu_choice in m_vaild:
-            if menu_choice == 1:
-                print("Opening" + CBOLD + " Live Game Viewer" + CLEAR)
-                time.sleep(1)
-                print("\n"*4)
-            elif menu_choice == 2:
-                print("Opening" + CBOLD + " Bet Simulator" + CLEAR)
-                time.sleep(1)
-                print("\n"*4)                
-            elif menu_choice == 3:
-                print("Opening" + CBOLD + " Bet Monitor" + CLEAR)
-                time.sleep(1)
-                print("\n"*4)
-        else: 
-            menu_choice = 0
-            print(CRED + "Invaild Option" + CLEAR)
-    else: 
-        menu_choice = 0
-        print(CRED + "Invaild Option" + CLEAR)
+    print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
+    print("Numbers Drawn: " + final_numbers)
+    print("Multiplier: " + str(bonus) + CLEAR)
+    print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
+    if monitor == True:
+        print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(multiplier))
+    print(CBLUE + "---------------------------------------------------------------------")
 
-while menu_choice == 1: # Live Game
+def SortData(): ### Extracts data from API Response
+    global game_number, draw_numbers, current_time, start_time, bonus, multiplier, HTresult, Hresult, Tresult
     live_data = 0
     live_data = getAPI(live_data)
 
     ### Game Number
     game_number = live_data["game_number"]
-    last_game_number = game_number
 
     ### Numbers Drawn
-    numbers = live_data["draw_numbers"]
-    numbers.sort(key = lambda x: x, reverse = False)
-    draw_numbers = ", ".join(map(str, numbers))
+    draw_numbers = live_data["draw_numbers"]
+    draw_numbers.sort(key = lambda x: x, reverse = False)
 
     ### Start Time
     started_at = live_data["started_at"]
@@ -97,29 +91,56 @@ while menu_choice == 1: # Live Game
         multiplier = 10
         bonus = CBOLD + CBLUE + "x10"
     
-    else: print(CRED + "Error unknown bonus:" + str(bonus)) # incase there is any higher multiplier
+    else: print(CRED + "Error unknown bonus:" + str(bonus))
 
     ### Heads/Tails
     HTresult = live_data["result"]
-    if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails"
+    if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails" 
     elif HTresult == "heads": HTresult = CBOLD + CRED + "Heads"
     elif HTresult == "evens": HTresult = CBOLD + CBEIGE + "Evens"
-    Hresult = live_data["heads"]
-    Tresult = live_data["tails"]
+    Hresult = live_data["heads"] # Number of head numbers
+    Tresult = live_data["tails"] # Number of tail numbers
 
     ### Time
     current_time = datetime.datetime.utcnow()
     current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
 
-    ### Build Terminal
+while menu_choice == 0: # Main Menu
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-    print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
-    print("Numbers Drawn: " + CGREEN + draw_numbers + CLEAR)
-    print("Multiplier: " + str(bonus) + CLEAR)
-    print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
-    print(CBLUE + "---------------------------------------------------------------------")
-    if countdown == True:
-        for i in reversed(range(cooldown+1)): # Request cooldown
+    print("1. Live Game Viewer")
+    print("2. Bet Simulator [Soon]")
+    print("3. Monitor your bet ")
+    menu_choice = input("------------->>> ")
+    if menu_choice.isnumeric():
+        menu_choice = int(menu_choice)
+        if menu_choice in m_vaild:
+            if menu_choice == 1:
+                print("Opening" + CBOLD + " Live Game Viewer" + CLEAR)
+                time.sleep(1)
+                monitor = False
+                print("\n"*4)
+            elif menu_choice == 2:
+                print("Opening" + CBOLD + " Bet Simulator" + CLEAR)
+                time.sleep(1)
+                monitor = True
+                print("\n"*4)                
+            elif menu_choice == 3:
+                print("Opening" + CBOLD + " Bet Monitor" + CLEAR)
+                time.sleep(1)
+                monitor = True
+                print("\n"*4)
+        else: 
+            menu_choice = 0
+            print(CRED + "Invaild Option" + CLEAR)
+    else: 
+        menu_choice = 0
+        print(CRED + "Invaild Option" + CLEAR)
+
+while menu_choice == 1: # Live Game
+    SortData()
+    PrintMainUI()
+    if countdown == "True":
+        for i in reversed(range(cooldown + 1)): 
             if i == 0:
                 sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
                 sys.stdout.flush()    
@@ -130,6 +151,8 @@ while menu_choice == 1: # Live Game
                 sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
                 sys.stdout.flush()
                 time.sleep(1)
+    elif countdown == "Manual":
+        input("")
     else:
         time.sleep(cooldown)
 
@@ -237,86 +260,10 @@ while menu_choice == 3: # Bet Monitor
         print("")
         check = True
         while check == True:
-            live_data = 0
-            getAPI()
-
-            ### Game Number
-            game_number = live_data["game_number"]
-            last_game_number = game_number
-
-            ### Numbers Drawn
-            numbers = live_data["draw_numbers"]
-            numbers.sort(key = lambda x: x, reverse = False)
-            draw_numbers = ", ".join(map(str, numbers))
-
-            ### Start Time
-            started_at = live_data["started_at"]
-            start_time = datetime.datetime.strptime(started_at.split('.')[0],'%Y-%m-%d %H:%M:%S') # Removes milliseconds
-
-            ### Bonus
-            bonus = live_data["bonus"]
-            if bonus == "reg":
-                multiplier = 1
-                bonus = CRED + "reg"
-
-            elif bonus == "x2":
-                multiplier = 2
-                bonus = CYELLOW + "x2"
-
-            elif bonus == "x3":
-                multiplier = 3
-                bonus = CGREEN + "x3"
-
-            elif bonus == "x4":
-                multiplier = 4
-                bonus = CBOLD + CGREEN + "x4"
-
-            elif bonus == "x5":
-                multiplier = 5
-                bonus = CBOLD + CYELLOW + "x5"
-            
-            elif bonus == "x10":
-                multiplier = 10
-                bonus = CBOLD + CBLUE + "x10"
-            
-            else: print(CRED + "Error unknown bonus:" + str(bonus)) # incase there is any higher multiplier
-
-            ### Heads/Tails
-            HTresult = live_data["result"]
-            if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails"
-            elif HTresult == "heads": HTresult = CBOLD + CRED + "Heads"
-            elif HTresult == "evens": HTresult = CBOLD + CBEIGE + "Evens"
-            Hresult = live_data["heads"]
-            Tresult = live_data["tails"]
-
-            ### Time
-            current_time = datetime.datetime.utcnow()
-            current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
-
-            ### Check for matching chosen number
-            final_numbers = []
-            numbers_matched = 0
-            for i in numbers:
-                if i in numbers_picked: # if its a picked number -> turn yellow
-                    i = CYELLOW + str(i) + CLEAR
-                    numbers_matched = numbers_matched + 1
-                    final_numbers.append(i)
-                else: # if its not a picked number -> turn green
-                    i = CGREEN + str(i) + CLEAR
-                    final_numbers.append(i)
-            final_numbers = ", ".join(map(str, final_numbers))
-
+            SortData()
             ### Win Calcuation
-            win = numbers_matched
-
-            ### Build Terminal
-            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-            print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
-            print("Numbers Drawn: " + final_numbers)
-            print("Multiplier: " + str(bonus) + CLEAR)
-            print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
-            print("Game " + CBOLD + str(game_number) + CLEAR + " Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + multiplier)
-            print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
+            #win = numbers_matched
+            PrintMainUI()
             if countdown == True:
                 for i in reversed(range(cooldown + 1)): 
                     if i == 0:
