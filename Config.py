@@ -5,4 +5,4 @@ from keno import keno_app
 
 app = keno_app.KenoAPI("VIC") ### VIC || VIC NSW (TAS, NT, SA, WA) -> ACT QLD | your state | State the data comes from
 cooldown = 180 ### 180 || <0 to 200> | anything around 2.5 to 3 minutes | Time between Auto API calls
-countdown = "Manual" ### True || True/False/Manual | n/a |Turn off/on the countdown or press [Enter] to request API again
+countdown = "True" ### "True" || "True"/"False"/"Manual" | n/a |Turn off/on the countdown or press [Enter] to request API again

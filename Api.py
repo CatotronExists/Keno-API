@@ -19,4 +19,3 @@ def getAPI(live_data):
             return live_data
         except Exception as e:
             print(CRED + str(e) + CLEAR)
-    
