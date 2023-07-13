@@ -1,26 +1,29 @@
 # Keno-API
 Basic Command Line program that calls data from the Keno API and displays that data
 
-### ActiveDev Branch
+## ActiveDev Branch
 As work is complete it will be put here, each commit has a version with it.
 When creating an issue on the ActiveDev Branch be sure to include the full version.
 
-## Versions
+### Versions
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.1.d-20\
+Main - v0.1.d-21\
 Config - v0.1.d-19\
 Api - v0.1.d-18\
-WinList - v0.1.d-18
+WinList - v0.1.d-21
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
+### Setup
+Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package
+Once installed run the program by running Main.py
 
 ### Check List
 - [x] Gets data and Displays in easy to read format
 - [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
-  - [ ] Compatible Custom Numbers, "Quikpick"
+  - [ ] Compatible with Custom Numbers and "Quikpick"
 - [x] Ability to input your bet and display results in real time
   - [ ] Displays total wining (per game and total)
   - [ ] Compatible with different modes (Mega Millions, Classic, T/H)
@@ -32,3 +35,7 @@ If the versions don't match, download the latest version (This can be found by n
 API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafshan/keno-api)
 
 Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Game%20Guide.pdf)
+
+### Disclaimer
+This program is being made for educational purposes only, use at your own risk.
+If you wish to use this program you have to download and run it on your machine, there will be no public site to access the data. You have to collect it, which can be done with this program.

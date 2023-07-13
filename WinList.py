@@ -1,7 +1,7 @@
 ### WIN LISTS ###
 # Index 0 = 0 numbers matched, Index 1 = 1 number matched, etc.
 # If a value = 0 then there is no prize for that number of matches. eg. Index 3 = 0, 3 numbers matched but a reward of 0
-WinListVersion = "v0.1.d-18"
+WinListVersion = "v0.1.d-21"
 ### Classic Keno Win Lists
 c_spot1_WinList = [0, 3]
 c_spot2_WinList = [0, 0, 12] 
@@ -18,3 +18,7 @@ c_spot20_WinList = [100, 10, 2, 0, 0, 0, 0, 0, 2, 7, 20, 100, 450, 1200, 5000, 1
 c_spot40_WinList = [250000, 25000, 2200, 35, 7, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 7, 35, 200, 2200, 25000, 250000]
 
 ### Mega Million Win Lists
+
+### Head / Tail Win Lists
+# H / T = x2
+# E = x4

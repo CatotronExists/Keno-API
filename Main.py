@@ -9,6 +9,14 @@ import sys
 ### FIND HOW OFTEN A GAME STARTS
 ### GET THE API REQUEST ~10 SECONDS AFTER GAME START
 
+### TODO Before v0.2
+# Add mega million win lists
+# add bet amount per game / outcome to bet monitor (c/mm/ht)
+# add h / t bet monitor
+# complete functionality of first game / last game + Last game alert
+# total winnings screen after last game
+# FIX same game cooldown 
+
 ### Terminal Colors
 import os
 os.system("")
@@ -20,7 +28,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-20"
+MainVersion = "v0.1.d-21"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
@@ -32,6 +40,7 @@ numbers_picked = []
 numbers_picked_display = []
 final_game = 0
 multi_status = -1
+bet_amount = 1 # temp solution for h/t
 
 def PrintMainUI(): ### Build Terminal Output
     # Checks all numbers, if not in a bet monitor mode all numbers will be green as there is no matching
@@ -53,11 +62,12 @@ def PrintMainUI(): ### Build Terminal Output
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
     if monitor == True:
-        calculateWin(numbers_matched)
+        calculateWin(mode, numbers_matched)
         if mode == "Classic" or mode == "Mega Million":
             print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display))
         elif mode == "Heads / Tails":
-            pass
+            
+            print("Result: Picked " + str(HTchoice) + "  |  Won: " + str(win_display))
     print(CBLUE + "---------------------------------------------------------------------")
 
 def getData(): ### Extracts data from API Response
@@ -133,51 +143,64 @@ def wait():
     else:
         time.sleep(cooldown)
 
-def calculateWin(numbers_matched): # There is probably a better way to do this
+def calculateWin(mode, numbers_matched): # There is probably a better way to do this
     global total_numbers, multiplier, multi_status, win_display
     win = "n/a"
-    while win == "n/a":
-        if mode == "Classic":
-            if total_numbers == 1: win = c_spot1_WinList[numbers_matched]
-            elif total_numbers == 2: win = c_spot2_WinList[numbers_matched]
-            elif total_numbers == 3: win = c_spot3_WinList[numbers_matched]
-            elif total_numbers == 4: win = c_spot4_WinList[numbers_matched]
-            elif total_numbers == 5: win = c_spot5_WinList[numbers_matched]
-            elif total_numbers == 6: win = c_spot6_WinList[numbers_matched]
-            elif total_numbers == 7: win = c_spot7_WinList[numbers_matched]
-            elif total_numbers == 8: win = c_spot8_WinList[numbers_matched]
-            elif total_numbers == 9: win = c_spot9_WinList[numbers_matched]
-            elif total_numbers == 10: win = c_spot10_WinList[numbers_matched]
-            elif total_numbers == 15: win = c_spot15_WinList[numbers_matched]
-            elif total_numbers == 20: win = c_spot20_WinList[numbers_matched]
-            elif total_numbers == 40: win = c_spot40_WinList[numbers_matched]
+    if mode == "Classic" or mode == "Mega Million":
+        while win == "n/a":
+            if mode == "Classic":
+                if total_numbers == 1: win = c_spot1_WinList[numbers_matched]
+                elif total_numbers == 2: win = c_spot2_WinList[numbers_matched]
+                elif total_numbers == 3: win = c_spot3_WinList[numbers_matched]
+                elif total_numbers == 4: win = c_spot4_WinList[numbers_matched]
+                elif total_numbers == 5: win = c_spot5_WinList[numbers_matched]
+                elif total_numbers == 6: win = c_spot6_WinList[numbers_matched]
+                elif total_numbers == 7: win = c_spot7_WinList[numbers_matched]
+                elif total_numbers == 8: win = c_spot8_WinList[numbers_matched]
+                elif total_numbers == 9: win = c_spot9_WinList[numbers_matched]
+                elif total_numbers == 10: win = c_spot10_WinList[numbers_matched]
+                elif total_numbers == 15: win = c_spot15_WinList[numbers_matched]
+                elif total_numbers == 20: win = c_spot20_WinList[numbers_matched]
+                elif total_numbers == 40: win = c_spot40_WinList[numbers_matched]
 
-        elif mode == "Mega Million":
-            if total_numbers == 1: pass
-            elif total_numbers == 2: pass
-            elif total_numbers == 3: pass
-            elif total_numbers == 4: pass
-            elif total_numbers == 5: pass
-            elif total_numbers == 6: pass
-            elif total_numbers == 7: pass
-            elif total_numbers == 8: pass
-            elif total_numbers == 9: pass
-            elif total_numbers == 10: pass
-            elif total_numbers == 15: pass
-            elif total_numbers == 20: pass
-            elif total_numbers == 40: pass
+            elif mode == "Mega Million":
+                if total_numbers == 1: pass
+                elif total_numbers == 2: pass
+                elif total_numbers == 3: pass
+                elif total_numbers == 4: pass
+                elif total_numbers == 5: pass
+                elif total_numbers == 6: pass
+                elif total_numbers == 7: pass
+                elif total_numbers == 8: pass
+                elif total_numbers == 9: pass
+                elif total_numbers == 10: pass
+                elif total_numbers == 15: pass
+                elif total_numbers == 20: pass
+                elif total_numbers == 40: pass
 
-        elif mode == "Heads / Tails":
-            pass
+            elif mode == "Heads / Tails":
+                pass
 
-        else:
-            print(CRED + "Unable to get mode" + CLEAR)
-    if multi_status == True: # calculate bonus (if enabled)
-        win = win*multiplier
-    else: win = win
+            else:
+                print(CRED + "Unable to get mode" + CLEAR)
+        if multi_status == True: # calculate bonus (if enabled)
+            win = win*multiplier
+        else: win = win
 
-    if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
-    else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
+        if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
+        else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
+    else: # Heads / Tails
+        if HTresult == HTchoice:
+            print("match")
+            if HTresult == "Heads" or HTresult == "Tails": 
+                win = bet_amount*2
+                win_display = (CGREEN + "$" + str(win) + CLEAR) 
+            elif HTresult == "Evens": 
+                win = bet_amount*4
+                win_display = (CGREEN + "$" + str(win) + CLEAR)
+        else: 
+            win = 0
+            win_display = (CRED + "$" + str(win) + CLEAR)
 
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
@@ -187,7 +210,7 @@ def debug():
 while menu_choice == 0: # Main Menu
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("1. Live Game Viewer")
-    print("2. Bet Simulator [Soon]")
+    print("2. Bet Simulator [0%]")
     print("3. Monitor your bet ")
     menu_choice = input("------------->>> ")
     if menu_choice.isnumeric():
@@ -231,8 +254,8 @@ while menu_choice == 3: # Bet Monitor
     print(CBOLD + "Bet Monitor" + CLEAR)
     while monitor_menu_choice == 0:
         print("1. Classic")
-        print("2. Mega Millions [Soon]")
-        print("3. Heads / Tails [Soon]")
+        print("2. Mega Millions [90%]")
+        print("3. Heads / Tails ")
         monitor_menu_choice = input("------------->>> ")
         if monitor_menu_choice.isnumeric():
             monitor_menu_choice = int(monitor_menu_choice)
@@ -258,6 +281,26 @@ while menu_choice == 3: # Bet Monitor
         else: 
             monitor_menu_choice = 0
             print(CRED + "Invaild Option" + CLEAR)
+
+    while mode == "Heads / Tails": # Heads / Tails Bet Monitor
+        print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+        print(CBOLD + mode + " Keno Monitor" + CLEAR)
+        HTchoice = 0  
+        while HTchoice == 0:
+            HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
+            if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
+                HTchoice = HTchoice.capitalize() 
+                print("You have chosen " + CBOLD + HTchoice + CLEAR) 
+            else: 
+                HTchoice = 0
+                print(CRED + "Invaild Option" + CLEAR)
+        
+        check = True
+        while check == True:
+            getData()
+            PrintMainUI()
+            wait()
+
     while mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor
         print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
         print(CBOLD + mode + " Keno Monitor" + CLEAR)
@@ -323,12 +366,10 @@ while menu_choice == 3: # Bet Monitor
         print("Picked Numbers: " + str(numbers_picked))
         print("Ending Game: " + str(final_game))
         print("Bonus Enabled: " + str(multi_status))
-        input("Press [Enter] to start ")
+        input("Press [Enter] to start")
         print("")
         check = True
         while check == True:
             getData()
-            ### Win Calcuation
-            #win = numbers_matched
             PrintMainUI()
             wait()
