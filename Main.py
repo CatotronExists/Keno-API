@@ -20,14 +20,18 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-18"
+MainVersion = "v0.1.d-19"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
 numbers_picked = []
 m_vaild = [1, 2, 3, "debug"] # Menu vaild choices
 mm_vaild = [1, 2, 3] # Monitor Menu vaild choices
-ckm_vaild = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40] # Classic Keno Monitor (vaild number of chosen numbers)
+km_vaild = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40] # Keno Monitor (vaild number of chosen numbers)
+numbers_picked = []
+numbers_picked_display = []
+final_game = 0
+multi_status = -1
 
 def PrintMainUI(): ### Build Terminal Output
     # Checks all numbers, if not in a bet monitor mode all numbers will be green as there is no matching
@@ -42,16 +46,17 @@ def PrintMainUI(): ### Build Terminal Output
             i = CGREEN + str(i) + CLEAR
             final_numbers.append(i)
     final_numbers = ", ".join(map(str, final_numbers))
+
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
     print("Numbers Drawn: " + final_numbers)
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
     if monitor == True:
-        print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(multiplier))
+        print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: $") # + str(multiplier))
     print(CBLUE + "---------------------------------------------------------------------")
 
-def SortData(): ### Extracts data from API Response
+def getData(): ### Extracts data from API Response
     global game_number, draw_numbers, current_time, start_time, bonus, multiplier, HTresult, Hresult, Tresult
     live_data = 0
     live_data = getAPI(live_data)
@@ -91,8 +96,7 @@ def SortData(): ### Extracts data from API Response
     
     elif bonus == "x10":
         multiplier = 10
-        bonus = CBOLD + CBLUE + "x10"
-    
+        bonus = CBOLD + CBLUE + "x10"    
     else: print(CRED + "Error unknown bonus:" + str(bonus))
 
     ### Heads/Tails
@@ -106,6 +110,24 @@ def SortData(): ### Extracts data from API Response
     ### Time
     current_time = datetime.datetime.utcnow()
     current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
+
+def wait():
+    if countdown == "True":
+        for i in reversed(range(cooldown + 1)): 
+            if i == 0: # if countdown is 0 -> clear line
+                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
+                sys.stdout.flush()    
+                time.sleep(1)
+                sys.stdout.write("\r")
+                sys.stdout.flush()
+            else:    
+                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
+                sys.stdout.flush()
+                time.sleep(1)
+    elif countdown == "Manual":
+        input("")
+    else:
+        time.sleep(cooldown)
 
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
@@ -139,31 +161,16 @@ while menu_choice == 0: # Main Menu
         else: 
             menu_choice = 0
             print(CRED + "Invaild Option" + CLEAR)
-    if menu_choice == "debug":
+    elif menu_choice == "debug":
         debug()
     else: 
         menu_choice = 0
         print(CRED + "Invaild Option" + CLEAR)
 
 while menu_choice == 1: # Live Game
-    SortData()
+    getData()
     PrintMainUI()
-    if countdown == "True":
-        for i in reversed(range(cooldown + 1)): 
-            if i == 0:
-                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-                sys.stdout.flush()    
-                time.sleep(1)
-                sys.stdout.write("\r")
-                sys.stdout.flush()
-            else:    
-                sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-                sys.stdout.flush()
-                time.sleep(1)
-    elif countdown == "Manual":
-        input("")
-    else:
-        time.sleep(cooldown)
+    wait()
 
 while menu_choice == 2: # Bet Simulator 
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
@@ -201,24 +208,24 @@ while menu_choice == 3: # Bet Monitor
         else: 
             monitor_menu_choice = 0
             print(CRED + "Invaild Option" + CLEAR)
-    while monitor_menu_choice == 1: # Classic Keno Bet Monitor
+    while mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor
         print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-        print(CBOLD + "Classic Keno Monitor" + CLEAR)
-        while total_numbers == 0: # How many numbers were chosen          
+        print(CBOLD + mode + " Keno Monitor" + CLEAR)
+        
+        while total_numbers == 0: # How many numbers did the user pick          
             total_numbers = input("How many numbers have been picked: ")
             if total_numbers.isnumeric():
                 total_numbers = int(total_numbers)
-                if total_numbers not in ckm_vaild:
+                if total_numbers not in km_vaild:
                     total_numbers = 0
                     print(CRED + "Invaild Option" + CLEAR)                    
             else: 
                 total_numbers = 0
                 print(CRED + "Invaild Option" + CLEAR)
         print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
+
         print("Input your picks, type in one number per line")
-        numbers_picked = []
-        numbers_picked_display = []
-        for i in range(total_numbers): # Pick chosen numbers
+        for i in range(total_numbers): # Enter chosen numbers
             pick = 0
             while pick == 0: 
                 pick = input("")
@@ -238,18 +245,19 @@ while menu_choice == 3: # Bet Monitor
         numbers_picked_display.sort(key = lambda x: x, reverse = False)
         numbers_picked_display = ", ".join(map(str, numbers_picked_display))
         print("Numbers Picked: " + str(numbers_picked_display))
-        final_game = 0
+
         while final_game == 0:
             final_game = input("What is the final game on the ticket: ")
             if final_game.isnumeric():
                 final_game = int(final_game)
-                if final_game not in range(0,999 + 1): # must be in 000-999
+                if final_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
                     final_game = 0
                     print(CRED + "Invaild Option" + CLEAR)     
             else:
                 final_game = 0
                 print(CRED + "Invaild Option" + CLEAR) 
-        multi_status = -1
+        print("Final game is: " + CBOLD + str(final_game) + CLEAR)
+
         while multi_status == -1:
             multi_status = input("Is Keno Bonus on? (y/n): ")
             if multi_status == "y": multi_status = True
@@ -269,23 +277,8 @@ while menu_choice == 3: # Bet Monitor
         print("")
         check = True
         while check == True:
-            SortData()
+            getData()
             ### Win Calcuation
             #win = numbers_matched
             PrintMainUI()
-            if countdown == True:
-                for i in reversed(range(cooldown + 1)): 
-                    if i == 0:
-                        sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-                        sys.stdout.flush()    
-                        time.sleep(1)
-                        sys.stdout.write("\r")
-                        sys.stdout.flush()
-                    else:    
-                        sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
-                        sys.stdout.flush()
-                        time.sleep(1)
-            elif countdown == "Manual":
-                input("")
-            else:
-                time.sleep(cooldown)
+            wait()
