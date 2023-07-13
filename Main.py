@@ -1,7 +1,7 @@
 from keno import keno_app
 from Api import getAPI, ApiVersion
 from Config import cooldown, countdown, ConfigVersion
-from WinList import WinListVersion
+from WinList import *
 import time
 import datetime
 import sys
@@ -20,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-19"
+MainVersion = "v0.1.d-20"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
@@ -53,7 +53,11 @@ def PrintMainUI(): ### Build Terminal Output
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
     if monitor == True:
-        print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: $") # + str(multiplier))
+        calculateWin(numbers_matched)
+        if mode == "Classic" or mode == "Mega Million":
+            print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display))
+        elif mode == "Heads / Tails":
+            pass
     print(CBLUE + "---------------------------------------------------------------------")
 
 def getData(): ### Extracts data from API Response
@@ -128,6 +132,52 @@ def wait():
         input("")
     else:
         time.sleep(cooldown)
+
+def calculateWin(numbers_matched): # There is probably a better way to do this
+    global total_numbers, multiplier, multi_status, win_display
+    win = "n/a"
+    while win == "n/a":
+        if mode == "Classic":
+            if total_numbers == 1: win = c_spot1_WinList[numbers_matched]
+            elif total_numbers == 2: win = c_spot2_WinList[numbers_matched]
+            elif total_numbers == 3: win = c_spot3_WinList[numbers_matched]
+            elif total_numbers == 4: win = c_spot4_WinList[numbers_matched]
+            elif total_numbers == 5: win = c_spot5_WinList[numbers_matched]
+            elif total_numbers == 6: win = c_spot6_WinList[numbers_matched]
+            elif total_numbers == 7: win = c_spot7_WinList[numbers_matched]
+            elif total_numbers == 8: win = c_spot8_WinList[numbers_matched]
+            elif total_numbers == 9: win = c_spot9_WinList[numbers_matched]
+            elif total_numbers == 10: win = c_spot10_WinList[numbers_matched]
+            elif total_numbers == 15: win = c_spot15_WinList[numbers_matched]
+            elif total_numbers == 20: win = c_spot20_WinList[numbers_matched]
+            elif total_numbers == 40: win = c_spot40_WinList[numbers_matched]
+
+        elif mode == "Mega Million":
+            if total_numbers == 1: pass
+            elif total_numbers == 2: pass
+            elif total_numbers == 3: pass
+            elif total_numbers == 4: pass
+            elif total_numbers == 5: pass
+            elif total_numbers == 6: pass
+            elif total_numbers == 7: pass
+            elif total_numbers == 8: pass
+            elif total_numbers == 9: pass
+            elif total_numbers == 10: pass
+            elif total_numbers == 15: pass
+            elif total_numbers == 20: pass
+            elif total_numbers == 40: pass
+
+        elif mode == "Heads / Tails":
+            pass
+
+        else:
+            print(CRED + "Unable to get mode" + CLEAR)
+    if multi_status == True: # calculate bonus (if enabled)
+        win = win*multiplier
+    else: win = win
+
+    if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
+    else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
 
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
