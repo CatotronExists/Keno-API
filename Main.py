@@ -10,9 +10,7 @@ import sys
 ### GET THE API REQUEST ~10 SECONDS AFTER GAME START
 
 ### TODO Before v0.2
-# Add mega million win lists
 # add bet amount per game / outcome to bet monitor (c/mm/ht)
-# add h / t bet monitor
 # complete functionality of first game / last game + Last game alert
 # total winnings screen after last game
 # FIX same game cooldown 
@@ -28,7 +26,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-21"
+MainVersion = "v0.1.d-22"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
@@ -164,34 +162,27 @@ def calculateWin(mode, numbers_matched): # There is probably a better way to do 
                 elif total_numbers == 40: win = c_spot40_WinList[numbers_matched]
 
             elif mode == "Mega Million":
-                if total_numbers == 1: pass
-                elif total_numbers == 2: pass
-                elif total_numbers == 3: pass
-                elif total_numbers == 4: pass
-                elif total_numbers == 5: pass
-                elif total_numbers == 6: pass
-                elif total_numbers == 7: pass
-                elif total_numbers == 8: pass
-                elif total_numbers == 9: pass
-                elif total_numbers == 10: pass
-                elif total_numbers == 15: pass
-                elif total_numbers == 20: pass
-                elif total_numbers == 40: pass
-
-            elif mode == "Heads / Tails":
-                pass
-
-            else:
-                print(CRED + "Unable to get mode" + CLEAR)
-        if multi_status == True: # calculate bonus (if enabled)
-            win = win*multiplier
+                if total_numbers == 1: win = mm_spot1_WinList[numbers_matched]
+                elif total_numbers == 2: win = mm_spot2_WinList[numbers_matched]
+                elif total_numbers == 3: win = mm_spot3_WinList[numbers_matched]
+                elif total_numbers == 4: win = mm_spot4_WinList[numbers_matched]
+                elif total_numbers == 5: win = mm_spot5_WinList[numbers_matched]
+                elif total_numbers == 6: win = mm_spot6_WinList[numbers_matched]
+                elif total_numbers == 7: win = mm_spot7_WinList[numbers_matched]
+                elif total_numbers == 8: win = mm_spot8_WinList[numbers_matched]
+                elif total_numbers == 9: win = mm_spot9_WinList[numbers_matched]
+                elif total_numbers == 10: win = mm_spot10_WinList[numbers_matched]
+                elif total_numbers == 15: win = mm_spot15_WinList[numbers_matched]
+                elif total_numbers == 20: win = mm_spot20_WinList[numbers_matched]
+                elif total_numbers == 40: win = mm_spot40_WinList[numbers_matched]
+        if multi_status == True: win = win*multiplier # calculate bonus (if enabled)
         else: win = win
 
         if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
         else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
-    else: # Heads / Tails
+
+    elif mode == "Heads / Tails":
         if HTresult == HTchoice:
-            print("match")
             if HTresult == "Heads" or HTresult == "Tails": 
                 win = bet_amount*2
                 win_display = (CGREEN + "$" + str(win) + CLEAR) 
@@ -200,7 +191,7 @@ def calculateWin(mode, numbers_matched): # There is probably a better way to do 
                 win_display = (CGREEN + "$" + str(win) + CLEAR)
         else: 
             win = 0
-            win_display = (CRED + "$" + str(win) + CLEAR)
+            win_display = (CRED + "$" + str(win) + CLEAR)                
 
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
@@ -254,8 +245,8 @@ while menu_choice == 3: # Bet Monitor
     print(CBOLD + "Bet Monitor" + CLEAR)
     while monitor_menu_choice == 0:
         print("1. Classic")
-        print("2. Mega Millions [90%]")
-        print("3. Heads / Tails ")
+        print("2. Mega Millions")
+        print("3. Heads / Tails")
         monitor_menu_choice = input("------------->>> ")
         if monitor_menu_choice.isnumeric():
             monitor_menu_choice = int(monitor_menu_choice)
