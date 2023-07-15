@@ -6,7 +6,7 @@ import time
 import datetime
 import sys
 
-### FIND HOW OFTEN A GAME STARTS
+### FIND HOW OFTEN A GAME STARTS (seems to be every 2:40 ~160sec)
 ### GET THE API REQUEST ~10 SECONDS AFTER GAME START
 
 ### TODO Before v0.2
@@ -14,6 +14,8 @@ import sys
 # complete functionality of first game / last game + Last game alert
 # total winnings screen after last game
 # FIX same game cooldown 
+# Start the countdown after the API request not after all data displayed (the timing is slowly thrown off overtime)
+# SPEED UP program using threading, (One thread for each part of the main screen)
 
 ### Terminal Colors
 import os
@@ -26,7 +28,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-22"
+MainVersion = "v0.1.d-23"
 menu_choice = 0
 monitor_menu_choice = 0
 total_numbers = 0
@@ -40,7 +42,11 @@ final_game = 0
 multi_status = -1
 bet_amount = 1 # temp solution for h/t
 
+# TESTING TIME BETWEEN GAMES
+last_start_time = datetime.datetime.utcnow()
+
 def PrintMainUI(): ### Build Terminal Output
+    global last_start_time # TESTING TIME BETWEEN GAMES
     # Checks all numbers, if not in a bet monitor mode all numbers will be green as there is no matching
     final_numbers = []
     numbers_matched = 0
@@ -54,19 +60,24 @@ def PrintMainUI(): ### Build Terminal Output
             final_numbers.append(i)
     final_numbers = ", ".join(map(str, final_numbers))
 
+    ### Testing Game Timing
+    differnce = start_time - last_start_time
+
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("Game Number: " + CBOLD + str(game_number) + CLEAR + "  |  Game Started at: " + CBOLD + str(start_time) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(current_time) + CLEAR + " UTC")
     print("Numbers Drawn: " + final_numbers)
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
+    print("Time Between Games: " + str(differnce))
+
     if monitor == True:
         calculateWin(mode, numbers_matched)
         if mode == "Classic" or mode == "Mega Million":
-            print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display))
-        elif mode == "Heads / Tails":
-            
-            print("Result: Picked " + str(HTchoice) + "  |  Won: " + str(win_display))
-    print(CBLUE + "---------------------------------------------------------------------")
+            if last_game == True: print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display) + "    " + CYELLOW  + CBOLD + "LAST GAME " + CLEAR)
+            else: print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display))
+        elif mode == "Heads / Tails": print("Result: Picked " + str(HTchoice) + "  |  Won: " + str(win_display))
+    print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
+    last_start_time = start_time
 
 def getData(): ### Extracts data from API Response
     global game_number, draw_numbers, current_time, start_time, bonus, multiplier, HTresult, Hresult, Tresult
@@ -191,7 +202,22 @@ def calculateWin(mode, numbers_matched): # There is probably a better way to do 
                 win_display = (CGREEN + "$" + str(win) + CLEAR)
         else: 
             win = 0
-            win_display = (CRED + "$" + str(win) + CLEAR)                
+            win_display = (CRED + "$" + str(win) + CLEAR)   
+
+def endScreen():
+    global mode, total_numbers, win_display, multi_status
+    print(CBOLD + CBLUE + "Keno Tracker" + CLEAR)
+    print(CBOLD + "Keno " + mode + " Ticket Result" + CLEAR + "\n")
+    if mode == "Classic" or mode == "Mega Million":
+        if multi_status == True: print("Playing Spot " + str(total_numbers) + ", with Bonus Enabled")
+        else: print("Playing Spot " + str(total_numbers))
+        print("Picked Numbers: " + str(numbers_picked))
+        print("Winnings: " + str(win_display))
+        print("Games: " + CBOLD + str(start_game) + CLEAR + " - " + CBOLD + str(last_game) + CLEAR) 
+        print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
+    elif mode == "Heads / Tails":
+        pass
+    pass
 
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
@@ -359,8 +385,22 @@ while menu_choice == 3: # Bet Monitor
         print("Bonus Enabled: " + str(multi_status))
         input("Press [Enter] to start")
         print("")
-        check = True
-        while check == True:
-            getData()
-            PrintMainUI()
-            wait()
+        getData() ### TEMP solution, find a way to get data on launch 
+        # Get timing on how often a game starts then add an auto cooldown setting
+        # CHECK WHAT HAPPENS WHEN A GAME IS 00X AND WHEN final_game = X
+        start_game = game_number
+        last_game = False
+        print(game_number) 
+        print(final_game)
+        while game_number != final_game + 1: # Allows last game to be shown
+            if final_game == game_number: # If last game go to 'end screen' after showing data
+                last_game = True
+                getData()
+                PrintMainUI()
+                input("Press [Enter] to see ticket results")
+                while True: endScreen() # END OF PROGRAM
+
+            else:
+                getData()
+                PrintMainUI()
+                wait()
