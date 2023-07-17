@@ -7,15 +7,20 @@ import datetime
 import sys
 
 ### FIND HOW OFTEN A GAME STARTS (seems to be every 2:40 ~160sec)
-### GET THE API REQUEST ~10 SECONDS AFTER GAME START
+### GET THE API REQUEST ~5-10 SECONDS AFTER GAME START
 
 ### TODO Before v0.2
 # add bet amount per game / outcome to bet monitor (c/mm/ht)
 # complete functionality of first game / last game + Last game alert
 # total winnings screen after last game
 # FIX same game cooldown 
-# Start the countdown after the API request not after all data displayed (the timing is slowly thrown off overtime)
 # SPEED UP program using threading, (One thread for each part of the main screen)
+# CHECK WHAT HAPPENS WHEN A GAME IS 00X AND WHEN final_game = X
+# Start the countdown after the API request not after all data displayed (the timing is slowly thrown off overtime)
+# ^ possible solution: on start getData() -> when the main UI is printed, check if it has been 2:40 since the last game started. 
+#       If yes -> get data again.
+#       If no -> Show the data fetched at the start, Set first cooldown to the difference of 2:40 - fetched_time
+#   There is a rare chance that the inbetween game timer can be off by 1-2 seconds.
 
 ### Terminal Colors
 import os
@@ -28,9 +33,8 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-23"
-menu_choice = 0
-monitor_menu_choice = 0
+MainVersion = "v0.1.d-24"
+menu_choice = -1
 total_numbers = 0
 numbers_picked = []
 m_vaild = [1, 2, 3, "debug"] # Menu vaild choices
@@ -40,6 +44,7 @@ numbers_picked = []
 numbers_picked_display = []
 final_game = 0
 multi_status = -1
+in_menus = True
 bet_amount = 1 # temp solution for h/t
 
 # TESTING TIME BETWEEN GAMES
@@ -124,9 +129,9 @@ def getData(): ### Extracts data from API Response
 
     ### Heads/Tails
     HTresult = live_data["result"]
-    if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails" 
-    elif HTresult == "heads": HTresult = CBOLD + CRED + "Heads"
-    elif HTresult == "evens": HTresult = CBOLD + CBEIGE + "Evens"
+    if HTresult == "tails": HTresult = CBOLD + CBLUE + "Tails" + CLEAR
+    elif HTresult == "heads": HTresult = CBOLD + CRED + "Heads" + CLEAR
+    elif HTresult == "evens": HTresult = CBOLD + CBEIGE + "Evens" + CLEAR
     Hresult = live_data["heads"] # Number of head numbers
     Tresult = live_data["tails"] # Number of tail numbers
 
@@ -205,7 +210,6 @@ def calculateWin(mode, numbers_matched): # There is probably a better way to do 
             win_display = (CRED + "$" + str(win) + CLEAR)   
 
 def endScreen():
-    global mode, total_numbers, win_display, multi_status
     print(CBOLD + CBLUE + "Keno Tracker" + CLEAR)
     print(CBOLD + "Keno " + mode + " Ticket Result" + CLEAR + "\n")
     if mode == "Classic" or mode == "Mega Million":
@@ -216,7 +220,10 @@ def endScreen():
         print("Games: " + CBOLD + str(start_game) + CLEAR + " - " + CBOLD + str(last_game) + CLEAR) 
         print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
     elif mode == "Heads / Tails":
-        pass
+        print("Predicted Outcome: " + str(HTchoice))
+        print("Outcome: " + str(HTresult))
+        print("Winnings: " + str(win_display))
+        print("Game: " + str(last_game))
     pass
 
 def debug():
@@ -224,7 +231,8 @@ def debug():
     print("/// Debug Menu ///")
     print("Main - " + MainVersion + "\nConfig - " + ConfigVersion + "\nApi - " + ApiVersion + "\nWinList - " + WinListVersion)
 
-while menu_choice == 0: # Main Menu
+while menu_choice == -1: # Main Menu
+    getData()
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("1. Live Game Viewer")
     print("2. Bet Simulator [0%]")
@@ -233,174 +241,170 @@ while menu_choice == 0: # Main Menu
     if menu_choice.isnumeric():
         menu_choice = int(menu_choice)
         if menu_choice in m_vaild:
-            if menu_choice == 1:
-                print("Opening" + CBOLD + " Live Game Viewer" + CLEAR)
-                time.sleep(1)
-                monitor = False
-                print("\n"*4)
-            elif menu_choice == 2:
-                print("Opening" + CBOLD + " Bet Simulator" + CLEAR)
-                time.sleep(1)
-                monitor = True
-                print("\n"*4)                
-            elif menu_choice == 3:
-                print("Opening" + CBOLD + " Bet Monitor" + CLEAR)
-                time.sleep(1)
-                monitor = True
-                print("\n"*4)
+            if menu_choice == 1: print("Opening" + CBOLD + " Live Game Viewer" + CLEAR)
+            elif menu_choice == 2: print("Opening" + CBOLD + " Bet Simulator" + CLEAR)                
+            elif menu_choice == 3: print("Opening" + CBOLD + " Bet Monitor" + CLEAR)
         else: 
-            menu_choice = 0
+            menu_choice = -1
             print(CRED + "Invaild Option" + CLEAR)
-    elif menu_choice == "debug":
-        debug()
+    elif menu_choice == "debug": debug()
     else: 
-        menu_choice = 0
+        menu_choice = -1
         print(CRED + "Invaild Option" + CLEAR)
 
-while menu_choice == 1: # Live Game
-    getData()
-    PrintMainUI()
-    wait()
+while menu_choice != 0:
+    monitor = False
+    time.sleep(1)
+    print("\n"*4)
+    if menu_choice == 1: in_menus == False # Live Game Viewer
+    elif in_menus == True: 
+        monitor = True
+        while menu_choice == 2: # Bet Simulator 
+            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+            print(CBOLD + "" + CLEAR) 
+            print(CRED + CBOLD + "Bet Simulator is not complete at this time" + CLEAR)
+            time.sleep(0.5)
+            print(CRED + CBOLD + "Rerouting to Live Game Viewer..." + CLEAR)
+            time.sleep(1)
+            menu_choice = 0 
+            in_menus = False
+            monitor = False
 
-while menu_choice == 2: # Bet Simulator 
-    print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-    print(CBOLD + "" + CLEAR)
-
-while menu_choice == 3: # Bet Monitor
-    print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-    print(CBOLD + "Bet Monitor" + CLEAR)
-    while monitor_menu_choice == 0:
-        print("1. Classic")
-        print("2. Mega Millions")
-        print("3. Heads / Tails")
-        monitor_menu_choice = input("------------->>> ")
-        if monitor_menu_choice.isnumeric():
-            monitor_menu_choice = int(monitor_menu_choice)
-            if monitor_menu_choice in mm_vaild:
-                if monitor_menu_choice == 1:
-                    print("Opening" + CBOLD + " Classic Keno Monitor" + CLEAR)
-                    mode = "Classic"
-                    time.sleep(1)
-                    print("\n")
-                elif monitor_menu_choice == 2:
-                    print("Opening" + CBOLD + " Mega Million Keno Monitor" + CLEAR)
-                    mode = "Mega Million"
-                    time.sleep(1)
-                    print("\n")                
-                elif monitor_menu_choice == 3:
-                    print("Opening" + CBOLD + " Heads / Tails Monitor" + CLEAR)
-                    mode = "Heads / Tails"
-                    time.sleep(1)
-                    print("\n")
-            else: 
-                monitor_menu_choice = 0
-                print(CRED + "Invaild Option" + CLEAR)
-        else: 
+        while menu_choice == 3: # Bet Monitor
+            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+            print(CBOLD + "Bet Monitor" + CLEAR)
             monitor_menu_choice = 0
-            print(CRED + "Invaild Option" + CLEAR)
+            while monitor_menu_choice == 0:
+                print("1. Classic")
+                print("2. Mega Millions")
+                print("3. Heads / Tails")
+                monitor_menu_choice = input("------------->>> ")
+                if monitor_menu_choice.isnumeric():
+                    monitor_menu_choice = int(monitor_menu_choice)
+                    if monitor_menu_choice in mm_vaild:
+                        if monitor_menu_choice == 1:
+                            print("Opening" + CBOLD + " Classic Keno Monitor" + CLEAR)
+                            mode = "Classic"
+                            time.sleep(1)
+                            print("\n")
+                        elif monitor_menu_choice == 2:
+                            print("Opening" + CBOLD + " Mega Million Keno Monitor" + CLEAR)
+                            mode = "Mega Million"
+                            time.sleep(1)
+                            print("\n")                
+                        elif monitor_menu_choice == 3:
+                            print("Opening" + CBOLD + " Heads / Tails Monitor" + CLEAR)
+                            mode = "Heads / Tails"
+                            time.sleep(1)
+                            print("\n")
+                    else: 
+                        monitor_menu_choice = 0
+                        print(CRED + "Invaild Option" + CLEAR)
+                else: 
+                    monitor_menu_choice = 0
+                    print(CRED + "Invaild Option" + CLEAR)
 
-    while mode == "Heads / Tails": # Heads / Tails Bet Monitor
-        print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-        print(CBOLD + mode + " Keno Monitor" + CLEAR)
-        HTchoice = 0  
-        while HTchoice == 0:
-            HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
-            if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
-                HTchoice = HTchoice.capitalize() 
-                print("You have chosen " + CBOLD + HTchoice + CLEAR) 
-            else: 
-                HTchoice = 0
-                print(CRED + "Invaild Option" + CLEAR)
-        
-        check = True
-        while check == True:
+            if mode == "Heads / Tails": # Heads / Tails Bet Monitor
+                print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+                print(CBOLD + mode + " Keno Monitor" + CLEAR)
+                HTchoice = 0  
+                while HTchoice == 0:
+                    HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
+                    if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
+                        HTchoice = HTchoice.capitalize() 
+                        print("You have chosen " + CBOLD + HTchoice + CLEAR) 
+                    else: 
+                        HTchoice = 0
+                        print(CRED + "Invaild Option" + CLEAR)
+                
+                menu_choice = 0 
+                in_menus = False
+
+            elif mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor
+                print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+                print(CBOLD + mode + " Keno Monitor" + CLEAR)
+                
+                while total_numbers == 0: # How many numbers did the user pick          
+                    total_numbers = input("How many numbers have been picked: ")
+                    if total_numbers.isnumeric():
+                        total_numbers = int(total_numbers)
+                        if total_numbers not in km_vaild:
+                            total_numbers = 0
+                            print(CRED + "Invaild Option" + CLEAR)                    
+                    else: 
+                        total_numbers = 0
+                        print(CRED + "Invaild Option" + CLEAR)
+                print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
+
+                print("Input your picks, type in one number per line")
+                for i in range(total_numbers): # Enter chosen numbers
+                    pick = 0
+                    while pick == 0: 
+                        pick = input("")
+                        if pick.isnumeric():
+                            pick = int(pick)
+                            if pick in numbers_picked:
+                                print(CRED + "You have already chosen " + str(pick) + CLEAR)
+                                pick = 0
+                            elif pick not in range(1,80 + 1):
+                                pick = 0
+                                print(CRED + "Invaild Option" + CLEAR)
+                        else:
+                            pick = 0
+                            print(CRED + "Invaild Option" + CLEAR)
+                    numbers_picked.append(pick)
+                    numbers_picked_display.append(pick)
+                numbers_picked_display.sort(key = lambda x: x, reverse = False)
+                numbers_picked_display = ", ".join(map(str, numbers_picked_display))
+                print("Numbers Picked: " + str(numbers_picked_display))
+
+                while final_game == 0:
+                    final_game = input("What is the final game on the ticket: ")
+                    if final_game.isnumeric():
+                        final_game = int(final_game)
+                        if final_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
+                            final_game = 0
+                            print(CRED + "Invaild Option" + CLEAR)     
+                    else:
+                        final_game = 0
+                        print(CRED + "Invaild Option" + CLEAR) 
+                print("Final game is: " + CBOLD + str(final_game) + CLEAR)
+
+                while multi_status == -1:
+                    multi_status = input("Is Keno Bonus on? (y/n): ")
+                    if multi_status == "y": multi_status = True
+                    elif multi_status == "n": multi_status = False  
+                    else: 
+                        multi_status = -1
+                        print(CRED + "Invaild Option" + CLEAR)     
+
+                print(CBLUE + "-----------------------------------" + CLEAR)  
+                print(CBOLD + "Ticket information" + CLEAR)
+                print(mode + " Keno")
+                print("Total Numbers: " + str(total_numbers))
+                print("Picked Numbers: " + str(numbers_picked))
+                print("Ending Game: " + str(final_game))
+                print("Bonus Enabled: " + str(multi_status))
+                input("Press [Enter] to start")
+                print("")
+                getData() ### TEMP solution, find a way to get data on launch 
+                # Get timing on how often a game starts then add an auto cooldown setting
+                start_game = game_number
+                last_game = False
+                print(game_number) 
+                print(final_game)
+                menu_choice = 0 
+                in_menus = False
+                    
+    while game_number != final_game + 1: # Allows last game to be shown
+        if final_game == game_number: # If last game go to 'end screen' after showing data
+            last_game = True
+            getData()
+            PrintMainUI()
+            input("Press [Enter] to see ticket results")
+            while True: endScreen() # END OF PROGRAM
+
+        else:
             getData()
             PrintMainUI()
             wait()
-
-    while mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor
-        print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-        print(CBOLD + mode + " Keno Monitor" + CLEAR)
-        
-        while total_numbers == 0: # How many numbers did the user pick          
-            total_numbers = input("How many numbers have been picked: ")
-            if total_numbers.isnumeric():
-                total_numbers = int(total_numbers)
-                if total_numbers not in km_vaild:
-                    total_numbers = 0
-                    print(CRED + "Invaild Option" + CLEAR)                    
-            else: 
-                total_numbers = 0
-                print(CRED + "Invaild Option" + CLEAR)
-        print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
-
-        print("Input your picks, type in one number per line")
-        for i in range(total_numbers): # Enter chosen numbers
-            pick = 0
-            while pick == 0: 
-                pick = input("")
-                if pick.isnumeric():
-                    pick = int(pick)
-                    if pick in numbers_picked:
-                        print(CRED + "You have already chosen " + str(pick) + CLEAR)
-                        pick = 0
-                    elif pick not in range(1,80 + 1):
-                        pick = 0
-                        print(CRED + "Invaild Option" + CLEAR)
-                else:
-                    pick = 0
-                    print(CRED + "Invaild Option" + CLEAR)
-            numbers_picked.append(pick)
-            numbers_picked_display.append(pick)
-        numbers_picked_display.sort(key = lambda x: x, reverse = False)
-        numbers_picked_display = ", ".join(map(str, numbers_picked_display))
-        print("Numbers Picked: " + str(numbers_picked_display))
-
-        while final_game == 0:
-            final_game = input("What is the final game on the ticket: ")
-            if final_game.isnumeric():
-                final_game = int(final_game)
-                if final_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
-                    final_game = 0
-                    print(CRED + "Invaild Option" + CLEAR)     
-            else:
-                final_game = 0
-                print(CRED + "Invaild Option" + CLEAR) 
-        print("Final game is: " + CBOLD + str(final_game) + CLEAR)
-
-        while multi_status == -1:
-            multi_status = input("Is Keno Bonus on? (y/n): ")
-            if multi_status == "y": multi_status = True
-            elif multi_status == "n": multi_status = False  
-            else: 
-                multi_status = -1
-                print(CRED + "Invaild Option" + CLEAR)     
-
-        print(CBLUE + "-----------------------------------" + CLEAR)  
-        print(CBOLD + "Ticket information" + CLEAR)
-        print(mode + " Keno")
-        print("Total Numbers: " + str(total_numbers))
-        print("Picked Numbers: " + str(numbers_picked))
-        print("Ending Game: " + str(final_game))
-        print("Bonus Enabled: " + str(multi_status))
-        input("Press [Enter] to start")
-        print("")
-        getData() ### TEMP solution, find a way to get data on launch 
-        # Get timing on how often a game starts then add an auto cooldown setting
-        # CHECK WHAT HAPPENS WHEN A GAME IS 00X AND WHEN final_game = X
-        start_game = game_number
-        last_game = False
-        print(game_number) 
-        print(final_game)
-        while game_number != final_game + 1: # Allows last game to be shown
-            if final_game == game_number: # If last game go to 'end screen' after showing data
-                last_game = True
-                getData()
-                PrintMainUI()
-                input("Press [Enter] to see ticket results")
-                while True: endScreen() # END OF PROGRAM
-
-            else:
-                getData()
-                PrintMainUI()
-                wait()
