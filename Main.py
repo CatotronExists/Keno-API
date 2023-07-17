@@ -14,7 +14,6 @@ import sys
 # complete functionality of first game / last game + Last game alert
 # total winnings screen after last game
 # FIX same game cooldown 
-# SPEED UP program using threading, (One thread for each part of the main screen)
 # CHECK WHAT HAPPENS WHEN A GAME IS 00X AND WHEN final_game = X
 # Start the countdown after the API request not after all data displayed (the timing is slowly thrown off overtime)
 # ^ possible solution: on start getData() -> when the main UI is printed, check if it has been 2:40 since the last game started. 
@@ -33,7 +32,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-24"
+MainVersion = "v0.1.d-25"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -73,7 +72,7 @@ def PrintMainUI(): ### Build Terminal Output
     print("Numbers Drawn: " + final_numbers)
     print("Multiplier: " + str(bonus) + CLEAR)
     print("Heads/Tails Result: " + str(HTresult) + CLEAR + "  |  " + CRED + "Heads: " + str(Hresult) + CBLUE + "  Tails: " + str(Tresult) + CLEAR)
-    print("Time Between Games: " + str(differnce))
+    print("Time Between Games: " + str(differnce) + " [TEMP]")
 
     if monitor == True:
         calculateWin(mode, numbers_matched)
@@ -157,40 +156,14 @@ def wait():
     else:
         time.sleep(cooldown)
 
-def calculateWin(mode, numbers_matched): # There is probably a better way to do this
+def calculateWin(mode, numbers_matched):
     global total_numbers, multiplier, multi_status, win_display
     win = "n/a"
     if mode == "Classic" or mode == "Mega Million":
         while win == "n/a":
-            if mode == "Classic":
-                if total_numbers == 1: win = c_spot1_WinList[numbers_matched]
-                elif total_numbers == 2: win = c_spot2_WinList[numbers_matched]
-                elif total_numbers == 3: win = c_spot3_WinList[numbers_matched]
-                elif total_numbers == 4: win = c_spot4_WinList[numbers_matched]
-                elif total_numbers == 5: win = c_spot5_WinList[numbers_matched]
-                elif total_numbers == 6: win = c_spot6_WinList[numbers_matched]
-                elif total_numbers == 7: win = c_spot7_WinList[numbers_matched]
-                elif total_numbers == 8: win = c_spot8_WinList[numbers_matched]
-                elif total_numbers == 9: win = c_spot9_WinList[numbers_matched]
-                elif total_numbers == 10: win = c_spot10_WinList[numbers_matched]
-                elif total_numbers == 15: win = c_spot15_WinList[numbers_matched]
-                elif total_numbers == 20: win = c_spot20_WinList[numbers_matched]
-                elif total_numbers == 40: win = c_spot40_WinList[numbers_matched]
+            if mode == "Classic": win = Classic_Winlists[total_numbers][numbers_matched]
+            elif mode == "Mega Million": win = MegaMillion_Winlists[total_numbers][numbers_matched]
 
-            elif mode == "Mega Million":
-                if total_numbers == 1: win = mm_spot1_WinList[numbers_matched]
-                elif total_numbers == 2: win = mm_spot2_WinList[numbers_matched]
-                elif total_numbers == 3: win = mm_spot3_WinList[numbers_matched]
-                elif total_numbers == 4: win = mm_spot4_WinList[numbers_matched]
-                elif total_numbers == 5: win = mm_spot5_WinList[numbers_matched]
-                elif total_numbers == 6: win = mm_spot6_WinList[numbers_matched]
-                elif total_numbers == 7: win = mm_spot7_WinList[numbers_matched]
-                elif total_numbers == 8: win = mm_spot8_WinList[numbers_matched]
-                elif total_numbers == 9: win = mm_spot9_WinList[numbers_matched]
-                elif total_numbers == 10: win = mm_spot10_WinList[numbers_matched]
-                elif total_numbers == 15: win = mm_spot15_WinList[numbers_matched]
-                elif total_numbers == 20: win = mm_spot20_WinList[numbers_matched]
-                elif total_numbers == 40: win = mm_spot40_WinList[numbers_matched]
         if multi_status == True: win = win*multiplier # calculate bonus (if enabled)
         else: win = win
 
@@ -344,8 +317,8 @@ while menu_choice != 0:
                         if pick.isnumeric():
                             pick = int(pick)
                             if pick in numbers_picked:
-                                print(CRED + "You have already chosen " + str(pick) + CLEAR)
                                 pick = 0
+                                print(CRED + "You have already chosen " + str(pick) + CLEAR)
                             elif pick not in range(1,80 + 1):
                                 pick = 0
                                 print(CRED + "Invaild Option" + CLEAR)
@@ -387,12 +360,12 @@ while menu_choice != 0:
                 print("Bonus Enabled: " + str(multi_status))
                 input("Press [Enter] to start")
                 print("")
-                getData() ### TEMP solution, find a way to get data on launch 
+                #getData() ### TEMP solution, find a way to get data on launch 
                 # Get timing on how often a game starts then add an auto cooldown setting
                 start_game = game_number
                 last_game = False
-                print(game_number) 
-                print(final_game)
+                #print(game_number) 
+                #print(final_game)
                 menu_choice = 0 
                 in_menus = False
                     
