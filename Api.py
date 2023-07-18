@@ -2,7 +2,7 @@ from keno import keno_app
 from Config import app
 import time
 
-ApiVersion = "v0.1.d-18"
+ApiVersion = "v0.1.d-26"
 CRED = '\33[91m'
 CLEAR = '\33[0m'
 
@@ -18,5 +18,4 @@ def getAPI(live_data):
                 time.sleep(20)
             last_game_number == game_number
             return live_data
-        except Exception as e:
-            print(CRED + str(e) + CLEAR)
+        except Exception as e: print(CRED + str(e) + CLEAR)
