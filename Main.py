@@ -1,5 +1,6 @@
 from keno import keno_app
-from Api import getAPI, ApiVersion
+from Api import getAPI, ApiVersion, getJackpots
+getJackpots()
 from Config import cooldown, countdown, ConfigVersion
 from WinList import *
 import time
@@ -28,7 +29,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-27"
+MainVersion = "v0.1.d-28"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -67,6 +68,7 @@ def PrintMainUI(): ### Build Terminal Output
     if monitor == True:
         calculateWin(mode, numbers_matched)
         if mode == "Classic" or mode == "Mega Million":
+            getJackpots()
             if last_game == True: print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display) + "    " + CYELLOW  + CBOLD + "LAST GAME " + CLEAR)
             else: print("Result: " + CBOLD + str(numbers_matched) + CLEAR + " Numbers Matched  |  Won: " + str(win_display))
         else:
