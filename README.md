@@ -9,7 +9,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.1.d-26\
+Main - v0.1.d-27\
 Config - v0.1.d-23\
 Api - v0.1.d-26\
 WinList - v0.1.d-25
