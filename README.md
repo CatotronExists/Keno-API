@@ -9,9 +9,9 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.1.d-28\
-Config - v0.1.d-23\
-Api - v0.1.d-28\
+Main - v0.1.d-29\
+Config - v0.1.d-29\
+Api - v0.1.d-29\
 WinList - v0.1.d-28
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
@@ -28,7 +28,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 ### Roadmap to v0.2
 - [ ] v0.2 | Bet Monitoring (2x/07/2023)
   - [ ] Final round of Bug Fixes + testing [v0.1.d-??]
-  - [ ] Config Checks [v0.1.d-??]
+  - [x] Config Checks [v0.1.d-29]
   - [x] Jackpot Support [v0.1.d-28]
   - [x] First / Last Game System [v0.1.d-27]
   - [x] Fetching Data on launch [v0.1.d-26]

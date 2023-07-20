@@ -2,7 +2,7 @@ from keno import keno_app
 from Config import app
 import time
 
-ApiVersion = "v0.1.d-28"
+ApiVersion = "v0.1.d-29"
 CRED = '\33[91m'
 CLEAR = '\33[0m'
 
@@ -17,7 +17,6 @@ def getJackpots():
     mm_spot8_jackpot = raw_jackpots["leveraged"]["eight_spot"]
     mm_spot9_jackpot = raw_jackpots["leveraged"]["nine_spot"]
     mm_spot10_jackpot = raw_jackpots["leveraged"]["ten_spot"]
-    print(c_spot10_jackpot)
 
 last_game_number = "n/a"
 def getAPI(live_data):

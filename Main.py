@@ -1,18 +1,14 @@
 from keno import keno_app
 from Api import getAPI, ApiVersion, getJackpots
 getJackpots()
-from Config import cooldown, countdown, ConfigVersion
+from Config import cooldown, countdown, ConfigVersion, Config_Check
 from WinList import *
 import time
 import datetime
 from datetime import timedelta
 import sys
 
-### FIND HOW OFTEN A GAME STARTS (seems to be every 2:40 ~160sec)
-### GET THE API REQUEST ~5-10 SECONDS AFTER GAME START
-
-### TODO Before v0.2   est. (25/07)
-# Add Jackpot Support
+### TODO Before v0.2   est. (22/07)
 # Change config of cooldown -> allow cooldown to be set to "Auto"
 #   Add config checks to ensure vaild values
 # FIX same game cooldown 
@@ -29,7 +25,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-28"
+MainVersion = "v0.1.d-29"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -204,14 +200,28 @@ def endScreen():
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
 
 def configCheck():
-    global app, cooldown, countdown
-    pass
+    global cooldown, countdown, Config_Check
+    config_errors = 0
+    if Config_Check == True:
+        if cooldown < 140: 
+            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
+            config_errors += 1
+        if countdown == "True" or countdown == "False" or countdown == "Manual": pass
+        else: 
+            print(CRED + "countdown is set to an invaild value {" + countdown +"}, Check config.py for valid values" + CLEAR)
+            config_errors += 1
+        while config_errors != 0: 
+            print(CRED + str(config_errors) + " Config Errors Found" + CLEAR)
+            time.sleep(999)
+
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
     print("/// Debug Menu ///")
     print("Main - " + MainVersion + "\nConfig - " + ConfigVersion + "\nApi - " + ApiVersion + "\nWinList - " + WinListVersion)
 
-configCheck()
+if Config_Check == True:
+    configCheck()
+
 while menu_choice == -1: # Main Menu
     getData()
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
