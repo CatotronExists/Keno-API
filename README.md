@@ -29,28 +29,28 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] v0.9 | ???? (xx/xx/2023)\
 \\\
 /
-- [ ] v0.8 | ???? (xx/xx/2023)\
+- [ ] v0.8 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
 \\\
 /
-- [ ] v0.7 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
+- [ ] v0.7 | Browsing Data (xx/xx/2023)\
 \\\
 /
-- [ ] v0.6 | Browsing Data (xx/xx/2023)\
+- [ ] v0.6 | Trends and Graphs (xx/xx/2023)\
 \\\
 /
-- [ ] v0.5 | Trends and Graphs (xx/xx/2023)\
+- [ ] v0.5 | Data Visualised (xx/xx/2023)\
 \\\
 /
-- [ ] v0.4 | Data Visualised (xx/xx/2023)\
+- [ ] v0.4 | Database Contruction (xx/xx/2023)\
 \\\
 /
-- [ ] v0.3 | Database Contruction (xx/xx/2023)\
+- [ ] v0.3 | Bet Simulation (xx/xx/2023)\
 \\\
 /
 - [ ] v0.2 | Bet Monitoring (2x/07/2023)\
 \\\
 /
-- [x] v0.1 | First Stable Release (21/06/2023)\
+- [x] v0.1 | First Stable Release (21/06/2023)
 ### Disclaimer
 This program is being made for educational purposes only, use at your own risk.
 If you wish to use this program you have to download and run it on your machine, there will be no public site to access the data. You have to collect it, which can be done with this program.
