@@ -1,5 +1,5 @@
 # Keno-DataVis
-A program that gets data from Keno using an API for the purpose of displaying and interacting with the data. For now the program is in it's early stages, only a basic command line interface for now but there is alot planned. Check out the (Roadmap)[https://github.com/CatotronExists/Keno-DataVis#roadmap-to-v10]
+A program that gets data from Keno using an API for the purpose of displaying and interacting with the data. For now the program is in it's early stages, only a basic command line interface for now but there is alot planned. Check out the [Roadmap](https://github.com/CatotronExists/Keno-DataVis#roadmap-to-v10)
 
 ### Setup
 Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
