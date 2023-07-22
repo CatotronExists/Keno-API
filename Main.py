@@ -8,12 +8,6 @@ import datetime
 from datetime import timedelta
 import sys
 
-### TODO Before v0.2   est. (22/07)
-# Change config of cooldown -> allow cooldown to be set to "Auto"
-#   Add config checks to ensure vaild values
-# FIX same game cooldown 
-# Fix: The Time between data pulls gets ~1-3 seconds added each time
-
 ### Terminal Colors
 import os
 os.system("")
@@ -25,7 +19,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.1.d-29"
+MainVersion = "v0.1.d-30"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -38,6 +32,7 @@ total_win = 0
 first_cooldown = True
 in_menus = True
 main = False
+final_game = 0
 bet_amount = 1 # temp solution for h/t
 
 def PrintMainUI(): ### Build Terminal Output
@@ -199,28 +194,23 @@ def endScreen():
         print("Game: " + str(last_game))
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
 
-def configCheck():
-    global cooldown, countdown, Config_Check
-    config_errors = 0
-    if Config_Check == True:
-        if cooldown < 140: 
-            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
-            config_errors += 1
-        if countdown == "True" or countdown == "False" or countdown == "Manual": pass
-        else: 
-            print(CRED + "countdown is set to an invaild value {" + countdown +"}, Check config.py for valid values" + CLEAR)
-            config_errors += 1
-        while config_errors != 0: 
-            print(CRED + str(config_errors) + " Config Errors Found" + CLEAR)
-            time.sleep(999)
-
 def debug():
     global MainVersion, ConfigVersion, ApiVersion, WinListVersion
     print("/// Debug Menu ///")
     print("Main - " + MainVersion + "\nConfig - " + ConfigVersion + "\nApi - " + ApiVersion + "\nWinList - " + WinListVersion)
 
 if Config_Check == True:
-    configCheck()
+    config_errors = 0
+    if cooldown < 140: 
+        print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
+        config_errors += 1
+    if countdown == "True" or countdown == "False" or countdown == "Manual": pass
+    else: 
+        print(CRED + "countdown is set to an invaild value {" + countdown +"}, Check config.py for valid values" + CLEAR)
+        config_errors += 1
+    while config_errors != 0: 
+        print(CRED + str(config_errors) + " Config Errors Found" + CLEAR)
+        time.sleep(999)
 
 while menu_choice == -1: # Main Menu
     getData()
@@ -248,8 +238,8 @@ while menu_choice != 0:
     monitor = False
     time.sleep(1)
     print("\n"*4)
-    if menu_choice == 1: in_menus == False # Live Game Viewer
-    elif in_menus == True: 
+    if menu_choice == 1: in_menus = False # Live Game Viewer
+    if in_menus == True: 
         monitor = True
         while menu_choice == 2: # Bet Simulator 
             print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
@@ -437,7 +427,7 @@ while menu_choice != 0:
                 last_game = False
                 menu_choice = 0 
                 in_menus = False
-                    
+                
     while in_menus == False:
         while first_cooldown == True:
             time_delta = current_time - start_time

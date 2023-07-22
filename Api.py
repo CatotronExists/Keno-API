@@ -25,9 +25,9 @@ def getAPI(live_data):
             live_data = app.live_draw()
             game_number = live_data["game_number"]
             if last_game_number == game_number: # in case the same game is called twice, try again after 20 sec ### To Fix
-                print(CRED + "Already Fetched Game: " + str(game_number) + "     " + CLEAR)
+                print(CRED + "Already Fetched Game: " + str(game_number) + " Retrying in 10 seconds..." + CLEAR)
                 live_data = 0
-                time.sleep(20)
+                time.sleep(10)
             last_game_number == game_number
             return live_data
         except Exception as e: print(CRED + str(e) + CLEAR)
