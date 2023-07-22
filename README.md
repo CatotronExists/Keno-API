@@ -15,8 +15,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
   - [ ] Compatible with Custom Numbers and "Quikpick"
 - [x] Ability to input your bet and display results in real time
-  - [ ] Displays total winnings (per game and total)
-  - [ ] Compatible with different modes (Mega Millions, Classic, T/H)
+  - [x] Displays total winnings (per game and total)
+  - [x] Compatible with different modes (Mega Millions, Classic, T/H)
 - [ ] Saves Data to a database
 - [ ] Web page to display data though the use of an API from that database
 - [ ] Full Breakdown of data
@@ -47,7 +47,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] v0.3 | Bet Simulation (xx/xx/2023)\
 \\\
 /
-- [ ] v0.2 | Bet Monitoring (2x/07/2023)\
+- [x] v0.2 | Bet Monitoring (22/07/2023)\
 \\\
 /
 - [x] v0.1 | First Stable Release (21/06/2023)
