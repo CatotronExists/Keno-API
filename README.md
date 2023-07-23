@@ -13,7 +13,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 ### Check List
 - [x] Gets data and Displays in easy to read format
 - [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
-  - [ ] Compatible with Custom Numbers and "Quikpick"
+  - [ ] Compatible with Custom Numbers and "Kwikpik"
 - [x] Ability to input your bet and display results in real time
   - [x] Displays total winnings (per game and total)
   - [x] Compatible with different modes (Mega Millions, Classic, T/H)
