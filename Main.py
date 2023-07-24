@@ -20,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.2.d-4"
+MainVersion = "v0.3"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
