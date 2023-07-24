@@ -20,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.2.d-2"
+MainVersion = "v0.2.d-3"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -283,15 +283,41 @@ while menu_choice != 0:
             if mode == "Heads / Tails": # Heads / Tails Bet Monitor/Simulator 
                 print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
                 print(CBOLD + mode + " Keno " + secondary + CLEAR)
+                if secondary == "Simulator":
+                    picking_mode = 0
+                    while picking_mode == 0:
+                        print("How will you pick the outcome?\n1. Kwikpik\n2. Manual")
+                        picking_mode = input("--->> ")
+                        if picking_mode.isnumeric():
+                            picking_mode = int(picking_mode)
+                            if picking_mode == 1 or picking_mode == 2: 
+                                if picking_mode == 1: print("Kwikpik Selceted")
+                                elif picking_mode == 2: print("Manual Selceted")
+                            else: 
+                                picking_mode = 0
+                                print(CRED + "Invaild Option" + CLEAR)
+                        else: 
+                            picking_mode = 0
+                            print(CRED + "Invaild Option" + CLEAR)
+
                 HTchoice = 0  
-                while HTchoice == 0:
-                    HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
-                    if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
-                        HTchoice = HTchoice.capitalize() 
-                        print("You have chosen " + CBOLD + HTchoice + CLEAR) 
-                    else: 
-                        HTchoice = 0
-                        print(CRED + "Invaild Option" + CLEAR)
+                if picking_mode == 1: # Kwikpik
+                    time.sleep(0.5)
+                    HTchoice = random.randint(1,3)
+                    if HTchoice == 1: HTchoice = "Heads"
+                    elif HTchoice == 2: HTchoice = "Evens"
+                    elif HTchoice == 3: HTchoice = "Tails"
+                    print("Auto Picked: " + HTchoice)
+
+                elif picking_mode == 2: # Manual
+                    while HTchoice == 0:
+                        HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
+                        if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
+                            HTchoice = HTchoice.capitalize() 
+                            print("You have chosen " + CBOLD + HTchoice + CLEAR) 
+                        else: 
+                            HTchoice = 0
+                            print(CRED + "Invaild Option" + CLEAR)
 
                 bet_amount = 0
                 while bet_amount == 0:

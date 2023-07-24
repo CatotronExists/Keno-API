@@ -1,5 +1,5 @@
 # Keno-DataVis
-Basic Command Line program that calls data from the Keno API and displays that data
+A program that gets data from Keno using an API for the purpose of displaying and interacting with the data. For now the program is in it's early stages, only a basic command line interface for now but there is alot planned. 
 
 ## ActiveDev Branch
 As work is complete it will be put here, each commit has a version with it.
@@ -9,7 +9,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.2.d-2\
+Main - v0.2.d-3\
 Config - v0.1.d-29\
 Api - v0.2.d-1\
 WinList - v0.2.d-2
@@ -23,14 +23,14 @@ Once installed run the program by opening Main.py
 ### Credits
 API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafshan/keno-api)
 
-Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Game%20Guide.pdf)
+Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Game%20Guide.pdf)\
 *Data is sourced from the Victorian version, win amounts may differ in other states. In future other states will be added! This wont effect jackpots as that data is fetched from the API directly.*
 
 ### Roadmap to v0.3
 - [x] v0.3 | Bet Simulator EST.(26/07/2023)
   - [ ] Final Bug Fixes + Testing [v0.2.d-??]
   - [ ] Setup Virtual Money System [v0.2.d-??]
-  - [ ] "Kwikpik Support for H/T [v0.2.d-??]
+  - [x] "Kwikpik" Support for H/T [v0.2.d-3]
   - [x] "Kwikpik" Support for Classic / MM [v0.2.d-2]  
   - [x] Custom Numbers Support [v0.2.d-1]
   - [x] Merge Bet Simulator to Monitor [v0.2.d-1]
