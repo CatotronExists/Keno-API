@@ -7,6 +7,7 @@ import time
 import datetime
 from datetime import timedelta
 import sys
+import random
 
 ### Terminal Colors
 import os
@@ -19,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.2"
+MainVersion = "v0.2.d-4"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -33,7 +34,9 @@ first_cooldown = True
 in_menus = True
 main = False
 final_game = 0
-bet_amount = 1 # temp solution for h/t
+picking_mode = 2
+bet_amount = 1
+currency = "$" # $ - normal currency, κ - Koins
 
 def PrintMainUI(): ### Build Terminal Output
     global HTresult_display
@@ -162,20 +165,20 @@ def calculateWin(mode, numbers_matched):
         if multi_status == True: win = win*multiplier # calculate bonus (if enabled)
         else: win = win
 
-        if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
-        else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
+        if win > 0: win_display = (CGREEN + str(currency) + str(win) + CLEAR) # green if win
+        else: win_display = (CRED + str(currency) + str(win) + CLEAR) # red if no win
 
     elif mode == "Heads / Tails":
         if HTresult == HTchoice:
             if HTresult == "Heads" or HTresult == "Tails": 
                 win = bet_amount*2
-                win_display = (CGREEN + "$" + str(win) + CLEAR) 
+                win_display = (CGREEN + str(currency) + str(win) + CLEAR) 
             elif HTresult == "Evens": 
                 win = bet_amount*4
-                win_display = (CGREEN + "$" + str(win) + CLEAR)
+                win_display = (CGREEN + str(currency) + str(win) + CLEAR)
         else: 
             win = 0
-            win_display = (CRED + "$" + str(win) + CLEAR)
+            win_display = (CRED + str(currency) + str(win) + CLEAR)
     total_win += win   
 
 def endScreen():
@@ -185,12 +188,12 @@ def endScreen():
         if multi_status == True: print("Playing Spot " + str(total_numbers) + ", with Bonus Enabled")
         else: print("Playing Spot " + str(total_numbers))
         print("Picked Numbers: " + str(numbers_picked))
-        print("Winnings: $" + str(total_win))
+        print("Winnings: " + str(currency) + str(total_win))
         print("Games: " + CBOLD + str(start_game) + CLEAR + " - " + CBOLD + str(final_game) + CLEAR + " Total Games: " + str(total_games)) 
     elif mode == "Heads / Tails":
         print("Predicted Outcome: " + str(HTchoice))
         print("Outcome: " + str(HTresult))
-        print("Winnings: $" + str(total_win))
+        print("Winnings: " + str(currency) + str(total_win))
         print("Game: " + str(last_game))
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
 
@@ -216,7 +219,7 @@ while menu_choice == -1: # Main Menu
     getData()
     print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
     print("1. Live Game Viewer")
-    print("2. Bet Simulator [0%]")
+    print("2. Bet Simulator [In Development]")
     print("3. Monitor your bet ")
     print("Current Game: " + str(game_number))
     menu_choice = input("------------->>> ")
@@ -241,66 +244,86 @@ while menu_choice != 0:
     if menu_choice == 1: in_menus = False # Live Game Viewer
     if in_menus == True: 
         monitor = True
-        while menu_choice == 2: # Bet Simulator 
+        while menu_choice == 2 or menu_choice == 3: # Bet Simulator & Menu
+            secondary = "n/a"
+            if menu_choice == 2: secondary = "Simulator"
+            elif menu_choice == 3: secondary = "Monitor"
             print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-            print(CBOLD + "" + CLEAR) 
-            print(CRED + CBOLD + "Bet Simulator is not complete at this time" + CLEAR)
-            time.sleep(0.5)
-            print(CRED + CBOLD + "Rerouting to Live Game Viewer..." + CLEAR)
-            time.sleep(1)
-            menu_choice = 0 
-            in_menus = monitor = main = False    
-
-        while menu_choice == 3: # Bet Monitor
-            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-            print(CBOLD + "Bet Monitor" + CLEAR)
-            monitor_menu_choice = 0
-            while monitor_menu_choice == 0:
+            print(CBOLD + "Bet " + secondary + CLEAR)
+            secondary_menu_choice = 0
+            while secondary_menu_choice == 0:
                 print("1. Classic")
                 print("2. Mega Millions")
                 print("3. Heads / Tails")
-                monitor_menu_choice = input("------------->>> ")
-                if monitor_menu_choice.isnumeric():
-                    monitor_menu_choice = int(monitor_menu_choice)
-                    if monitor_menu_choice in mm_vaild:
-                        if monitor_menu_choice == 1:
-                            print("Opening" + CBOLD + " Classic Keno Monitor" + CLEAR)
+                secondary_menu_choice = input("------------->>> ")
+                if secondary_menu_choice.isnumeric():
+                    secondary_menu_choice = int(secondary_menu_choice)
+                    if secondary_menu_choice in mm_vaild:
+                        if secondary_menu_choice == 1:
+                            print("Opening" + CBOLD + " Classic Keno " + secondary + CLEAR)
                             mode = "Classic"
                             time.sleep(1)
                             print("\n")
-                        elif monitor_menu_choice == 2:
-                            print("Opening" + CBOLD + " Mega Million Keno Monitor" + CLEAR)
+                        elif secondary_menu_choice == 2:
+                            print("Opening" + CBOLD + " Mega Million Keno " + secondary + CLEAR)
                             mode = "Mega Million"
                             time.sleep(1)
                             print("\n")                
-                        elif monitor_menu_choice == 3:
-                            print("Opening" + CBOLD + " Heads / Tails Monitor" + CLEAR)
+                        elif secondary_menu_choice == 3:
+                            print("Opening" + CBOLD + " Heads / Tails " + secondary + CLEAR)
                             mode = "Heads / Tails"
                             time.sleep(1)
                             print("\n")
                     else: 
-                        monitor_menu_choice = 0
+                        secondary_menu_choice = 0
                         print(CRED + "Invaild Option" + CLEAR)
                 else: 
-                    monitor_menu_choice = 0
+                    secondary_menu_choice = 0
                     print(CRED + "Invaild Option" + CLEAR)
 
-            if mode == "Heads / Tails": # Heads / Tails Bet Monitor
+            if mode == "Heads / Tails": # Heads / Tails Bet Monitor/Simulator 
                 print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-                print(CBOLD + mode + " Keno Monitor" + CLEAR)
+                print(CBOLD + mode + " Keno " + secondary + CLEAR)
+                if secondary == "Simulator":
+                    picking_mode = 0
+                    currency = "κ"
+                    while picking_mode == 0:
+                        print("How will you pick the outcome?\n1. Kwikpik\n2. Manual")
+                        picking_mode = input("--->> ")
+                        if picking_mode.isnumeric():
+                            picking_mode = int(picking_mode)
+                            if picking_mode == 1 or picking_mode == 2: 
+                                if picking_mode == 1: print("Kwikpik Selceted")
+                                elif picking_mode == 2: print("Manual Selceted")
+                            else: 
+                                picking_mode = 0
+                                print(CRED + "Invaild Option" + CLEAR)
+                        else: 
+                            picking_mode = 0
+                            print(CRED + "Invaild Option" + CLEAR)
+
                 HTchoice = 0  
-                while HTchoice == 0:
-                    HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
-                    if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
-                        HTchoice = HTchoice.capitalize() 
-                        print("You have chosen " + CBOLD + HTchoice + CLEAR) 
-                    else: 
-                        HTchoice = 0
-                        print(CRED + "Invaild Option" + CLEAR)
+                if picking_mode == 1: # Kwikpik
+                    time.sleep(0.5)
+                    HTchoice = random.randint(1,3)
+                    if HTchoice == 1: HTchoice = "Heads"
+                    elif HTchoice == 2: HTchoice = "Evens"
+                    elif HTchoice == 3: HTchoice = "Tails"
+                    print("Auto Picked: " + HTchoice)
+
+                elif picking_mode == 2: # Manual
+                    while HTchoice == 0:
+                        HTchoice = input("What outcome have you picked? (heads/tails/evens): ")
+                        if HTchoice == "tails" or HTchoice == "heads" or HTchoice == "evens":
+                            HTchoice = HTchoice.capitalize() 
+                            print("You have chosen " + CBOLD + HTchoice + CLEAR) 
+                        else: 
+                            HTchoice = 0
+                            print(CRED + "Invaild Option" + CLEAR)
 
                 bet_amount = 0
                 while bet_amount == 0:
-                    bet_amount = input("What is the bet amount\n$")
+                    bet_amount = input("What is the bet amount\n" + str(currency))
                     if bet_amount.isnumeric(): bet_amount = int(bet_amount)
                     else: 
                         bet_amount = 0
@@ -311,22 +334,41 @@ while menu_choice != 0:
                     final_game = input("What game is this bet for: ")
                     if final_game.isnumeric():
                         final_game = int(final_game)
-                        if final_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
+                        if final_game not in range(0,999 + 1): # must be in 000-999
                             final_game = -1
                             print(CRED + "Invaild Option" + CLEAR)  
                     else:
                         final_game = -1
                         print(CRED + "Invaild Option" + CLEAR) 
-
+                last_game = False
                 menu_choice = 0 
                 in_menus = False
 
-            elif mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor
+            elif mode == "Classic" or mode == "Mega Million": # Keno Bet Monitor/Simulator
                 print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-                print(CBOLD + mode + " Keno Monitor" + CLEAR)
+                print(CBOLD + mode + " Keno " + secondary + CLEAR)
+                
+                if secondary == "Simulator":
+                    currency = "κ"
+                    picking_mode = 0
+                    while picking_mode == 0:
+                        print("How will you pick your numbers?\n1. Kwikpik\n2. Manual")
+                        picking_mode = input("--->> ")
+                        if picking_mode.isnumeric():
+                            picking_mode = int(picking_mode)
+                            if picking_mode == 1 or picking_mode == 2: 
+                                if picking_mode == 1: print("Kwikpik Selceted")
+                                elif picking_mode == 2: print("Manual Selceted")
+                            else: 
+                                picking_mode = 0
+                                print(CRED + "Invaild Option" + CLEAR)
+                        else: 
+                            picking_mode = 0
+                            print(CRED + "Invaild Option" + CLEAR)
                 
                 while total_numbers == 0: # How many numbers did the user pick          
-                    total_numbers = input("How many numbers have been picked: ")
+                    if picking_mode == 1: total_numbers = input("How many numbers do you wish to play: ")
+                    else: total_numbers = input("How many numbers have been picked: ")
                     if total_numbers.isnumeric():
                         total_numbers = int(total_numbers)
                         if total_numbers not in km_vaild:
@@ -337,24 +379,30 @@ while menu_choice != 0:
                         print(CRED + "Invaild Option" + CLEAR)
                 print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
 
-                print("Input your picks, type in one number per line")
-                for i in range(total_numbers): # Enter chosen numbers
+                if picking_mode == 1: # Kwikpik
                     pick = 0
-                    while pick == 0: 
-                        pick = input("")
-                        if pick.isnumeric():
-                            pick = int(pick)
-                            if pick in numbers_picked:
-                                pick = 0
-                                print(CRED + "You have already chosen " + str(pick) + CLEAR)
-                            elif pick not in range(1,80 + 1):
+                    pick = random.sample(range(1, 80+1), total_numbers)
+                    numbers_picked = numbers_picked_display = pick
+
+                elif picking_mode == 2: # Manual       
+                    print("Input your picks, type in one number per line")
+                    for i in range(total_numbers): # Enter chosen numbers
+                        pick = 0
+                        while pick == 0: 
+                            pick = input("")
+                            if pick.isnumeric():
+                                pick = int(pick)
+                                if pick in numbers_picked:
+                                    print(CRED + "You have already chosen " + str(pick) + CLEAR)
+                                    pick = 0
+                                elif pick not in range(1,80 + 1):
+                                    pick = 0
+                                    print(CRED + "Invaild Option" + CLEAR)
+                            else:
                                 pick = 0
                                 print(CRED + "Invaild Option" + CLEAR)
-                        else:
-                            pick = 0
-                            print(CRED + "Invaild Option" + CLEAR)
-                    numbers_picked.append(pick)
-                    numbers_picked_display.append(pick)
+                        numbers_picked.append(pick)
+                        numbers_picked_display.append(pick)
                 numbers_picked_display.sort(key = lambda x: x, reverse = False)
                 numbers_picked_display = ", ".join(map(str, numbers_picked_display))
                 print("Numbers Picked: " + str(numbers_picked_display))
@@ -364,7 +412,7 @@ while menu_choice != 0:
                     start_game = input("What is the first game on the ticket: ")
                     if start_game.isnumeric():
                         start_game = int(start_game)
-                        if start_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
+                        if start_game not in range(0,999 + 1): # must be in 000-999
                             start_game = -1
                             print(CRED + "Invaild Option" + CLEAR)     
                     else:
@@ -377,7 +425,7 @@ while menu_choice != 0:
                     final_game = input("What is the final game on the ticket: ")
                     if final_game.isnumeric():
                         final_game = int(final_game)
-                        if final_game not in range(0,999 + 1): # must be in 000-999 ### No functionality yet
+                        if final_game not in range(0,999 + 1): # must be in 000-999
                             final_game = -1
                             print(CRED + "Invaild Option" + CLEAR)  
                         elif final_game == start_game:
@@ -404,7 +452,7 @@ while menu_choice != 0:
 
                 bet_amount = 0                       
                 while bet_amount == 0:
-                    bet_amount = input("What is the bet amount\nIf you have bonus on, half the bet amount shown on your ticket\n$")
+                    bet_amount = input("What is the bet amount\nIf you have bonus on, half the bet amount shown on your ticket\n" + str(currency))
                     if bet_amount.isnumeric(): 
                         bet_amount = int(bet_amount)
                         if bet_amount == 0 or bet_amount < 0: 
@@ -421,7 +469,7 @@ while menu_choice != 0:
                 print("Picked Numbers: " + str(numbers_picked))
                 print("Ending Game: " + str(final_game))
                 if mode == "Classic": print("Bonus Enabled: " + str(multi_status))
-                print("Bet per game: " + str(int(bet_amount/total_games)))
+                print("Bet per game: " + str(currency) + str(int(bet_amount/total_games)))
                 input("Press [Enter] to start\n")
                 if (start_time - current_time) < timedelta(minutes=2, seconds=45): first_cooldown = True
                 last_game = False
