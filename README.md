@@ -26,15 +26,47 @@ API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafsh
 Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Game%20Guide.pdf)\
 *Data is sourced from the Victorian version, win amounts may differ in other states. In future other states will be added! This wont effect jackpots as that data is fetched from the API directly.*
 
-### Roadmap to v0.3
-- [x] v0.3 | Bet Simulator (25/07/2023)
-  - [x] Setup Virtual Money System [v0.2.d-4]
-  - [x] "Kwikpik" Support for H/T [v0.2.d-3]
-  - [x] "Kwikpik" Support for Classic / MM [v0.2.d-2]  
-  - [x] Custom Numbers Support [v0.2.d-1]
-  - [x] Merge Bet Simulator to Monitor [v0.2.d-1]
+### Check List
+- [x] Gets data and Displays in easy to read format
+- [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
+  - [ ] Compatible with Custom Numbers and "Kwikpik"
+- [x] Ability to input your bet and display results in real time
+  - [x] Displays total winnings (per game and total)
+  - [x] Compatible with different modes (Mega Millions, Classic, T/H)
+- [ ] Saves Data to a database
+- [ ] Web page to display data though the use of an API from that database
+- [ ] Full Breakdown of data
+- [ ] Predict most likely to win numbers using trends?
+
+### Roadmap to v1.0
+- [ ] v1.0 | Completion (xx/xx/2023)\
+\\\
+/
+- [ ] v0.9 | ???? (xx/xx/2023)\
+\\\
+/
+- [ ] v0.8 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
+\\\
+/
+- [ ] v0.7 | Browsing Data (xx/xx/2023)\
+\\\
+/
+- [ ] v0.6 | Trends and Graphs (xx/xx/2023)\
+\\\
+/
+- [ ] v0.5 | Data Visualised (xx/xx/2023)\
+\\\
+/
+- [ ] v0.4 | Database Contruction (xx/xx/2023)\
+\\\
+/
+- [ ] v0.3 | Bet Simulation (xx/xx/2023)\
+\\\
+/
 - [x] v0.2 | Bet Monitoring (22/07/2023)\
-*More may be added as development progresses, v0.3 shouldnt take very long*
+\\\
+/
+- [x] v0.1 | First Stable Release (21/06/2023)
 
 ### Disclaimer
 This program is being made for educational purposes only, use at your own risk.
