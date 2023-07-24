@@ -27,8 +27,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts may differ in other states. In future other states will be added! This wont effect jackpots as that data is fetched from the API directly.*
 
 ### Roadmap to v0.3
-- [ ] v0.3 | Bet Simulator EST.(25/07/2023)
-  - [ ] Final Bug Fixes + Testing [v0.2.d-??]
+- [x] v0.3 | Bet Simulator (25/07/2023)
   - [x] Setup Virtual Money System [v0.2.d-4]
   - [x] "Kwikpik" Support for H/T [v0.2.d-3]
   - [x] "Kwikpik" Support for Classic / MM [v0.2.d-2]  
