@@ -20,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.2.d-3"
+MainVersion = "v0.2.d-4"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -36,6 +36,7 @@ main = False
 final_game = 0
 picking_mode = 2
 bet_amount = 1
+currency = "$" # $ - normal currency, κ - Koins
 
 def PrintMainUI(): ### Build Terminal Output
     global HTresult_display
@@ -164,20 +165,20 @@ def calculateWin(mode, numbers_matched):
         if multi_status == True: win = win*multiplier # calculate bonus (if enabled)
         else: win = win
 
-        if win > 0: win_display = (CGREEN + "$" + str(win) + CLEAR) # green if win
-        else: win_display = (CRED + "$" + str(win) + CLEAR) # red if no win
+        if win > 0: win_display = (CGREEN + str(currency) + str(win) + CLEAR) # green if win
+        else: win_display = (CRED + str(currency) + str(win) + CLEAR) # red if no win
 
     elif mode == "Heads / Tails":
         if HTresult == HTchoice:
             if HTresult == "Heads" or HTresult == "Tails": 
                 win = bet_amount*2
-                win_display = (CGREEN + "$" + str(win) + CLEAR) 
+                win_display = (CGREEN + str(currency) + str(win) + CLEAR) 
             elif HTresult == "Evens": 
                 win = bet_amount*4
-                win_display = (CGREEN + "$" + str(win) + CLEAR)
+                win_display = (CGREEN + str(currency) + str(win) + CLEAR)
         else: 
             win = 0
-            win_display = (CRED + "$" + str(win) + CLEAR)
+            win_display = (CRED + str(currency) + str(win) + CLEAR)
     total_win += win   
 
 def endScreen():
@@ -187,12 +188,12 @@ def endScreen():
         if multi_status == True: print("Playing Spot " + str(total_numbers) + ", with Bonus Enabled")
         else: print("Playing Spot " + str(total_numbers))
         print("Picked Numbers: " + str(numbers_picked))
-        print("Winnings: $" + str(total_win))
+        print("Winnings: " + str(currency) + str(total_win))
         print("Games: " + CBOLD + str(start_game) + CLEAR + " - " + CBOLD + str(final_game) + CLEAR + " Total Games: " + str(total_games)) 
     elif mode == "Heads / Tails":
         print("Predicted Outcome: " + str(HTchoice))
         print("Outcome: " + str(HTresult))
-        print("Winnings: $" + str(total_win))
+        print("Winnings: " + str(currency) + str(total_win))
         print("Game: " + str(last_game))
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR)
 
@@ -285,6 +286,7 @@ while menu_choice != 0:
                 print(CBOLD + mode + " Keno " + secondary + CLEAR)
                 if secondary == "Simulator":
                     picking_mode = 0
+                    currency = "κ"
                     while picking_mode == 0:
                         print("How will you pick the outcome?\n1. Kwikpik\n2. Manual")
                         picking_mode = input("--->> ")
@@ -321,7 +323,7 @@ while menu_choice != 0:
 
                 bet_amount = 0
                 while bet_amount == 0:
-                    bet_amount = input("What is the bet amount\n$")
+                    bet_amount = input("What is the bet amount\n" + str(currency))
                     if bet_amount.isnumeric(): bet_amount = int(bet_amount)
                     else: 
                         bet_amount = 0
@@ -347,6 +349,7 @@ while menu_choice != 0:
                 print(CBOLD + mode + " Keno " + secondary + CLEAR)
                 
                 if secondary == "Simulator":
+                    currency = "κ"
                     picking_mode = 0
                     while picking_mode == 0:
                         print("How will you pick your numbers?\n1. Kwikpik\n2. Manual")
@@ -449,7 +452,7 @@ while menu_choice != 0:
 
                 bet_amount = 0                       
                 while bet_amount == 0:
-                    bet_amount = input("What is the bet amount\nIf you have bonus on, half the bet amount shown on your ticket\n$")
+                    bet_amount = input("What is the bet amount\nIf you have bonus on, half the bet amount shown on your ticket\n" + str(currency))
                     if bet_amount.isnumeric(): 
                         bet_amount = int(bet_amount)
                         if bet_amount == 0 or bet_amount < 0: 
@@ -466,7 +469,7 @@ while menu_choice != 0:
                 print("Picked Numbers: " + str(numbers_picked))
                 print("Ending Game: " + str(final_game))
                 if mode == "Classic": print("Bonus Enabled: " + str(multi_status))
-                print("Bet per game: " + str(int(bet_amount/total_games)))
+                print("Bet per game: " + str(currency) + str(int(bet_amount/total_games)))
                 input("Press [Enter] to start\n")
                 if (start_time - current_time) < timedelta(minutes=2, seconds=45): first_cooldown = True
                 last_game = False

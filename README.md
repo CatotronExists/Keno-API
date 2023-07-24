@@ -9,7 +9,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.2.d-3\
+Main - v0.2.d-4\
 Config - v0.1.d-29\
 Api - v0.2.d-1\
 WinList - v0.2.d-2
@@ -27,14 +27,14 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts may differ in other states. In future other states will be added! This wont effect jackpots as that data is fetched from the API directly.*
 
 ### Roadmap to v0.3
-- [x] v0.3 | Bet Simulator EST.(26/07/2023)
+- [ ] v0.3 | Bet Simulator EST.(25/07/2023)
   - [ ] Final Bug Fixes + Testing [v0.2.d-??]
-  - [ ] Setup Virtual Money System [v0.2.d-??]
+  - [x] Setup Virtual Money System [v0.2.d-4]
   - [x] "Kwikpik" Support for H/T [v0.2.d-3]
   - [x] "Kwikpik" Support for Classic / MM [v0.2.d-2]  
   - [x] Custom Numbers Support [v0.2.d-1]
   - [x] Merge Bet Simulator to Monitor [v0.2.d-1]
-- [x] v0.2 | Bet Monitoring (22/07/2023)
+- [x] v0.2 | Bet Monitoring (22/07/2023)\
 *More may be added as development progresses, v0.3 shouldnt take very long*
 
 ### Disclaimer
