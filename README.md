@@ -9,10 +9,10 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.2.d-1\
+Main - v0.2.d-2\
 Config - v0.1.d-29\
 Api - v0.2.d-1\
-WinList - v0.1.d-28
+WinList - v0.2.d-2
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
@@ -30,7 +30,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [x] v0.3 | Bet Simulator EST.(26/07/2023)
   - [ ] Final Bug Fixes + Testing [v0.2.d-??]
   - [ ] Setup Virtual Money System [v0.2.d-??]
-  - [ ] "Kwikpik" Support [v0.2.d-??]  
+  - [ ] "Kwikpik Support for H/T [v0.2.d-??]
+  - [x] "Kwikpik" Support for Classic / MM [v0.2.d-2]  
   - [x] Custom Numbers Support [v0.2.d-1]
   - [x] Merge Bet Simulator to Monitor [v0.2.d-1]
 - [x] v0.2 | Bet Monitoring (22/07/2023)

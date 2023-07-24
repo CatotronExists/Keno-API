@@ -7,6 +7,7 @@ import time
 import datetime
 from datetime import timedelta
 import sys
+import random
 
 ### Terminal Colors
 import os
@@ -19,7 +20,7 @@ CYELLOW = '\33[93m'
 CBEIGE = '\33[36m'
 CBOLD = '\033[1m'
 
-MainVersion = "v0.2.d-1"
+MainVersion = "v0.2.d-2"
 menu_choice = -1
 total_numbers = 0
 numbers_picked = []
@@ -335,24 +336,26 @@ while menu_choice != 0:
                         else: 
                             picking_mode = 0
                             print(CRED + "Invaild Option" + CLEAR)
-
-                while picking_mode == 1: # Kwikpik
-                    print(CRED + "PLACEHOLDER" + CLEAR)
-                    time.sleep(999)
-
-                if picking_mode == 2: # Manual       
-                    while total_numbers == 0: # How many numbers did the user pick          
-                        total_numbers = input("How many numbers have been picked: ")
-                        if total_numbers.isnumeric():
-                            total_numbers = int(total_numbers)
-                            if total_numbers not in km_vaild:
-                                total_numbers = 0
-                                print(CRED + "Invaild Option" + CLEAR)                    
-                        else: 
+                
+                while total_numbers == 0: # How many numbers did the user pick          
+                    if picking_mode == 1: total_numbers = input("How many numbers do you wish to play: ")
+                    else: total_numbers = input("How many numbers have been picked: ")
+                    if total_numbers.isnumeric():
+                        total_numbers = int(total_numbers)
+                        if total_numbers not in km_vaild:
                             total_numbers = 0
-                            print(CRED + "Invaild Option" + CLEAR)
-                    print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
+                            print(CRED + "Invaild Option" + CLEAR)                    
+                    else: 
+                        total_numbers = 0
+                        print(CRED + "Invaild Option" + CLEAR)
+                print("Playing " + CBOLD + str(total_numbers) + CLEAR + " Numbers")
 
+                if picking_mode == 1: # Kwikpik
+                    pick = 0
+                    pick = random.sample(range(1, 80+1), total_numbers)
+                    numbers_picked = numbers_picked_display = pick
+
+                elif picking_mode == 2: # Manual       
                     print("Input your picks, type in one number per line")
                     for i in range(total_numbers): # Enter chosen numbers
                         pick = 0
@@ -371,9 +374,9 @@ while menu_choice != 0:
                                 print(CRED + "Invaild Option" + CLEAR)
                         numbers_picked.append(pick)
                         numbers_picked_display.append(pick)
-                    numbers_picked_display.sort(key = lambda x: x, reverse = False)
-                    numbers_picked_display = ", ".join(map(str, numbers_picked_display))
-                    print("Numbers Picked: " + str(numbers_picked_display))
+                numbers_picked_display.sort(key = lambda x: x, reverse = False)
+                numbers_picked_display = ", ".join(map(str, numbers_picked_display))
+                print("Numbers Picked: " + str(numbers_picked_display))
 
                 start_game = -1
                 while start_game == -1: 
