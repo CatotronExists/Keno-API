@@ -9,7 +9,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.2.d-4\
+Main - v0.3\
 Config - v0.1.d-29\
 Api - v0.2.d-1\
 WinList - v0.2.d-2
@@ -26,47 +26,19 @@ API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafsh
 Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Game%20Guide.pdf)\
 *Data is sourced from the Victorian version, win amounts may differ in other states. In future other states will be added! This wont effect jackpots as that data is fetched from the API directly.*
 
-### Check List
-- [x] Gets data and Displays in easy to read format
-- [ ] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
-  - [ ] Compatible with Custom Numbers and "Kwikpik"
-- [x] Ability to input your bet and display results in real time
-  - [x] Displays total winnings (per game and total)
-  - [x] Compatible with different modes (Mega Millions, Classic, T/H)
-- [ ] Saves Data to a database
-- [ ] Web page to display data though the use of an API from that database
-- [ ] Full Breakdown of data
-- [ ] Predict most likely to win numbers using trends?
-
-### Roadmap to v1.0
-- [ ] v1.0 | Completion (xx/xx/2023)\
-\\\
-/
-- [ ] v0.9 | ???? (xx/xx/2023)\
-\\\
-/
-- [ ] v0.8 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
-\\\
-/
-- [ ] v0.7 | Browsing Data (xx/xx/2023)\
-\\\
-/
-- [ ] v0.6 | Trends and Graphs (xx/xx/2023)\
-\\\
-/
-- [ ] v0.5 | Data Visualised (xx/xx/2023)\
-\\\
-/
-- [ ] v0.4 | Database Contruction (xx/xx/2023)\
-\\\
-/
-- [ ] v0.3 | Bet Simulation (xx/xx/2023)\
-\\\
-/
-- [x] v0.2 | Bet Monitoring (22/07/2023)\
-\\\
-/
-- [x] v0.1 | First Stable Release (21/06/2023)
+### Roadmap to v0.4
+- [ ] v0.4 | Databasing EST.(xx/08/2023)
+  - [ ] Databasing is Complete [v0.3.d-??]
+  - [ ] All game data is saved to a Database [v0.3.d-??]
+  - [ ] Setup.py is created [v0.3.d-??]
+  - [ ] Program gets split [v0.3.d-??]\
+    *At this point the program will be split, A legacy branch will start. This branch will have no databasing and is made as an option if you don't wish to setup a database to use this program. This will also be the place to get a command line interface, rather than the html UI that will come later. It will only be updated if any bugs are discovered*
+  - [ ] Terminal Overhaul [v0.3.d-??]
+  - [ ] Final Rewrite and Streamline before split [v0.3.d-??]
+  - [ ] Addition of other state win lists (if required) [v0.3.d-??]
+  - [ ] Expanded Bet Simulator [v0.3.d-??]
+- [x] v0.3 | Bet Simulator (25/07/2023)\
+*More may be added as development progresses*
 
 ### Disclaimer
 This program is being made for educational purposes only, use at your own risk.
