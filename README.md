@@ -27,19 +27,19 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] v1.0 | Completion (xx/xx/2023)\
 \\\
 /
-- [ ] v0.9 | ???? (xx/xx/2023)\
+- [ ] v0.9 | Browsing Data (xx/xx/2023)\
 \\\
 /
-- [ ] v0.8 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
+- [ ] v0.8 | Trends and Graphs (xx/xx/2023)\
 \\\
 /
-- [ ] v0.7 | Browsing Data (xx/xx/2023)\
+- [ ] v0.7 | Data Visualised (xx/xx/2023)\
 \\\
 /
-- [ ] v0.6 | Trends and Graphs (xx/xx/2023)\
+- [ ] v0.6 | User Input Returns (xx/xx/2023)\
 \\\
 /
-- [ ] v0.5 | Data Visualised (xx/xx/2023)\
+- [ ] v0.5 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
 \\\
 /
 - [ ] v0.4 | Database Contruction (xx/xx/2023)\
