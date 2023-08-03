@@ -1,10 +1,15 @@
-from Api import c_spot7_jackpot, c_spot8_jackpot, c_spot9_jackpot, c_spot10_jackpot, mm_spot7_jackpot, mm_spot8_jackpot, mm_spot9_jackpot, mm_spot10_jackpot
-### WIN LISTS ###
+### KENO DATAVIS ###
+## WINLIST.PY ##
+# Win Lists #
 # Index 0 = 0 numbers matched, Index 1 = 1 number matched, etc.
 # If a value = 0 then there is no prize for that number of matches. eg. Index 3 = 0, 3 numbers matched but a reward of 0
-WinListVersion = "v0.2.d-2"
+winListVersion = "v0.3.d-1"
+c_spot7_jackpot = c_spot8_jackpot = c_spot9_jackpot = c_spot10_jackpot = mm_spot7_jackpot = mm_spot8_jackpot = mm_spot9_jackpot = mm_spot10_jackpot = 0
+def UpdateJackpots():
+    global c_spot7_jackpot, c_spot8_jackpot, c_spot9_jackpot, c_spot10_jackpot, mm_spot7_jackpot, mm_spot8_jackpot, mm_spot9_jackpot, mm_spot10_jackpot 
+    from Api import c_spot7_jackpot, c_spot8_jackpot, c_spot9_jackpot, c_spot10_jackpot, mm_spot7_jackpot, mm_spot8_jackpot, mm_spot9_jackpot, mm_spot10_jackpot
 ### Classic Keno Win Lists
-Classic_Winlists = [
+ClassicWinlists = [
     [0], # makes Index easier to work with
     [0, 3], #c_spot1_WinList
     [0, 0, 12], #c_spot2_WinList
@@ -49,7 +54,7 @@ Classic_Winlists = [
 ]
 
 ### Mega Million Win Lists
-MegaMillion_Winlists = [
+MegaMillionWinlists = [
     [0], # makes Index easier to work with
     [0, 6], #mm_spot1_WinList
     [0, 0, 25], #mm_spot2_WinList
