@@ -28,7 +28,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-1"
+mainVersion = "Legacy-08/2023-1"
 currency = "$" # $ - normal currency, κ - Koins
 vaildSpots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 40]
 picked = []

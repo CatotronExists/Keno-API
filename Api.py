@@ -3,7 +3,7 @@ from Config import app
 from WinList import UpdateJackpots
 import time
 
-apiVersion = "v0.3.d-1"
+apiVersion = "Legacy-08/2023-1"
 
 CRED = '\33[91m'
 CLEAR = '\33[0m'

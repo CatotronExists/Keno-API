@@ -3,7 +3,7 @@
 # Win Lists #
 # Index 0 = 0 numbers matched, Index 1 = 1 number matched, etc.
 # If a value = 0 then there is no prize for that number of matches. eg. Index 3 = 0, 3 numbers matched but a reward of 0
-winListVersion = "v0.3.d-1"
+winListVersion = "Legacy-08/2023-1"
 c_spot7_jackpot = c_spot8_jackpot = c_spot9_jackpot = c_spot10_jackpot = mm_spot7_jackpot = mm_spot8_jackpot = mm_spot9_jackpot = mm_spot10_jackpot = 0
 def UpdateJackpots():
     global c_spot7_jackpot, c_spot8_jackpot, c_spot9_jackpot, c_spot10_jackpot, mm_spot7_jackpot, mm_spot8_jackpot, mm_spot9_jackpot, mm_spot10_jackpot 
