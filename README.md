@@ -1,5 +1,5 @@
 # Keno-DataVis
-A program that gets data from Keno using an API for the purpose of displaying live game data and inputing or simulating bets, in a command line interface.
+A program that gets data from Keno using an API for the purpose of displaying live game data and inputing or simulating bets, in a command line interface. It can be downloaded [here](https://github.com/CatotronExists/Keno-DataVis/releases/download/Legacy_08_2023-1/Keno.DataVis.Legacy-08_2023-1.zip)
 
 ## Legacy Branch
 This is the place to get a command line version of this program.
