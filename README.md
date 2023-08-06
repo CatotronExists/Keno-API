@@ -9,7 +9,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.3.d-1\
+Main - v0.3.d-2\
 Config - v0.3.d-1\
 Api - v0.3.d-1\
 WinList - v0.3.d-1
@@ -31,6 +31,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
   - [ ] Databasing is Complete [v0.3.d-??]
   - [ ] All game data is saved to a Database [v0.3.d-??]
   - [ ] Setup.py is created [v0.3.d-??]
+  - [ ] Database Setup Process is built [v0.3.d-??]
   - [x] Program gets split [v0.3.d-1]\
     *At this point the program will be split, A legacy branch will start. This branch will have no databasing and is made as an option if you don't wish to setup a database to use this program. This will also be the place to get a command line interface, rather than the html Interface that will come later. Legacy will only be updated if any **major** bugs are discovered*
   - [x] Final Rewrite and Streamline before split [v0.3.d-1]
