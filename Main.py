@@ -31,24 +31,10 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-3"
-
+mainVersion = "v0.3.d-4"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
-
-if file == True:
-    with open('Credentials.json') as jsonFile:
-        data = json.load(jsonFile)
-        credentials = "mongodb+srv://" + data["user"] + ":" + data["password"] + data["restOfString"]
-        active = True
-else: 
-    active = False
-    input(CRED + "Setup has not been completed, Run Setup.py" + CLEAR)
-
-client = pymongo.MongoClient(credentials, tlsCAFile=ca)
-db = client["kenoGameData"] # defines db (database)
-gameDataDB = db["GameData"] # defines GameData (GameData Storage)
 #      #
 
 def PrintMainUI(drawNumbers): # Build Main UI
@@ -66,14 +52,15 @@ def PrintMainUI(drawNumbers): # Build Main UI
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
 
     # Data Saving
-    drawString = drawNumbers = ", ".join(map(str, drawNumbers))
-    gameDataDB.insert_one( 
-        {"timeStamp" : startTime,
-        "gameNumber" : gameNumber,
-        "drawNumbers" : drawString,
-        "multiplier" : multiplier,
-        "headTailResult" : HTResult},
-    )
+    if databasing == True:
+        drawString = drawNumbers = ", ".join(map(str, drawNumbers))
+        gameDataDB.insert_one( 
+            {"timeStamp" : startTime,
+            "gameNumber" : gameNumber,
+            "drawNumbers" : drawString,
+            "multiplier" : multiplier,
+            "headTailResult" : HTResult},
+        )
 
 def GetData(): # Sorts API Data
     global currentTime, startTime, gameNumber, bonus, HTResultDisplay, TResult, HResult, multiplier, HTResult, drawNumbers
@@ -137,33 +124,35 @@ def Debug(mainVersion, configVersion, apiVersion, winListVersion, setupVersion):
     print("/// Debug Menu ///")
     print("Main - " + mainVersion + "\nConfig - " + configVersion + "\nApi - " + apiVersion + "\nWinList - " + winListVersion + "\nSetup - " + setupVersion)
 
-while active == True:
-    if configCheck == True: 
-        configErrors = active = 0
+if configCheck == True: 
+    configErrors = active = 0
 
-        if type(cooldown) is int:
-            cooldown = int(cooldown)
-            if cooldown < 140:
-                print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
-                configErrors += 1 
-        else:  
-            if cooldown != "Auto":
-                print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
-                configErrors += 1 
-
-        if countdown == "True" or countdown == "False" or countdown == "Manual": pass
-        else: 
-            print(CRED + "countdown is set to an invaild value {" + str(countdown) +"}, Check config.py for valid values" + CLEAR)
+    if type(cooldown) is int:
+        cooldown = int(cooldown)
+        if cooldown < 140:
+            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
             configErrors += 1 
-        
-        if configErrors != 0: input(CRED + str(configErrors) + " Config Errors Found" + CLEAR)
-        else:
-            print(CYELLOW + "Getting First Time API Data..." + CLEAR)
-            GetData()
+    else:  
+        if cooldown != "Auto":
+            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
+            configErrors += 1 
+
+    if countdown == "True" or countdown == "False" or countdown == "Manual": pass
+    else: 
+        print(CRED + "countdown is set to an invaild value {" + str(countdown) +"}, Check config.py for valid values" + CLEAR)
+        configErrors += 1 
+    
+    if configErrors != 0: input(CRED + str(configErrors) + " Config Errors Found" + CLEAR)
     else:
+        active = True
         print(CYELLOW + "Getting First Time API Data..." + CLEAR)
         GetData()
+else:
+    active = True
+    print(CYELLOW + "Getting First Time API Data..." + CLEAR)
+    GetData()
 
+while active == True:
     while configErrors == 0:
         mainChoice = 0
         while mainChoice == 0:
@@ -186,7 +175,21 @@ while active == True:
         time.sleep(1)
         print("\n"*4)
 
-        if mainChoice == 1: databasing = True # Databasing
+        if mainChoice == 1: # Databasing
+            databasing = True
+            if file == True:
+                with open('Credentials.json') as jsonFile:
+                    data = json.load(jsonFile)
+                    credentials = "mongodb+srv://" + data["user"] + ":" + data["password"] + data["restOfString"]
+                    active = True
+                    client = pymongo.MongoClient(credentials, tlsCAFile=ca)
+                    db = client["kenoGameData"] # defines db (database)
+                    gameDataDB = db["GameData"] # defines GameData (GameData Storage)
+            else: 
+                databasing = False
+                active = False
+                print(CRED + "Setup has not been completed, Run Setup.py" + CLEAR + "\nRunning without Databasing Enabled in 3 seconds")
+                time.sleep(3)
         elif mainChoice == 2: databasing = False # No Databasing
         while True:
             PrintMainUI(drawNumbers)
