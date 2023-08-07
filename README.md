@@ -9,16 +9,20 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.3.d-2\
+Main - v0.3.d-3\
 Config - v0.3.d-1\
-Api - v0.3.d-1\
-WinList - v0.3.d-1
+Api - v0.3.d-3\
+WinList - v0.3.d-1\
+Setup - v0.3.d-3
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
-### Setup
-Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
-Once installed run the program by opening Main.py
+### Setup [WIP]
+0. Download all files in the ActiveDev Branch/Latest Release
+1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
+2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
+3. Follow this database setup guide (No guide at this time)
+4. Run Setup.py, if any errors occur repeat step 3 then open an issue with the 'help' label.
 
 ### Credits
 API Created by "JGolafshan" - Joshua Golafshan [API](https://github.com/JGolafshan/keno-api)
@@ -29,9 +33,10 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 ### Roadmap to v0.4
 - [ ] v0.4 | Databasing EST.(xx/08/2023)
   - [ ] Databasing is Complete [v0.3.d-??]
-  - [ ] All game data is saved to a Database [v0.3.d-??]
-  - [ ] Setup.py is created [v0.3.d-??]
-  - [ ] Database Setup Process is built [v0.3.d-??]
+  - [ ] All game data is saved to a Database in a time series [v0.3.d-??]
+  - [ ] Setup Guides are complete [v0.3.d-??]
+  - [x] Setup.py is created [v0.3.d-??]
+  - [x] Database Setup Process is built [v0.3.d-??]
   - [x] Program gets split [v0.3.d-1]\
     *At this point the program will be split, A legacy branch will start. This branch will have no databasing and is made as an option if you don't wish to setup a database to use this program. This will also be the place to get a command line interface, rather than the html Interface that will come later. Legacy will only be updated if any **major** bugs are discovered*
   - [x] Final Rewrite and Streamline before split [v0.3.d-1]

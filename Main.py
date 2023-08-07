@@ -6,12 +6,16 @@ import time
 import datetime
 from datetime import timedelta
 import sys
+import pymongo
+import certifi
+import json
 #         #
 
 # Files #
 from Config import configVersion, configCheck, countdown, cooldown
 from Api import GetAPI, apiVersion, GetJackpots
 from WinList import winListVersion, ClassicWinlists, MegaMillionWinlists
+from Setup import setupVersion
 #       #
 
 # Terminal Colors #
@@ -27,7 +31,24 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-2"
+mainVersion = "v0.3.d-3"
+
+path = './Credentials.json'
+file = os.path.exists(path)
+ca = certifi.where()
+
+if file == True:
+    with open('Credentials.json') as jsonFile:
+        data = json.load(jsonFile)
+        credentials = "mongodb+srv://" + data["user"] + ":" + data["password"] + data["restOfString"]
+        active = True
+else: 
+    active = False
+    input(CRED + "Setup has not been completed, Run Setup.py" + CLEAR)
+
+client = pymongo.MongoClient(credentials, tlsCAFile=ca)
+db = client["kenoGameData"] # defines db (database)
+gameDataDB = db["GameData"] # defines GameData (GameData Storage)
 #      #
 
 def PrintMainUI(drawNumbers): # Build Main UI
@@ -43,6 +64,16 @@ def PrintMainUI(drawNumbers): # Build Main UI
     print("Multiplier: " + str(bonus))
     print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
+
+    # Data Saving
+    drawString = drawNumbers = ", ".join(map(str, drawNumbers))
+    gameDataDB.insert_one( 
+        {"timeStamp" : startTime,
+        "gameNumber" : gameNumber,
+        "drawNumbers" : drawString,
+        "multiplier" : multiplier,
+        "headTailResult" : HTResult},
+    )
 
 def GetData(): # Sorts API Data
     global currentTime, startTime, gameNumber, bonus, HTResultDisplay, TResult, HResult, multiplier, HTResult, drawNumbers
@@ -82,16 +113,10 @@ def GetData(): # Sorts API Data
     HResult = liveData["heads"] # Number of head numbers
     TResult = liveData["tails"] # Number of tail numbers
 
-    # Data Saving
-    
-
-
-
-
 def Wait(currentTime, startTime, cooldown): # Cooldown between calls
     if cooldown == "Auto": # Calculate auto cooldown
         timeDelta = currentTime - startTime
-        cooldown = 160 - (int(timeDelta.total_seconds()))
+        cooldown = (160 - (int(timeDelta.total_seconds()))) + 5
     else: cooldown = cooldown # Use Config 
     if countdown == "True":
         for i in reversed(range(cooldown + 1)): 
@@ -108,66 +133,62 @@ def Wait(currentTime, startTime, cooldown): # Cooldown between calls
     elif countdown == "Manual": input("")
     else: time.sleep(cooldown)
 
-def Debug(mainVersion, configVersion, apiVersion, winListVersion):
+def Debug(mainVersion, configVersion, apiVersion, winListVersion, setupVersion):
     print("/// Debug Menu ///")
-    print("Main - " + mainVersion + "\nConfig - " + configVersion + "\nApi - " + apiVersion + "\nWinList - " + winListVersion)
-
-if configCheck == True: 
-    configErrors = active = 0
-
-    if type(cooldown) is int:
-        cooldown = int(cooldown)
-        if cooldown < 140:
-            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
-            configErrors += 1 
-    else:  
-        if cooldown != "Auto":
-            print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
-            configErrors += 1 
-
-    if countdown == "True" or countdown == "False" or countdown == "Manual": pass
-    else: 
-        print(CRED + "countdown is set to an invaild value {" + str(countdown) +"}, Check config.py for valid values" + CLEAR)
-        configErrors += 1 
-    
-    if configErrors != 0:
-        print(CRED + str(configErrors) + " Config Errors Found" + CLEAR)
-    else:
-        active = True
-        print(CYELLOW + "Getting First Time API Data..." + CLEAR)
-        GetData()
-        GetJackpots()
-else:
-    active = True
-    print(CYELLOW + "Getting First Time API Data..." + CLEAR)
-    GetData()
-    GetJackpots()
+    print("Main - " + mainVersion + "\nConfig - " + configVersion + "\nApi - " + apiVersion + "\nWinList - " + winListVersion + "\nSetup - " + setupVersion)
 
 while active == True:
-    mainChoice = 0
-    while mainChoice == 0:
-        print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-        print(CBOLD + "1. " + CLEAR + "Live Game Viewer (With Databasing)")
-        print(CBOLD + "2. " + CLEAR + "Live Game Viewer (Without Databasing)")
-        mainChoice = input("--->> ")
-        if mainChoice.isnumeric():
-            mainChoice = int(mainChoice)
-            if mainChoice == 1: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer: Database Edition" + CLEAR)
-            elif mainChoice == 2: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer" + CLEAR)
-            else: 
+    if configCheck == True: 
+        configErrors = active = 0
+
+        if type(cooldown) is int:
+            cooldown = int(cooldown)
+            if cooldown < 140:
+                print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
+                configErrors += 1 
+        else:  
+            if cooldown != "Auto":
+                print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
+                configErrors += 1 
+
+        if countdown == "True" or countdown == "False" or countdown == "Manual": pass
+        else: 
+            print(CRED + "countdown is set to an invaild value {" + str(countdown) +"}, Check config.py for valid values" + CLEAR)
+            configErrors += 1 
+        
+        if configErrors != 0: input(CRED + str(configErrors) + " Config Errors Found" + CLEAR)
+        else:
+            print(CYELLOW + "Getting First Time API Data..." + CLEAR)
+            GetData()
+    else:
+        print(CYELLOW + "Getting First Time API Data..." + CLEAR)
+        GetData()
+
+    while configErrors == 0:
+        mainChoice = 0
+        while mainChoice == 0:
+            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+            print(CBOLD + "1. " + CLEAR + "Live Game Viewer (With Databasing)")
+            print(CBOLD + "2. " + CLEAR + "Live Game Viewer (Without Databasing)")
+            mainChoice = input("--->> ")
+            if mainChoice.isnumeric():
+                mainChoice = int(mainChoice)
+                if mainChoice == 1: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer: Database Edition" + CLEAR)
+                elif mainChoice == 2: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer" + CLEAR)
+                else: 
+                    mainChoice = 0
+                    print(CRED + "Invaild Option" + CLEAR)
+            elif mainChoice == "debug": Debug(mainVersion, configVersion, apiVersion, winListVersion, setupVersion)
+            else:
                 mainChoice = 0
                 print(CRED + "Invaild Option" + CLEAR)
-        elif mainChoice == "debug": Debug(mainVersion, configVersion, apiVersion, winListVersion)
-        else:
-            mainChoice = 0
-            print(CRED + "Invaild Option" + CLEAR)
-    
-    time.sleep(1)
-    print("\n"*4)
+        
+        time.sleep(1)
+        print("\n"*4)
 
-    if mainChoice == 1: databasing = True # Databasing
-    elif mainChoice == 2: databasing = False # No Databasing
-    while True:
-        GetData()
-        PrintMainUI(drawNumbers)
-        Wait(currentTime, startTime, cooldown)
+        if mainChoice == 1: databasing = True # Databasing
+        elif mainChoice == 2: databasing = False # No Databasing
+        while True:
+            PrintMainUI(drawNumbers)
+            Wait(currentTime, startTime, cooldown)
+            GetData()
