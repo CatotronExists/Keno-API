@@ -1,6 +1,7 @@
 ### DATABASE SETUP FOR KENO DATAVIS ###
 import time
 import json
+import sys
 import pymongo
 import certifi
 ca = certifi.where()
@@ -36,11 +37,9 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
         input(CRED + "Setup Process hasn't been fully tested, it may not fully work at this time. Press [Enter] to Proceed anyway" + CLEAR)
         print(CYELLOW + "Preforming First Time Setup..." + CLEAR)
         time.sleep(1)
-        print(CYELLOW + "Complete the intructions in this guide before proceeding\n    " + CLEAR + CBLUE + "[Link to github gist page (soon)] " + CLEAR)
+        print(CYELLOW + "Complete the intructions in this guide before proceeding\n    " + CLEAR + CBLUE + "[https://gist.github.com/CatotronExists/2776b4175cb21c23d10f16a62a3f68f0] " + CLEAR)
         time.sleep(0.3)
         input("If you have already completed those intructions, Press [Enter] to proceed")
-
-        # Credential Inputs
 
         print(CYELLOW + "Proceeding with Setup..." + CLEAR)
         while credentials == 0:
@@ -52,6 +51,7 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
 
             input(CBOLD + CYELLOW + "\n[Full Credentials, Do not share this with anyone] | Press [Enter] to proceed to next step\n" + CLEAR + CBLUE + str(credentials) + CLEAR)
             print(CYELLOW + "Pinging Database..." + CLEAR)
+
             client = pymongo.MongoClient(credentials, tlsCAFile=ca)
             try: # Send to MongoDB
                 client.admin.command('ping')
@@ -65,13 +65,27 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
             print(CYELLOW + "Configuring Database...")
             try: 
                 db = client["kenoGameData"] # defines db (database)
+                db.create_collection("GameData") # Create GameData
                 gameDataDB = db["GameData"] # defines GameData (GameData Storage)
+                wait = 21
+                for i in reversed(range(wait)): 
+                    if i == 0: # if countdown is 0 -> show 0 then clear line
+                        sys.stdout.write("\r" + CBEIGE + "         Waiting for Changes...[" + str(i) + " seconds remaining]      " + CLEAR)
+                        sys.stdout.flush()    
+                        time.sleep(1)
+                        sys.stdout.write("\r")
+                        sys.stdout.flush()
+                    else:    
+                        sys.stdout.write("\r" + CBEIGE + "         Waiting for Changes...[" + str(i) + " seconds remaining]      " + CLEAR)
+                        sys.stdout.flush()
+                        time.sleep(1)
+
             except Exception as e: 
                 error = True
                 print(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you setup MongoDB correctly!")
 
         if error != True:
-            print(CYELLOW + "         Vaildating Changes..." + CLEAR)
+            print(CYELLOW + "         Vaildating Changes...                                 " + CLEAR)
             time.sleep(0.7)
             try:
                 db.validate_collection("GameData")
@@ -90,12 +104,4 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
 
             input(CGREEN + "Setup is complete, you may now close this window\n" + CLEAR) ### END
 
-setupVersion = "v0.3.d-3"
-
-### PREFORM FULL TEST RUN + document steps
-
-###
-# Create a mongodb account [here](link)
-# 
-
-# make sure your user is an atlas admin
+setupVersion = "v0.3.d-5"

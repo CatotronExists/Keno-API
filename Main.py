@@ -31,7 +31,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-4"
+mainVersion = "v0.3.d-5"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
@@ -51,11 +51,12 @@ def PrintMainUI(drawNumbers): # Build Main UI
     print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
 
-    # Data Saving
+    # Data Saving INCOMPLETE, ENABLING THIS WILL FILL YOUR DATABASE WITH DATA THAT ISNT SETUP CORRECTLY YET
+    databasing = False
     if databasing == True:
         drawString = drawNumbers = ", ".join(map(str, drawNumbers))
-        gameDataDB.insert_one( 
-            {"timeStamp" : startTime,
+        gameDataDB.insert_one(
+            {"timeSeries" : "$timestamp",
             "gameNumber" : gameNumber,
             "drawNumbers" : drawString,
             "multiplier" : multiplier,
