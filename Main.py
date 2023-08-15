@@ -31,7 +31,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-6"
+mainVersion = "v0.4"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
