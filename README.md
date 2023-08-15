@@ -31,15 +31,15 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] Predict most likely to win numbers using trends?
 
 ### Roadmap to v1.0
-- [ ] v1.0 | Completion (xx/xx/2023)\
-- [ ] v0.9 | Browsing Data (xx/xx/2023)\
-- [ ] v0.8 | Trends and Graphs (xx/xx/2023)\
-- [ ] v0.7 | Data Visualised (xx/xx/2023)\
-- [ ] v0.6 | User Input Returns (xx/xx/2023)\
-- [ ] v0.5 | Migration to Python Backend, Html Frontend (xx/xx/2023)\
-- [x] v0.4 | Database Connection (15/08/2023)\
-- [x] v0.3 | Bet Simulation (25/07/2023)\
-- [x] v0.2 | Bet Monitoring (22/07/2023)\
+- [ ] v1.0 | Completion (xx/xx/2023)
+- [ ] v0.9 | Browsing Data (xx/xx/2023)
+- [ ] v0.8 | Trends and Graphs (xx/xx/2023)
+- [ ] v0.7 | Data Visualised (xx/xx/2023)
+- [ ] v0.6 | User Input Returns (xx/xx/2023)
+- [ ] v0.5 | Migration to Python Backend, Html Frontend (xx/xx/2023)
+- [x] v0.4 | Database Connection (15/08/2023)
+- [x] v0.3 | Bet Simulation (25/07/2023)
+- [x] v0.2 | Bet Monitoring (22/07/2023)
 - [x] v0.1 | First Stable Release (21/06/2023)
 
 ### Disclaimer
