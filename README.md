@@ -1,9 +1,11 @@
 # Keno-DataVis
 A program that gets data from Keno using an API for the purpose of displaying and interacting with the data. For now the program is in it's early stages, only a basic command line interface for now but there is alot planned. 
 
-### Setup 
-**NOTE: WHEN SWITCHING BETWEEN DEV VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
+## Branches
+[Legacy](https://github.com/CatotronExists/Keno-DataVis/tree/Legacy) - A version where the program is Command Line Based (without Databasing)\
+[ActiveDev](https://github.com/CatotronExists/Keno-DataVis/tree/ActiveDev) - Place to test developement as it happens
 
+### Setup 
 0. Download all files in the ActiveDev Branch/Latest Release
 1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
 2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
