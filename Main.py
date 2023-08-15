@@ -31,7 +31,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.3.d-5"
+mainVersion = "v0.3.d-6"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
@@ -51,12 +51,10 @@ def PrintMainUI(drawNumbers): # Build Main UI
     print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
 
-    # Data Saving INCOMPLETE, ENABLING THIS WILL FILL YOUR DATABASE WITH DATA THAT ISNT SETUP CORRECTLY YET
-    databasing = False
     if databasing == True:
         drawString = drawNumbers = ", ".join(map(str, drawNumbers))
         gameDataDB.insert_one(
-            {"timeSeries" : "$timestamp",
+            {"timestamp" : startTime,
             "gameNumber" : gameNumber,
             "drawNumbers" : drawString,
             "multiplier" : multiplier,
@@ -104,7 +102,7 @@ def GetData(): # Sorts API Data
 def Wait(currentTime, startTime, cooldown): # Cooldown between calls
     if cooldown == "Auto": # Calculate auto cooldown
         timeDelta = currentTime - startTime
-        cooldown = (160 - (int(timeDelta.total_seconds()))) + 5
+        cooldown = (160 - (int(timeDelta.total_seconds()))) + 10
     else: cooldown = cooldown # Use Config 
     if countdown == "True":
         for i in reversed(range(cooldown + 1)): 

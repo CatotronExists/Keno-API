@@ -65,7 +65,9 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
             print(CYELLOW + "Configuring Database...")
             try: 
                 db = client["kenoGameData"] # defines db (database)
-                db.create_collection("GameData") # Create GameData
+                db.create_collection('GameData', timeseries={
+                    'timeField': 'timestamp'
+                })
                 gameDataDB = db["GameData"] # defines GameData (GameData Storage)
                 wait = 21
                 for i in reversed(range(wait)): 
@@ -88,7 +90,7 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
             print(CYELLOW + "         Vaildating Changes...                                 " + CLEAR)
             time.sleep(0.7)
             try:
-                db.validate_collection("GameData")
+                client.db.command('ping')
             except Exception as e: 
                 error = True
                 input(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you set MongoDB permissions correctly!")
@@ -104,4 +106,4 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
 
             input(CGREEN + "Setup is complete, you may now close this window\n" + CLEAR) ### END
 
-setupVersion = "v0.3.d-5"
+setupVersion = "v0.3.d-6"

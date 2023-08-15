@@ -9,15 +9,17 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.3.d-5\
+Main - v0.3.d-6\
 Config - v0.3.d-1\
 Api - v0.3.d-3\
 WinList - v0.3.d-1\
-Setup - v0.3.d-5
+Setup - v0.3.d-6
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
-### Setup [WIP]
+### Setup 
+**NOTE: WHEN SWITCHING BETWEEN DEV VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
+
 0. Download all files in the ActiveDev Branch/Latest Release
 1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
 2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
@@ -31,9 +33,9 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts are the same across all states (as of now). If any win data is wrong, open an issue!*
 
 ### Roadmap to v0.4
-- [ ] v0.4 | Databasing EST.(xx/08/2023)
-  - [ ] Databasing is Complete [v0.3.d-??]
-  - [ ] All game data is saved to a Database in a time series [v0.3.d-??]
+- [x] v0.4 | Databasing (15/08/2023)
+  - [x] Databasing is Complete [v0.3.d-6]
+  - [x] All game data is saved to a Database in a time series [v0.3.d-6]
   - [x] Setup Guides are complete [v0.3.d-5]
   - [x] Setup.py is created [v0.3.d-4]
   - [x] Database Setup Process is built [v0.3.d-4]
