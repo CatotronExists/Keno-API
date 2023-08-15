@@ -1,2 +1,13 @@
+# Python Cache
 **/__pycache__
-*patchnotes.txt
+
+# Notes
+*.txt
+
+# Testing
+*test.py
+
+# Credentials
+*.json
+
+# Unready
