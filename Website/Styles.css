@@ -1,0 +1,12 @@
+/* Headers */
+h1 {
+    font-size: 45px;
+}
+
+/* Footer */
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+}
