@@ -18,7 +18,7 @@ Setup - v0.3.d-6
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-Index - v0.4.d-1
+Index - v0.4.d-2
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 

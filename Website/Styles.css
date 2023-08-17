@@ -1,12 +1,53 @@
-/* Headers */
+/*html {
+    background-color: rgb(199, 194, 188);
+} */
+
 h1 {
     font-size: 45px;
+    background-color: rgb(199, 194, 188);
+    border-bottom: 3px solid rgb(180, 175, 168);
+}
+
+/* Side Menu */
+#sideBar {
+    background-color: rgb(199, 194, 188);
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 100px;
+    padding-left: 30px;
+}
+
+.sideNav a {
+    padding: 10px, 10px, 10px, 10px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    line-height: 75px;
+    display: block;
+}
+
+.sideNav a:hover {
+    background-color: rgb(153, 149, 149);
+}
+
+/* Main */
+body {
+    padding-left: 175px;
+    border-left: 3px solid rgb(180, 175, 168);
+    background-color: white;
 }
 
 /* Footer */
-
 footer {
     position: fixed;
     bottom: 0px;
-    text-align: center;
+    text-align: left;
+    line-height: 50px;
+    padding-left: 10px;
+    height: 75px;
+    width: 100%;
+    background-color: rgb(199, 194, 188);
 }
