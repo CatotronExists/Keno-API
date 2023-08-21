@@ -6,6 +6,7 @@ h1 {
     font-size: 45px;
     background-color: rgb(199, 194, 188);
     border-bottom: 3px solid rgb(180, 175, 168);
+    padding-left: 5px;
 }
 
 /* Side Menu */
@@ -35,9 +36,12 @@ h1 {
 
 /* Main */
 body {
-    padding-left: 175px;
-    border-left: 3px solid rgb(180, 175, 168);
+    padding-left: 172px;
     background-color: white;
+}
+
+#Main {
+    padding-left: 10px;
 }
 
 /* Footer */

@@ -15,5 +15,8 @@ function getData()
 
         var headTailResult = document.getElementById("headTailResult");
         headTailResult.innerHTML = "evens"
+
+        var APICalls = document.getElementById("APICalls");
+        APICalls.innerHTML = "39"
     }
 

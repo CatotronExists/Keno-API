@@ -42,7 +42,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
   - [ ] Basic HTML is Complete [v0.4.d-??]
   - [ ] Further work to UI [v0.4.d-??]
   - [ ] Start Migration away from a Command Line Input [v0.4.d-??]\
-    *This will remove most user input, As the plan is to only have the python script getting the API data*\
+    *This will remove most user input, As the plan is to only have the python script getting the API data*
   - [ ] Fetch and Display Data [v0.4.d-??]
   - [x] Create Basic HTML Interface [v0.4.d-1]
 - [x] v0.4 | Database Connection (15/08/2023)\
