@@ -19,14 +19,16 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts are the same across all states (as of now). If any win data is wrong, open an issue!*
 
 ### Check List
+#### Legacy
 - [x] Gets data and Displays in easy to read format
 - [x] Simulate betting (using a virtual money system, choose numbers and see how much you would win)
   - [x] Compatible with Custom Numbers and "Kwikpik"
 - [x] Ability to input your bet and display results in real time
   - [x] Displays total winnings (per game and total)
   - [x] Compatible with different modes (Mega Millions, Classic, T/H)
+#### Main
 - [x] Saves Data to a database
-- [ ] Web page to display data though the use of an API from that database
+- [ ] Web page to display data from database
 - [ ] Full Breakdown of data
 - [ ] Predict most likely to win numbers using trends?
 
