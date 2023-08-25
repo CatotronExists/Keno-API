@@ -10,15 +10,15 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.4\
+Main - v0.4.d-3\
 Config - v0.3.d-1\
 Api - v0.3.d-3\
 WinList - v0.3.d-1\
-Setup - v0.3.d-6
+Setup - v0.4.d-3
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-Index - v0.4.d-2
+Index - v0.4.d-3
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
@@ -50,4 +50,4 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 
 ### Disclaimer
 This program is being made for educational purposes only, use at your own risk.
-If you wish to use this program you have to download and run it on your machine, there will be no public database. You have to collect it, which can be done with this program.
+If you wish to use this program you have to download and run it on your machine, there will be no public database. You have to collect the data, which can be done with this program.

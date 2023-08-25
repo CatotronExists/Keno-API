@@ -106,4 +106,4 @@ if __name__ == "__main__": # Python should ingore prints/input on import :/
 
             input(CGREEN + "Setup is complete, you may now close this window\n" + CLEAR) ### END
 
-setupVersion = "v0.3.d-6"
+setupVersion = "v0.4.d-3"

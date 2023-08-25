@@ -31,7 +31,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.4"
+mainVersion = "v0.4.d-3"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
@@ -52,12 +52,15 @@ def PrintMainUI(drawNumbers): # Build Main UI
     print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
 
     if databasing == True:
+        # Create string version of everything
         drawString = drawNumbers = ", ".join(map(str, drawNumbers))
+        gameNumberString = str(gameNumber)
+        multiplierString = str(multiplier)
         gameDataDB.insert_one(
             {"timestamp" : startTime,
-            "gameNumber" : gameNumber,
+            "gameNumber" : gameNumberString,
             "drawNumbers" : drawString,
-            "multiplier" : multiplier,
+            "multiplier" : multiplierString,
             "headTailResult" : HTResult},
         )
 

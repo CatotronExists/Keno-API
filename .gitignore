@@ -8,6 +8,6 @@
 *test.py
 
 # Credentials
-*.json
+*Credentials.json
 
 # Unready
