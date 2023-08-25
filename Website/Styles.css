@@ -1,9 +1,6 @@
-/*html {
-    background-color: rgb(199, 194, 188);
-} */
-
 h1 {
     font-size: 45px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: rgb(199, 194, 188);
     border-bottom: 3px solid rgb(180, 175, 168);
     padding-left: 5px;
@@ -24,7 +21,10 @@ h1 {
 .sideNav a {
     padding: 10px, 10px, 10px, 10px;
     text-decoration: none;
-    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 20px;
     color: black;
     line-height: 75px;
     display: block;
@@ -32,6 +32,10 @@ h1 {
 
 .sideNav a:hover {
     background-color: rgb(153, 149, 149);
+}
+
+.sideNavCurrent {
+    background-color: rgb(167, 150, 150);
 }
 
 /* Main */
@@ -44,11 +48,24 @@ body {
     padding-left: 10px;
 }
 
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p2  {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 /* Footer */
 footer {
     position: fixed;
     bottom: 0px;
     text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 50px;
     padding-left: 10px;
     height: 75px;

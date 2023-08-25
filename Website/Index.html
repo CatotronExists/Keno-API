@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="Styles.css">
         <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
         <script src="main.js"></script>
-
     </head>
 
     <body onload="getData()">
@@ -16,36 +15,45 @@
 
         <div id="sideBar">
             <div class="sideNav">
-                <a href="#">Home</a>
-                <a href="#">Live Game</a>
-                <a href="#">Bet Simulator</a>
-                <a href="#">Bet Monitor</a>
+                <a href="#"><s>Home</s></a>
+                <a href="#" class="sideNavCurrent">Live Game</a>
+                <a href="#"><s>Bet Simulator</s></a>
+                <a href="#"><s>Bet Monitor</s></a>
+                <a href="#"><s>Game History</s></a>
+                <a href="#"><s>Data Breakdown</s></a>
             </div>
         </div>
+
         <div id="Main">
             <div id="gameDisplay">
                 <h2>Live Game Viewer</h2>
+                <div id="gameTimeDisplay">
+                    <p1>Game Started At: <b><label id="gameTime">Loading...</label></b></p1>
+                </div>
                 <div id="gameNumberDisplay">
-                    <p1>Current Game: <label id="gameNumber">n/a</label></p1>
+                    <p1>Current Game: <b><label id="gameNumber">Loading...</label></b></p1>
                 </div>
                 <div id="drawNumbersDisplay">
-                    <p1>Draw Numbers: <label id="drawNumbers">n/a</label></p1>
+                    <p1>Draw Numbers: <b><label id="drawNumbers">Loading...</label></b></p1>
                 </div>
                 <div id="multiplierDisplay">
-                    <p1>Game Multiplier: <label id="multiplier">n/a</label></p1>
+                    <p1>Game Multiplier: <b><label id="multiplier">Loading...</label></b></p1>
                 </div>
                 <div id="headTailResultDisplay">
-                    <p1>Head / Tails Result: <label id="headTailResult">n/a</label></p1>
+                    <p1>Head / Tails Result: <b><label id="headTailResult">Loading...</label></b></p1>
                 </div>
             </div>
             <div id="Stats">
                 <h2>Stats</h2>
-                <p2>Total API Calls: <label id="APICalls"></label></p2>
+                <p2>Total API Calls: <b><label id="APICalls">Loading...</label></b></p2>
+                <br>
+                <p2>Time Spent Here: <b><label id="timeSpent">Loading...</label></b></p2>
             </div>
         </div>
+        
         <footer>
             <div id="footer">
-                <p2>Created by CatotronExists on Github // Version v0.4.d-3</p2>
+                <p2>Created by CatotronExists on <b>Github</b> // Version v0.4.d-4</p2>
             </div>
         </footer>
     </body>

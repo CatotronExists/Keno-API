@@ -1,5 +1,4 @@
 const app = new Realm.App({ id: "data-wlrnc" });
-
 const apiKey = ""
 
 async function login(apiKey) {
@@ -24,6 +23,10 @@ async function retrieveData(app) {
 }
 
 async function displayData(result) {
+  var gameTime = document.getElementById("gameTime");
+  gameTime.innerHTML = "Unknown"
+  /*gameTime.innerHTML = result[""] */
+
   var gameNumber = document.getElementById("gameNumber");
   gameNumber.innerHTML = result["gameNumber"];
 
@@ -38,6 +41,9 @@ async function displayData(result) {
 
   var APICalls = document.getElementById("APICalls");
   APICalls.innerHTML = "39" // Data is not saved yer [Placeholder]
+
+  var timeSpent = document.getElementById("timeSpent");
+  timeSpent.innerHTML = "0 Seconds"
 }
 
 async function getData() {

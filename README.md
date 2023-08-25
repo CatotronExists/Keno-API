@@ -18,7 +18,7 @@ Setup - v0.4.d-3
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-Index - v0.4.d-3
+Index - v0.4.d-4
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
@@ -43,7 +43,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
   - [ ] Further work to UI [v0.4.d-??]
   - [ ] Start Migration away from a Command Line Input [v0.4.d-??]\
     *This will remove most user input, As the plan is to only have the python script getting the API data*
-  - [ ] Fetch and Display Data [v0.4.d-??]
+  - [ ] Create placeholder pages [v0.4.d-??]
+  - [x] Fetch and Display Data [v0.4.d-3]
   - [x] Create Basic HTML Interface [v0.4.d-1]
 - [x] v0.4 | Database Connection (15/08/2023)\
 *More may be added/removed as development progresses*
