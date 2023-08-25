@@ -18,7 +18,13 @@ Setup - v0.4.d-3
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-Index - v0.4.d-4
+
+Index - v0.4.d-5\
+Live Game - v0.4.d-5\
+Bet Monitor - v0.4.d-5\
+Bet Simulator - v0.4.d-5\
+Historical Data - v0.4.d-5\
+Data Breakdown - v0.4.d-5\
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
@@ -38,12 +44,12 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts are the same across all states (as of now). If any win data is wrong, open an issue!*
 
 ### Roadmap to v0.5
-- [ ] v0.5 | Migration to Python Backend, Html Frontend    EST.(2x/08/2023)
+- [ ] v0.5 | Migration to Python Backend, Html Frontend    EST.(28/08/2023)
   - [ ] Basic HTML is Complete [v0.4.d-??]
   - [ ] Further work to UI [v0.4.d-??]
   - [ ] Start Migration away from a Command Line Input [v0.4.d-??]\
-    *This will remove most user input, As the plan is to only have the python script getting the API data*
-  - [ ] Create placeholder pages [v0.4.d-??]
+    *This will remove most user input, As the plan is to only have the python script getting the API data!*
+  - [x] Create placeholder pages [v0.4.d-5]
   - [x] Fetch and Display Data [v0.4.d-3]
   - [x] Create Basic HTML Interface [v0.4.d-1]
 - [x] v0.4 | Database Connection (15/08/2023)\

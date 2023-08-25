@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Keno DataVis - Bet Simulator</title>
+        <link rel="stylesheet" href="./Styles/Styles.css">
+    </head>
+
+    <body>
+        <header>
+            <h1>Keno DataVis //</h1>
+        </header>
+
+        <div id="sideBar">
+            <div class="sideNav">
+                <a href="Index.html">Home</a>
+                <a href="LiveGame.html">Live Game</a>
+                <a href="BetMonitor.html">Bet Monitor</a>
+                <a href="" class="sideNavCurrent">Bet Simulator</a>
+                <a href="HistoricalData.html">Historical Data</a>
+                <a href="DataBreakdown.html">Data Breakdown</a>
+            </div>
+        </div>
+
+        <div id="Main">
+            <h2>Bet Simulator</h2>
+            <div id="betDisplay">
+                <h3>Current Bet</h3>
+            </div>
+            <div id="gameDisplay"></div>
+                <div id="gameTimeDisplay">
+                    <p1>Game Started At: <b><label id="gameTime">Loading...</label></b></p1>
+                </div>
+                <div id="gameNumberDisplay">
+                    <p1>Game: <b><label id="gameNumber">Loading...</label></b></p1>
+                </div>
+                <div id="drawNumbersDisplay">
+                    <p1>Draw Numbers: <b><label id="drawNumbers">Loading...</label></b></p1>
+                </div>
+                <div id="multiplierDisplay">
+                    <p1>Game Multiplier: <b><label id="multiplier">Loading...</label></b></p1>
+                </div>
+                <div id="headTailResultDisplay">
+                    <p1>Head / Tails Result: <b><label id="headTailResult">Loading...</label></b></p1>
+                </div>
+            </div>
+            <div id="Stats">
+                <h2>Stats</h2>
+                <p2>Total API Calls: <b><label id="APICalls">Loading...</label></b></p2>
+                <br>
+                <p2>Time Spent Here: <b><label id="timeSpent">Loading...</label></b></p2>
+            </div>
+        </div>
+        
+        <footer>
+            <div id="footer">
+                <p2>Created by CatotronExists on <b>Github</b> // Version v0.4.d-5</p2>
+            </div>
+        </footer>
+    </body>
+</html>
