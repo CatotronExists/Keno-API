@@ -1,13 +1,13 @@
-const app = new Realm.App({ id: "data-wlrnc" });
+const app = new Realm.App({ id: "data-wlrnc" })
 const apiKey = ""
 
 async function login(apiKey) {
   // Create an API Key credential
-  const credentials = Realm.Credentials.apiKey(apiKey);
+  const credentials = Realm.Credentials.apiKey(apiKey)
   // Authenticate the user
-  const user = await app.logIn(credentials);
+  const user = await app.logIn(credentials)
   // `App.currentUser` updates to match the logged in user
-  console.assert(user.id === app.currentUser.id);
+  console.assert(user.id === app.currentUser.id)
   return user
 }
 
@@ -15,9 +15,9 @@ async function login(apiKey) {
 
 async function retrieveData(app) {
   await login(apiKey)
-  const mongo = app.currentUser.mongoClient("KenoDataVis");
+  const mongo = app.currentUser.mongoClient("KenoDataVis")
   // Get Game Stats
-  const gameCollection = mongo.db("kenoGameData").collection("GameData");
+  const gameCollection = mongo.db("kenoGameData").collection("GameData")
   let gameResult = await gameCollection.aggregate([
     {
       '$sort': {
@@ -35,35 +35,37 @@ async function retrieveData(app) {
 }
 
 async function displayData(gameResult) {
-  let gameTime = document.getElementById("gameTime");
+  let gameTime = document.getElementById("gameTime")
   gameTime.innerHTML = (gameResult[0].gameTime)
 
-  let gameNumber = document.getElementById("gameNumber");
+  let gameNumber = document.getElementById("gameNumber")
   gameNumber.innerHTML = (gameResult[0].gameNumber);
 
-  let drawNumbers = document.getElementById("drawNumbers");
+  let drawNumbers = document.getElementById("drawNumbers")
   drawNumbers.innerHTML = (gameResult[0].drawNumbers)
 
-  let multiplier = document.getElementById("multiplier");
+  let multiplier = document.getElementById("multiplier")
   console.log(gameResult[0].multiplier)
   if (gameResult[0].multiplier == "1") {
-    multiplier.innerHTML = "reg"
+    multiplier.innerHTML = "reg" // Replaces 1x multiplier with "reg"
   } else {
     multiplier.innerHTML = ("x" + gameResult[0].multiplier)
   }
 
-  let headTailResult = document.getElementById("headTailResult");
+  let headTailResult = document.getElementById("headTailResult")
   headTailResult.innerHTML = (gameResult[0].headTailResult)
 
-  let APICalls = document.getElementById("APICalls");
+  let APICalls = document.getElementById("APICalls")
   APICalls.innerHTML = "39" // Data is not saved yet [Placeholder]
 
-  let timeSpent = document.getElementById("timeSpent");
+  let timeSpent = document.getElementById("timeSpent")
   timeSpent.innerHTML = "0 Seconds" // Not setup
 }
 
 async function getData() {
   // add await new document then run loop
+  let version = document.getElementById("version")
+  version.innerHTML = "v0.4.d-7"
   retrieveData(app).then((gameResult) => {
     displayData(gameResult).then(updateGrid(gameResult));
   })
@@ -71,7 +73,8 @@ async function getData() {
 
 function updateGrid(drawNumbers) {
   let rawNumbers = drawNumbers[0].drawNumbers
-  let numbers = JSON.parse("[" + rawNumbers + "]");
+  let numbers = JSON.parse("[" + rawNumbers + "]")
+
   numbers.forEach(element => {
     if (element < 41) {
       document.getElementById(element).style.background = "#ff0000"; // Red - Heads
@@ -79,6 +82,7 @@ function updateGrid(drawNumbers) {
       document.getElementById(element).style.background = "#0000ff"; // Blue - Tails
     }
   })
+
   if (drawNumbers[0].headTailResult == "Heads") {
     document.getElementById("gridSplit").style.background = "#f94141" // Red
     } else if (drawNumbers[0].headTailResult == "Tails") {

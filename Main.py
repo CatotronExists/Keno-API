@@ -12,10 +12,7 @@ import json
 #         #
 
 # Files #
-from Config import configVersion, configCheck, countdown, cooldown
-from Api import GetAPI, apiVersion, GetJackpots
-from WinList import winListVersion, ClassicWinlists, MegaMillionWinlists
-from Setup import setupVersion
+from Config import configCheck, countdown, cooldown, app, display
 #       #
 
 # Terminal Colors #
@@ -31,40 +28,53 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.4.d-6"
-path = './Credentials.json'
-file = os.path.exists(path)
+version = "v0.4.d-7"
 ca = certifi.where()
 #      #
 
+def GetAPI(liveData):
+    lastGameNumber = "n/a"
+    while liveData == 0:
+        try: 
+            time.sleep(0.1)
+            liveData = app.live_draw()
+            gameNumber = liveData["game_number"]
+            if lastGameNumber == gameNumber: # in case the same game is called twice, try again after 10 sec
+                print(CRED + "Already Fetched Game: " + str(gameNumber) + " Retrying in 10 seconds..." + CLEAR)
+                liveData = 0
+                time.sleep(10)
+            lastGameNumber == gameNumber
+            return liveData
+        except Exception as e: print(CRED + str(e) + CLEAR)
+
 def PrintMainUI(drawNumbers): # Build Main UI
-    finalNumbers = []
-    for i in drawNumbers: # Highlights matched numbers
-        i = CGREEN + str(i) + CLEAR
-        finalNumbers.append(i)
-    finalNumbers = ", ".join(map(str, finalNumbers))
+    if display == True:
+        finalNumbers = []
+        for i in drawNumbers: # Highlights matched numbers
+            i = CGREEN + str(i) + CLEAR
+            finalNumbers.append(i)
+        finalNumbers = ", ".join(map(str, finalNumbers))
 
-    print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-    print("Game Number: " + CBOLD + str(gameNumber) + CLEAR + "  |  Game Started at: " + CBOLD + str(startTime) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(currentTime) + CLEAR + " UTC")
-    print("Numbers Drawn: " + str(finalNumbers))
-    print("Multiplier: " + str(bonus))
-    print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
-    print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
-
-    if databasing == True:
-        # Create string version of everything
-        drawString = drawNumbers = ", ".join(map(str, drawNumbers))
-        gameNumberString = str(gameNumber)
-        multiplierString = str(multiplier)
-        startTimeString = str(startTime)
-        gameDataDB.insert_one(
-            {"timestamp" : startTime,
-            "gameTime" : startTimeString,
-            "gameNumber" : gameNumberString,
-            "drawNumbers" : drawString,
-            "multiplier" : multiplierString,
-            "headTailResult" : HTResult},
-        )
+        print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
+        print("Game Number: " + CBOLD + str(gameNumber) + CLEAR + "  |  Game Started at: " + CBOLD + str(startTime) + CLEAR + " UTC  |  Data Pulled at: " + CBOLD + str(currentTime) + CLEAR + " UTC")
+        print("Numbers Drawn: " + str(finalNumbers))
+        print("Multiplier: " + str(bonus))
+        print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
+        print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
+    else: pass
+    # Create string version of everything
+    drawString = drawNumbers = ", ".join(map(str, drawNumbers))
+    gameNumberString = str(gameNumber)
+    multiplierString = str(multiplier)
+    startTimeString = str(startTime)
+    gameDataDB.insert_one(
+        {"timestamp" : startTime,
+        "gameTime" : startTimeString,
+        "gameNumber" : gameNumberString,
+        "drawNumbers" : drawString,
+        "multiplier" : multiplierString,
+        "headTailResult" : HTResult},
+    )
 
 def GetData(): # Sorts API Data
     global currentTime, startTime, gameNumber, bonus, HTResultDisplay, TResult, HResult, multiplier, HTResult, drawNumbers
@@ -109,7 +119,7 @@ def Wait(currentTime, startTime, cooldown): # Cooldown between calls
         timeDelta = currentTime - startTime
         cooldown = (160 - (int(timeDelta.total_seconds()))) + 5
     else: cooldown = cooldown # Use Config 
-    if countdown == "True":
+    if countdown == True:
         for i in reversed(range(cooldown + 1)): 
             if i == 0: # if countdown is 0 -> show 0 then clear line
                 sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
@@ -121,16 +131,10 @@ def Wait(currentTime, startTime, cooldown): # Cooldown between calls
                 sys.stdout.write("\r" + CBEIGE + "Next Request in: " + str(i) + " seconds      " + CLEAR)
                 sys.stdout.flush()
                 time.sleep(1)
-    elif countdown == "Manual": input("")
     else: time.sleep(cooldown)
-
-def Debug(mainVersion, configVersion, apiVersion, winListVersion, setupVersion):
-    print("/// Debug Menu ///")
-    print("Main - " + mainVersion + "\nConfig - " + configVersion + "\nApi - " + apiVersion + "\nWinList - " + winListVersion + "\nSetup - " + setupVersion)
 
 if configCheck == True: 
     configErrors = active = 0
-
     if type(cooldown) is int:
         cooldown = int(cooldown)
         if cooldown < 140:
@@ -141,61 +145,65 @@ if configCheck == True:
             print(CRED + "cooldown is set to an invaild value {" + str(cooldown) +"}, Check config.py for valid values" + CLEAR)
             configErrors += 1 
 
-    if countdown == "True" or countdown == "False" or countdown == "Manual": pass
+    if countdown == True or countdown == False: pass
     else: 
         print(CRED + "countdown is set to an invaild value {" + str(countdown) +"}, Check config.py for valid values" + CLEAR)
         configErrors += 1 
     
+    if display == True or display == False: pass
+    else: 
+        print(CRED + "display is set to an invaild value {" + str(display) +"}, Check config.py for valid values" + CLEAR)
+        configErrors += 1 
+
     if configErrors != 0: input(CRED + str(configErrors) + " Config Errors Found" + CLEAR)
-    else:
-        active = True
-        print(CYELLOW + "Getting First Time API Data..." + CLEAR)
-        GetData()
-else:
-    active = True
-    print(CYELLOW + "Getting First Time API Data..." + CLEAR)
-    GetData()
+    else: active = True
+
+else: active = True
 
 while active == True:
-    while configErrors == 0:
-        mainChoice = 0
-        while mainChoice == 0:
-            print(CBOLD + CBLUE + "Keno Tracker                  " + CLEAR)
-            print(CBOLD + "1. " + CLEAR + "Live Game Viewer (With Databasing)")
-            print(CBOLD + "2. " + CLEAR + "Live Game Viewer (Without Databasing)")
-            mainChoice = input("--->> ")
-            if mainChoice.isnumeric():
-                mainChoice = int(mainChoice)
-                if mainChoice == 1: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer: Database Edition" + CLEAR)
-                elif mainChoice == 2: print("Opening" + CYELLOW + CBOLD + " Live Game Viewer" + CLEAR)
-                else: 
-                    mainChoice = 0
-                    print(CRED + "Invaild Option" + CLEAR)
-            elif mainChoice == "debug": Debug(mainVersion, configVersion, apiVersion, winListVersion, setupVersion)
-            else:
-                mainChoice = 0
-                print(CRED + "Invaild Option" + CLEAR)
-        
-        time.sleep(1)
-        print("\n"*4)
-
-        if mainChoice == 1: # Databasing
-            databasing = True
-            if file == True:
-                with open('Credentials.json') as jsonFile:
-                    data = json.load(jsonFile)
+    error = False
+    print(CBOLD + CBLUE + "Keno Tracker              "+ version +"          " + CLEAR)
+    time.sleep(2)
+    print(CYELLOW + "Checking Setup Status...")
+    time.sleep(0.5)
+    path = './Credentials.json'
+    file = os.path.exists(path)
+    if error != True: # Find Credentials
+        if file == True:
+            with open('Credentials.json') as jsonFile:
+                data = json.load(jsonFile)
+                try: 
                     credentials = "mongodb+srv://" + data["user"] + ":" + data["password"] + data["restOfString"]
-                    active = True
                     client = pymongo.MongoClient(credentials, tlsCAFile=ca)
                     db = client["kenoGameData"] # defines db (database)
                     gameDataDB = db["GameData"] # defines GameData (GameData Storage)
-            else: 
-                databasing = False
-                active = False
-                print(CRED + "Setup has not been completed, Run Setup.py" + CLEAR + "\nRunning without Databasing Enabled in 3 seconds")
-                time.sleep(3)
-        elif mainChoice == 2: databasing = False # No Databasing
+                    print(CGREEN + "         Found Credentials.json" + CLEAR)
+                except Exception as e: 
+                    error = True
+                    print(CRED +  "         Credentials.json is corrupt, delete it and run setup again!" + CLEAR)
+                    print(CRED + "         The following field(s) are missing, " + str(e) + CLEAR)
+                    input("")
+        else: 
+            error = True
+            print(CRED + "Setup has not been completed/Credentials.json could not be found, Run Setup.py to resolve" + CLEAR)
+            input("")        
+
+    if error != True: # Test Credentials
+        print(CYELLOW + "Testing Connection to MongoDB..." + CLEAR)
+        try: 
+            client.db.command('ping')
+            print(CGREEN + "         Successfully connected to MongoDB" + CLEAR)
+        except Exception as e:
+            error = True
+            print(CRED + e + CLEAR)
+            print(CRED +  "         A connection to MongoDB could not be established, check if your credentials are correct!" + CLEAR)
+            input("")
+    
+    if error != True:
+        print(CGREEN + CBOLD + "Startup Complete..." + CLEAR)
+        time.sleep(2.5)
+        print("\n"*4)
         while True:
+            GetData()
             PrintMainUI(drawNumbers)
             Wait(currentTime, startTime, cooldown)
-            GetData()

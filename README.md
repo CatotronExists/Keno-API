@@ -7,19 +7,14 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 
 ### Versions
 **Python**
-If you encounter any issues type 'debug' into the main menu.
-It will output the file versions, cross check those versions below
+If you encounter any issues relaunch Main.py and look for the version in the first line
 
-Main - v0.4.d-6\
-Config - v0.3.d-1\
-Api - v0.3.d-3\
-WinList - v0.3.d-1\
-Setup - v0.4.d-3
+Main - v0.4.d-7
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-
-Website - v0.4.d-6\
+*Currently only shown on the "live game" page!*
+Website - v0.4.d-7\
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
@@ -42,7 +37,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] v0.5 | Migration to Python Backend, Html Frontend    EST.(28/08/2023)
   - [ ] Basic HTML is Complete [v0.4.d-??]
   - [ ] Further work to UI [v0.4.d-??]
-  - [ ] Start Migration away from a Command Line Input [v0.4.d-??]\
+  - [x] Merging Api.py and Remove WinList.py [v0.4.d-7]
+  - [x] Start Migration away from a Command Line Input [v0.4.d-7]\
     *This will remove most user input, As the plan is to only have the python script getting the API data!*
   - [x] Create placeholder pages [v0.4.d-5]
   - [x] Fetch and Display Data [v0.4.d-3]
