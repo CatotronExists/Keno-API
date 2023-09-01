@@ -31,7 +31,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-mainVersion = "v0.4.d-3"
+mainVersion = "v0.4.d-6"
 path = './Credentials.json'
 file = os.path.exists(path)
 ca = certifi.where()
@@ -56,8 +56,10 @@ def PrintMainUI(drawNumbers): # Build Main UI
         drawString = drawNumbers = ", ".join(map(str, drawNumbers))
         gameNumberString = str(gameNumber)
         multiplierString = str(multiplier)
+        startTimeString = str(startTime)
         gameDataDB.insert_one(
             {"timestamp" : startTime,
+            "gameTime" : startTimeString,
             "gameNumber" : gameNumberString,
             "drawNumbers" : drawString,
             "multiplier" : multiplierString,
@@ -105,7 +107,7 @@ def GetData(): # Sorts API Data
 def Wait(currentTime, startTime, cooldown): # Cooldown between calls
     if cooldown == "Auto": # Calculate auto cooldown
         timeDelta = currentTime - startTime
-        cooldown = (160 - (int(timeDelta.total_seconds()))) + 10
+        cooldown = (160 - (int(timeDelta.total_seconds()))) + 5
     else: cooldown = cooldown # Use Config 
     if countdown == "True":
         for i in reversed(range(cooldown + 1)): 

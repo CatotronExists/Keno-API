@@ -10,7 +10,7 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 If you encounter any issues type 'debug' into the main menu.
 It will output the file versions, cross check those versions below
 
-Main - v0.4.d-3\
+Main - v0.4.d-6\
 Config - v0.3.d-1\
 Api - v0.3.d-3\
 WinList - v0.3.d-1\
@@ -19,12 +19,7 @@ Setup - v0.4.d-3
 **HTML**
 Scroll to the footer and look for *// Version v---*\
 
-Index - v0.4.d-5\
-Live Game - v0.4.d-5\
-Bet Monitor - v0.4.d-5\
-Bet Simulator - v0.4.d-5\
-Historical Data - v0.4.d-5\
-Data Breakdown - v0.4.d-5\
+Website - v0.4.d-6\
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 

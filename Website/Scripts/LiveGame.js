@@ -16,38 +16,76 @@ async function login(apiKey) {
 async function retrieveData(app) {
   await login(apiKey)
   const mongo = app.currentUser.mongoClient("KenoDataVis");
-  const collection = mongo.db("kenoGameData").collection("GameData");
-  var query = {gameNumber: "10"}
-  var result = await collection.findOne(query);
-  return result
+  // Get Game Stats
+  const gameCollection = mongo.db("kenoGameData").collection("GameData");
+  let gameResult = await gameCollection.aggregate([
+    {
+      '$sort': {
+        'timestamp': -1
+      }
+    }, {
+      '$limit': 1
+    }
+  ])
+  // Get Stats
+  /*const statsCollection = "placeholder"
+  let stats = .aggregate*/
+
+  return gameResult//, stats
 }
 
-async function displayData(result) {
-  var gameTime = document.getElementById("gameTime");
-  gameTime.innerHTML = "Unknown"
-  /*gameTime.innerHTML = result[""] */
+async function displayData(gameResult) {
+  let gameTime = document.getElementById("gameTime");
+  gameTime.innerHTML = (gameResult[0].gameTime)
 
-  var gameNumber = document.getElementById("gameNumber");
-  gameNumber.innerHTML = result["gameNumber"];
+  let gameNumber = document.getElementById("gameNumber");
+  gameNumber.innerHTML = (gameResult[0].gameNumber);
 
-  var drawNumbers = document.getElementById("drawNumbers");
-  drawNumbers.innerHTML = result["drawNumbers"];
+  let drawNumbers = document.getElementById("drawNumbers");
+  drawNumbers.innerHTML = (gameResult[0].drawNumbers)
 
-  var multiplier = document.getElementById("multiplier");
-  multiplier.innerHTML = result["multiplier"]
+  let multiplier = document.getElementById("multiplier");
+  console.log(gameResult[0].multiplier)
+  if (gameResult[0].multiplier == "1") {
+    multiplier.innerHTML = "reg"
+  } else {
+    multiplier.innerHTML = ("x" + gameResult[0].multiplier)
+  }
 
-  var headTailResult = document.getElementById("headTailResult");
-  headTailResult.innerHTML = result["headTailResult"]
+  let headTailResult = document.getElementById("headTailResult");
+  headTailResult.innerHTML = (gameResult[0].headTailResult)
 
-  var APICalls = document.getElementById("APICalls");
-  APICalls.innerHTML = "39" // Data is not saved yer [Placeholder]
+  let APICalls = document.getElementById("APICalls");
+  APICalls.innerHTML = "39" // Data is not saved yet [Placeholder]
 
-  var timeSpent = document.getElementById("timeSpent");
-  timeSpent.innerHTML = "0 Seconds"
+  let timeSpent = document.getElementById("timeSpent");
+  timeSpent.innerHTML = "0 Seconds" // Not setup
 }
 
 async function getData() {
-  retrieveData(app).then((result) => {
-    displayData(result);
+  // add await new document then run loop
+  retrieveData(app).then((gameResult) => {
+    displayData(gameResult).then(updateGrid(gameResult));
   })
+} 
+
+function updateGrid(drawNumbers) {
+  let rawNumbers = drawNumbers[0].drawNumbers
+  let numbers = JSON.parse("[" + rawNumbers + "]");
+  numbers.forEach(element => {
+    if (element < 41) {
+      document.getElementById(element).style.background = "#ff0000"; // Red - Heads
+    } else {
+      document.getElementById(element).style.background = "#0000ff"; // Blue - Tails
+    }
+  })
+  if (drawNumbers[0].headTailResult == "Heads") {
+    document.getElementById("gridSplit").style.background = "#f94141" // Red
+    } else if (drawNumbers[0].headTailResult == "Tails") {
+      document.getElementById("gridSplit").style.background = "#419ff9" // Blue
+    } else if (drawNumbers[0].headTailResult == "Evens") {
+      document.getElementById("gridSplit").style.background = "#8841f9" // Purple
+    } else {
+      document.getElementById("gridSplit").style.background = "#ffffff" // White (error)
+    }
 }

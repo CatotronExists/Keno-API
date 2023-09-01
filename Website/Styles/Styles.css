@@ -48,7 +48,58 @@ body {
     padding-left: 10px;
 }
 
+.grid-container-heads {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 30px 30px 30px 30px;
+}
+  
+  .grid-container-heads > div {
+    background-color: rgba(243, 159, 159, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
+.grid-container-tails {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 30px 30px 30px 30px;
+}
+  
+  .grid-container-tails > div {
+    background-color: rgba(168, 167, 245, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
+#gridSplit {
+    display: grid;
+    padding-top: 7px;
+    text-align: center;
+    padding-bottom: 7px;
+}
+
+#gridSpacing {
+    padding-right: 10px;
+}
+
+.container {
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 3px solid rgb(180, 175, 168);
+}
+
 h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 

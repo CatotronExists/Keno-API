@@ -11,3 +11,6 @@
 *Credentials.json
 
 # Unready
+
+# Asset Creation Files, (yes that is a powerpoint file)
+*.pptx
