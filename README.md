@@ -13,18 +13,18 @@ Main - v0.4.d-7
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-*Currently only shown on the "live game" page!*
-Website - v0.4.d-7\
+*Currently only shown on the "live game" page!*\
+Website - v0.4.d-8
 
 If the versions don't match, download the latest version (This can be found by navigating to the commit list and looking for the last commit with a version in the name). If the issue persists open an issue [here](https://github.com/CatotronExists/Keno-DataVis/issues)
 
 ### Setup 
 **NOTE: WHEN SWITCHING BETWEEN DEV VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
 
-0. Download all files in the ActiveDev Branch/Latest Release
+0. Download all files for your version of choice, I Recommend either Latest Release or Last ActiveDev Branch Commit
 1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
 2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
-3. Follow this [Database Setup Guide](https://gist.github.com/CatotronExists/2776b4175cb21c23d10f16a62a3f68f0)
+3. Then Follow the [Guide] for your version (https://github.com/CatotronExists/Keno-DataVis/wiki)
 4. Run Setup.py, if any errors occur repeat step 3 then open an issue with the 'help' label.
 
 ### Credits
@@ -34,9 +34,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 *Data is sourced from the Victorian version, win amounts are the same across all states (as of now). If any win data is wrong, open an issue!*
 
 ### Roadmap to v0.5
-- [ ] v0.5 | Migration to Python Backend, Html Frontend    EST.(28/08/2023)
-  - [ ] Basic HTML is Complete [v0.4.d-??]
-  - [ ] Further work to UI [v0.4.d-??]
+- [x] v0.5 | HTML Interface    EST.(4/09/2023)
+  - [x] Migrate and Update guide to github's wiki System [v0.4.d-8]
   - [x] Merging Api.py and Remove WinList.py [v0.4.d-7]
   - [x] Start Migration away from a Command Line Input [v0.4.d-7]\
     *This will remove most user input, As the plan is to only have the python script getting the API data!*

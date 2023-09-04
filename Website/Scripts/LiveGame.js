@@ -1,5 +1,5 @@
-const app = new Realm.App({ id: "data-wlrnc" })
-const apiKey = ""
+const app = new Realm.App({ id: "yourID" })
+const apiKey = "yourAPIKey"
 
 async function login(apiKey) {
   // Create an API Key credential
@@ -10,8 +10,6 @@ async function login(apiKey) {
   console.assert(user.id === app.currentUser.id)
   return user
 }
-
-/* allow to sign in with API Key*/
 
 async function retrieveData(app) {
   await login(apiKey)
@@ -45,7 +43,6 @@ async function displayData(gameResult) {
   drawNumbers.innerHTML = (gameResult[0].drawNumbers)
 
   let multiplier = document.getElementById("multiplier")
-  console.log(gameResult[0].multiplier)
   if (gameResult[0].multiplier == "1") {
     multiplier.innerHTML = "reg" // Replaces 1x multiplier with "reg"
   } else {
@@ -62,10 +59,13 @@ async function displayData(gameResult) {
   timeSpent.innerHTML = "0 Seconds" // Not setup
 }
 
-async function getData() {
-  // add await new document then run loop
+function addVersion() {
   let version = document.getElementById("version")
   version.innerHTML = "v0.4.d-7"
+}
+
+async function getData() {
+  // add await new document then run loop
   retrieveData(app).then((gameResult) => {
     displayData(gameResult).then(updateGrid(gameResult));
   })
