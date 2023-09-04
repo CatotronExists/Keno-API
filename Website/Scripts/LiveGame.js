@@ -61,7 +61,7 @@ async function displayData(gameResult) {
 
 function addVersion() {
   let version = document.getElementById("version")
-  version.innerHTML = "v0.4.d-7"
+  version.innerHTML = "v0.5"
 }
 
 async function getData() {
