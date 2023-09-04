@@ -28,7 +28,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-version = "v0.4.d-7"
+version = "v0.5"
 ca = certifi.where()
 #      #
 
