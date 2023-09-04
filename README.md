@@ -6,10 +6,12 @@ A program that gets data from Keno using an API for the purpose of displaying an
 [ActiveDev](https://github.com/CatotronExists/Keno-DataVis/tree/ActiveDev) - Place to test developement as it happens
 
 ### Setup 
-0. Download all files in the ActiveDev Branch/Latest Release
+**NOTE: WHEN SWITCHING BETWEEN VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
+
+0. Download all files for your version of choice, I Recommend either Latest Release or Last ActiveDev Branch Commit
 1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
 2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
-3. Follow this [Database Setup Guide](https://gist.github.com/CatotronExists/2776b4175cb21c23d10f16a62a3f68f0)
+3. Then Follow the [Guide] for your version (https://github.com/CatotronExists/Keno-DataVis/wiki)
 4. Run Setup.py, if any errors occur repeat step 3 then open an issue with the 'help' label.
 
 ### Credits
@@ -38,7 +40,7 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 - [ ] v0.8 | Trends and Graphs (xx/xx/2023)
 - [ ] v0.7 | Data Visualised (xx/xx/2023)
 - [ ] v0.6 | User Input Returns (xx/xx/2023)
-- [ ] v0.5 | Migration to Python Backend, Html Frontend (xx/xx/2023)
+- [x] v0.5 | HTML Interface (4/09/2023)
 - [x] v0.4 | Database Connection (15/08/2023)
 - [x] v0.3 | Bet Simulation (25/07/2023)
 - [x] v0.2 | Bet Monitoring (22/07/2023)

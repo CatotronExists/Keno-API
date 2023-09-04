@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Keno DataVis - Historical</title>
+        <link rel="icon" href="./Assets/Small.png">
+        <link rel="stylesheet" href="./Styles/Styles.css">
+        <script src="./Scripts/LiveGame.js"></script>
+    </head>
+
+    <body onload="addVersion()">
+        <header>
+            <h1>Keno DataVis //</h1>
+        </header>
+
+        <div id="sideBar">
+            <div class="sideNav">
+                <a href="Index.html">Home</a>
+                <a href="LiveGame.html">Live Game</a>
+                <a href="BetMonitor.html"><s>Bet Monitor</s></a>
+                <a href="BetSimulator.html"><s>Bet Simulator</s></a>
+                <a href="" class="sideNavCurrent"><s>Historical Data</s></a>
+                <a href="DataBreakdown.html"><s>Data Breakdown</s></a>
+            </div>
+        </div>
+
+        <div id="Main">
+            <div id="gameDisplay">
+                <h2>Historical Data</h2>
+                <p3><em>Note: You can only go back as far as you have stored</em></p3>
+                <h3>Showing Data for </h3>
+                <div id="gameTimeDisplay">
+                    <p1>Game Started At: <b><label id="gameTime">Loading...</label></b></p1>
+                </div>
+                <div id="gameNumberDisplay">
+                    <p1>Game: <b><label id="gameNumber">Loading...</label></b></p1>
+                </div>
+                <div id="drawNumbersDisplay">
+                    <p1>Draw Numbers: <b><label id="drawNumbers">Loading...</label></b></p1>
+                </div>
+                <div id="multiplierDisplay">
+                    <p1>Game Multiplier: <b><label id="multiplier">Loading...</label></b></p1>
+                </div>
+                <div id="headTailResultDisplay">
+                    <p1>Head / Tails Result: <b><label id="headTailResult">Loading...</label></b></p1>
+                </div>
+            </div>
+            <div id="Stats">
+                <h2>Stats</h2>
+                <p2>Total API Calls: <b><label id="APICalls">Loading...</label></b></p2>
+                <br>
+                <p2>Time Spent Here: <b><label id="timeSpent">Loading...</label></b></p2>
+            </div>
+        </div>
+        
+        <footer>
+            <div id="footer">
+                <p2>Created by CatotronExists on <b>Github</b> // Version <label id="version"></label></p2>
+            </div>
+        </footer>
+    </body>
+</html>
