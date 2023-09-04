@@ -207,3 +207,4 @@ while active == True:
             GetData()
             PrintMainUI(drawNumbers)
             Wait(currentTime, startTime, cooldown)
+
