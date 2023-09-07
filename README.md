@@ -1,5 +1,5 @@
 # Keno-DataVis
-A program that gets data from Keno using an API for the purpose of displaying and interacting with the data. For now the program is in it's early stages, only a basic command line interface for now but there is alot planned. 
+A program that gets data from Keno using an API for the purpose of displaying and interacting with the data.
 
 ## ActiveDev Branch
 As work is complete it will be put here, each commit has a version with it.
@@ -9,12 +9,12 @@ When creating an issue on the ActiveDev Branch be sure to include the full versi
 **Python**
 If you encounter any issues relaunch Main.py and look for the version in the first line
 
-Main - v0.5
+Main - v0.5.d-1
 
 **HTML**
 Scroll to the footer and look for *// Version v---*\
-*Currently only shown on the "live game" page!*\
-Website - v0.5
+
+Website - v0.5.d-1
 
 ### Setup 
 **NOTE: WHEN SWITCHING BETWEEN VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
@@ -37,7 +37,8 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
   - [ ] Create Bet Simulator [v0.5.d-??]
   - [ ] Save total API calls [v0.5.d-??]
   - [ ] Create Placeholder pages [v0.5.d-??]
-  - [ ] Implement logo into site [v0.5.d-??]
+  - [x] v0.5.1 Patch [v0.5.d-1]
+  - [x] Implement logo into site [v0.5.d-1]
 - [x] v0.5 | HTML Interface (4/09/2023)\
 *More may be added/removed as development progresses*
 

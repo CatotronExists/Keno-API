@@ -33,10 +33,9 @@ else: setup = False
 
 if setup == "True": input(CRED + "Setup has been completed before, delete Credentials.json and relaunch to setup again" + CLEAR)
 elif setup == False: # start
-    input(CRED + "Setup Process hasn't been fully tested, it may not fully work at this time. Press [Enter] to Proceed anyway" + CLEAR)
     print(CYELLOW + "Preforming First Time Setup..." + CLEAR)
     time.sleep(1)
-    print(CYELLOW + "Complete the intructions in this guide before proceeding\n    " + CLEAR + CBLUE + "[https://gist.github.com/CatotronExists/2776b4175cb21c23d10f16a62a3f68f0] " + CLEAR)
+    print(CYELLOW + "Complete the intructions in this guide before proceeding\n    " + CLEAR + CBLUE + "[https://github.com/CatotronExists/Keno-DataVis/wiki] " + CLEAR)
     time.sleep(0.3)
     input("If you have already completed those intructions, Press [Enter] to proceed")
 
@@ -58,7 +57,7 @@ elif setup == False: # start
         except Exception as e: 
             error = True
             credentials = 0
-            print(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you entered your credentials correctly!")
+            input(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you entered your credentials correctly!")
 
     if error != True:
         print(CYELLOW + "Configuring Database...")
@@ -83,7 +82,7 @@ elif setup == False: # start
 
         except Exception as e: 
             error = True
-            print(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you setup MongoDB correctly!")
+            input(CYELLOW + "An Error has occured\n" + CLEAR + CRED + str(e) + CLEAR + "\nCheck if you setup MongoDB correctly!")
 
     if error != True:
         print(CYELLOW + "         Vaildating Changes...                                 " + CLEAR)
