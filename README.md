@@ -22,7 +22,7 @@ Website - v0.5.d-1
 0. Download all files for your version of choice, I Recommend either Latest Release or Last ActiveDev Branch Commit
 1. Go to the [Keno-API pypi page](https://pypi.org/project/kenoAPI/) and follow instructions to download the package.
 2. You also need the following packages, [Certifi](https://pypi.org/project/certifi/) and [Pymongo](https://pypi.org/project/pymongo/)
-3. Then Follow the [Guide] for your version (https://github.com/CatotronExists/Keno-DataVis/wiki)
+3. Then Follow the Guide for your version (https://github.com/CatotronExists/Keno-DataVis/wiki)
 4. Run Setup.py, if any errors occur repeat step 3 then open an issue with the 'help' label.
 
 ### Credits
