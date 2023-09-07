@@ -28,7 +28,7 @@ CBOLD = '\033[1m'
 #                #
 
 # Vars #
-version = "v0.5"
+version = "v0.5.d-1"
 ca = certifi.where()
 #      #
 
@@ -62,6 +62,7 @@ def PrintMainUI(drawNumbers): # Build Main UI
         print("Heads/Tails Result: " + str(HTResultDisplay) + CLEAR + "  |  " + CRED + "Heads: " + str(HResult) + CBLUE + "  Tails: " + str(TResult) + CLEAR)
         print(CBLUE + "---------------------------------------------------------------------" + CLEAR) 
     else: pass
+
     # Create string version of everything
     drawString = drawNumbers = ", ".join(map(str, drawNumbers))
     gameNumberString = str(gameNumber)
@@ -181,12 +182,11 @@ while active == True:
                 except Exception as e: 
                     error = True
                     print(CRED +  "         Credentials.json is corrupt, delete it and run setup again!" + CLEAR)
-                    print(CRED + "         The following field(s) are missing, " + str(e) + CLEAR)
-                    input("")
+                    input(CRED + "         The following field(s) are missing, " + str(e) + CLEAR)
+
         else: 
             error = True
-            print(CRED + "Setup has not been completed/Credentials.json could not be found, Run Setup.py to resolve" + CLEAR)
-            input("")        
+            input(CRED + "Setup has not been completed/Credentials.json could not be found, Run Setup.py to resolve" + CLEAR)       
 
     if error != True: # Test Credentials
         print(CYELLOW + "Testing Connection to MongoDB..." + CLEAR)
@@ -196,8 +196,7 @@ while active == True:
         except Exception as e:
             error = True
             print(CRED + e + CLEAR)
-            print(CRED +  "         A connection to MongoDB could not be established, check if your credentials are correct!" + CLEAR)
-            input("")
+            input(CRED +  "         A connection to MongoDB could not be established, check if your credentials are correct!" + CLEAR)
     
     if error != True:
         print(CGREEN + CBOLD + "Startup Complete..." + CLEAR)
@@ -207,4 +206,3 @@ while active == True:
             GetData()
             PrintMainUI(drawNumbers)
             Wait(currentTime, startTime, cooldown)
-

@@ -13,7 +13,7 @@ async function login(apiKey) {
 
 async function retrieveData(app) {
   await login(apiKey)
-  const mongo = app.currentUser.mongoClient("KenoDataVis")
+  const mongo = app.currentUser.mongoClient("mongodb-atlas")
   // Get Game Stats
   const gameCollection = mongo.db("kenoGameData").collection("GameData")
   let gameResult = await gameCollection.aggregate([
@@ -61,7 +61,7 @@ async function displayData(gameResult) {
 
 function addVersion() {
   let version = document.getElementById("version")
-  version.innerHTML = "v0.5"
+  version.innerHTML = "v0.5.d-1"
 }
 
 async function getData() {

@@ -4,6 +4,8 @@ h1 {
     background-color: rgb(199, 194, 188);
     border-bottom: 3px solid rgb(180, 175, 168);
     padding-left: 5px;
+    padding-top: 3px;
+    margin-bottom: 0px;
 }
 
 /* Side Menu */
@@ -97,6 +99,7 @@ body {
 
 h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 5px;
 }
 
 h3 {
