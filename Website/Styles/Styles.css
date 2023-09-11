@@ -44,6 +44,8 @@ h1 {
 body {
     padding-left: 172px;
     background-color: white;
+    margin-bottom: 0px;
+    margin-right: 0px;
 }
 
 #Main {
@@ -80,11 +82,73 @@ body {
     font-size: 18px;
 }
 
+.game-grid-container-heads {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px;
+}
+  
+  .game-grid-container-heads > div {
+    background-color: rgba(243, 159, 159, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
+.game-grid-container-tails {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px;
+}
+  
+  .game-grid-container-tails > div {
+    background-color: rgba(168, 167, 245, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
+.ticket-grid-container-heads {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px;
+}
+  
+  .ticket-grid-container-heads > div {
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
+.ticket-grid-container-tails {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px;
+}
+  
+  .ticket-grid-container-tails > div {
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1px;
+    font-size: 18px;
+}
+
 #gridSplit {
     display: grid;
-    padding-top: 7px;
+    padding-top: 2px;
     text-align: center;
-    padding-bottom: 7px;
+    padding-bottom: 2px;
+}
+
+#verticalSplit {
+    padding-right: 50px;
 }
 
 #gridSpacing {
@@ -92,6 +156,7 @@ body {
 }
 
 .container {
+    width: 100%;
     display: flex;
     padding-bottom: 15px;
     border-bottom: 3px solid rgb(180, 175, 168);
@@ -116,12 +181,10 @@ p2  {
 
 /* Footer */
 footer {
-    position: fixed;
     bottom: 0px;
     text-align: left;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 50px;
-    padding-left: 10px;
     height: 75px;
     width: 100%;
     background-color: rgb(199, 194, 188);

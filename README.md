@@ -14,7 +14,7 @@ Main - v0.5.d-1
 **HTML**
 Scroll to the footer and look for *// Version v---*\
 
-Website - v0.5.d-1
+Website - v0.5.d-2
 
 ### Setup 
 **NOTE: WHEN SWITCHING BETWEEN VERSIONS IT IS BEST TO DROP/DELETE THE MONGODB DATABASE**
@@ -33,11 +33,14 @@ Win Data sourced from [Keno Game Guide](https://www.keno.com.au/keno-pdfs/VIC_Ga
 
 ### Roadmap to v0.6
 - [ ] v0.6 | User Input Returns | EST.(2x/09/2023)
-  - [ ] Create Bet Monitor [v0.5.d-??]
-  - [ ] Create Bet Simulator [v0.5.d-??]
   - [ ] Save total API calls [v0.5.d-??]
-  - [ ] Create Placeholder pages [v0.5.d-??]
-  - [x] v0.5.1 Patch [v0.5.d-1]
+  - [ ] Convert Simulator to work for Monitor [v0.5.d-??]
+  - [ ] Win popup [v0.5.d-??]
+  - [ ] Win Calculation [v0.5.d-??]
+  - [ ] Simulate bet on random game or latest (in db) [v0.5.d-??]
+  - [ ] Basic Input Fields [v0.5.d-??]
+  - [ ] Create Bet Simulator Design [v0.5.d-??]
+  - [x] **v0.5.1 Patch** [v0.5.d-1]
   - [x] Implement logo into site [v0.5.d-1]
 - [x] v0.5 | HTML Interface (4/09/2023)\
 *More may be added/removed as development progresses*

@@ -1,5 +1,8 @@
-const app = new Realm.App({ id: "yourID" })
-const apiKey = "yourAPIKey"
+const app = new Realm.App({ id: "data-ddmhg" })
+const apiKey = "EFCgDrpryXecYE7ErywEsZBP0vQuCTx1Xf0dOogtuZg9WAprz8jnUHiDrNBWPco9"
+
+//const app = new Realm.App({ id: "yourID" })
+//const apiKey = "yourAPIKey"
 
 async function login(apiKey) {
   // Create an API Key credential
@@ -57,11 +60,6 @@ async function displayData(gameResult) {
 
   let timeSpent = document.getElementById("timeSpent")
   timeSpent.innerHTML = "0 Seconds" // Not setup
-}
-
-function addVersion() {
-  let version = document.getElementById("version")
-  version.innerHTML = "v0.5.d-1"
 }
 
 async function getData() {

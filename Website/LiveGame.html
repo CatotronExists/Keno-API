@@ -7,6 +7,7 @@
         <link rel="icon" href="./Assets/Small.png">
         <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
         <script src="./Scripts/LiveGame.js"></script>
+        <script src="./Scripts/Version.js"></script>
     </head>
 
     <body onload="getData(), addVersion()">
@@ -128,7 +129,7 @@
                         </div>
                         <br>
                         <div id="drawNumbersDisplay">
-                            <p1>Draw Numbers: <b><label id="drawNumbers">Loading...</label></b></p1>
+                            <p1>Draw Numbers: <br><b><label id="drawNumbers">Loading...</label></b></p1>
                         </div>
                         <div id="multiplierDisplay">
                             <p1>Game Multiplier: <b><label id="multiplier">Loading...</label></b></p1>
@@ -137,7 +138,9 @@
                 </div>
             </div>
             <div id="Stats">
-                <p2>Total API Calls: <b><label id="APICalls">Loading...</label></b> // Soon</p2>
+                <p2>Keno API Calls: <b><label id="kenoAPICalls">Loading...</label></b> // Soon</p2>
+                <br>
+                <p2>Database Calls: <b><label id="databaseCalls">Loading...</label></b> // Soon</p2>
                 <br>
                 <p2>Time Spent Here: <b><label id="timeSpent">Loading...</label></b> // Soon</p2>
             </div>
@@ -145,7 +148,7 @@
         
         <footer>
             <div id="footer">
-                <p2>Created by CatotronExists on <b>Github</b> // Version <label id="version"></label></p2>
+                <p2>    Created by CatotronExists on <b>Github</b> // Version <label id="version"></label></p2>
             </div>
         </footer>
     </body>
